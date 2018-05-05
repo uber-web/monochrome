@@ -1,0 +1,45 @@
+{
+  "env": {
+    "es5": {
+      "presets": [
+        ["@babel/es2015", {"modules": "commonjs"}],
+        "@babel/react",
+        ["@babel/stage-2", {"decoratorsLegacy": true}]
+      ]
+    },
+    "esm": {
+      "presets": [
+        ["@babel/es2015", {modules: false}],
+        "@babel/react",
+        ["@babel/stage-2", {"decoratorsLegacy": true}]
+      ]
+    },
+    "es6": {
+      "presets": [
+        [ "@babel/env", {
+          "targets": {
+            "chrome": "60",
+            "edge": "15",
+            "firefox": "53",
+            "ios": "10.3",
+            "safari": "10.1",
+            "node": "8"
+          },
+          "modules": false
+        }],
+        "@babel/react",
+        ["@babel/stage-2", {"decoratorsLegacy": true}]
+      ]
+    },
+    "test": {
+      "presets": [
+        ["@babel/es2015"],
+        "@babel/react",
+        ["@babel/stage-2", {"decoratorsLegacy": true}]
+      ],
+      "plugins": [
+        "istanbul"
+      ]
+    }
+  }
+}
