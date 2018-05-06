@@ -26,6 +26,20 @@ const CONFIG = {
             presets: ['@babel/es2015', '@babel/react', ['@babel/stage-2', {decoratorsLegacy: true}]]
           }
         }
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
       }
     ]
   },

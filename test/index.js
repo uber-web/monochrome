@@ -11,4 +11,4 @@ moduleAlias.addAliases({
 });
 
 // Module tests
-require('./popover');
+require('./shared');

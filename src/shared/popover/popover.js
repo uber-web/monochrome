@@ -1,10 +1,8 @@
 /* global setTimeout, clearTimeout, document */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Portal} from 'react-portal';
 import Popper from 'popper.js';
 
-import {POSITIONS, THEMES, TRIGGERS} from './constants';
 import {
   capitalize,
   getOppositePosition,
@@ -15,18 +13,17 @@ import {
 const isBrowser =
   typeof document !== 'undefined' && Boolean(document.createElement);
 
-const defaultDarkBodyStyles = {
-  color: '#f1f1f1',
-  backgroundColor: '#000',
-  borderColor: '#000'
+export const POSITIONS = {
+  TOP: 'top',
+  RIGHT: 'right',
+  BOTTOM: 'bottom',
+  LEFT: 'left',
+  AUTO: 'auto'
 };
 
-const defaultLightBodyStyles = {
-  backgroundColor: '#fff',
-  borderWidth: '1px',
-  borderStyle: 'solid',
-  borderColor: '#ddd',
-  boxShadow: '0 2px 7px 0 rgba(0,0,0,0.15)'
+export const TRIGGERS = {
+  CLICK: 'click',
+  HOVER: 'hover'
 };
 
 const POSITIONS_PROP_TYPE = PropTypes.oneOf([
@@ -39,34 +36,27 @@ const POSITIONS_PROP_TYPE = PropTypes.oneOf([
 
 class Popover extends React.Component {
   static propTypes = {
-    arrowPosition: POSITIONS_PROP_TYPE,
-    arrowSize: PropTypes.number,
-    bodyStyle: PropTypes.object,
+    className: PropTypes.string,
     content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
-    onMouseOutDelay: PropTypes.number,
     position: POSITIONS_PROP_TYPE,
-    // Support injecting mock Popper class for tests
-    popperClass: PropTypes.func,
-    // Support injecting mock Portal class for tests
-    portalClass: PropTypes.func,
+    // Arrow options
     showArrow: PropTypes.bool,
-    style: PropTypes.object,
-    theme: PropTypes.oneOf([THEMES.LIGHT, THEMES.DARK]),
-    trigger: PropTypes.oneOf([TRIGGERS.HOVER, TRIGGERS.CLICK])
+    arrowSize: PropTypes.number,
+    arrowPosition: POSITIONS_PROP_TYPE,
+    // Interaction
+    onMouseOutDelay: PropTypes.number,
+    trigger: PropTypes.oneOf([TRIGGERS.HOVER, TRIGGERS.CLICK]),
+    // Support injecting mock Popper class for tests
+    popperClass: PropTypes.func
   };
 
   static defaultProps = {
-    arrowSize: 8,
-    onMouseOutDelay: 0,
-    popperClass: Popper,
-    portalClass: Portal,
+    className: '',
     showArrow: true,
-    // Default wrapper style should ideally be display: inline so that popover
-    // shows directly beneath child content, inline-flex just generally works
-    // better than inline
-    style: {display: 'inline-flex'},
-    theme: THEMES.LIGHT,
-    trigger: TRIGGERS.CLICK
+    arrowSize: 8,
+    trigger: TRIGGERS.CLICK,
+    onMouseOutDelay: 0,
+    popperClass: Popper
   };
 
   constructor(props) {
@@ -221,49 +211,38 @@ class Popover extends React.Component {
     }
   }
 
-  _getBodyStyle() {
-    const {bodyStyle, theme} = this.props;
-
-    const defaultStyles =
-      theme === THEMES.LIGHT ? defaultLightBodyStyles : defaultDarkBodyStyles;
-
-    if (bodyStyle) {
-      return {...defaultStyles, ...bodyStyle};
-    }
-    return defaultStyles;
-  }
-
   /**
    * Some of this logic for generating arrows may seem rather complicated.
    * Normally Popper.js has an accompanying css file with some of the necessary
    * rules, but in the interest of having zero css dependencies, we'll move
    * this styling/positioning logic into js
    */
-  _generateTriangleStyles(position, size, color) {
+  _generateTriangleStyles(position, size) {
     // Generate borderWidth & borderColor rules
-    const positionIndexes = [
+    const positions = [
       POSITIONS.TOP,
       POSITIONS.RIGHT,
       POSITIONS.BOTTOM,
       POSITIONS.LEFT
     ];
-    const borderWidth = Array(4).fill(`${size}px`);
-    const borderColor = Array(4).fill('transparent');
-
     // Set border width to zero for opposite position
     const oppositePosition = getOppositePosition(position);
-    borderWidth[positionIndexes.indexOf(oppositePosition)] = '0';
-
-    // Set border color for index of specified position
-    borderColor[positionIndexes.indexOf(position)] = color;
-
-    return {
-      borderWidth: borderWidth.join(' '),
-      borderColor: borderColor.join(' '),
-      // Position the arrow to hang off the edge of the popover
-      // For example, a left-facing arrow would need the rule right: -{size}px
-      [oppositePosition]: `${-size}px`
+    const style = {
+      position: 'absolute',
+      width: 0,
+      height: 0,
+      borderStyle: 'solid'
     };
+
+    for (const p of positions) {
+      const key = capitalize(p);
+      const width = p === oppositePosition ? 0 : size;
+      const color = p === position ? undefined : 'transparent';
+      style[`border${key}Width`] = width;
+      style[`border${key}Color`] = color;
+    }
+
+    return style;
   }
 
   /**
@@ -273,35 +252,16 @@ class Popover extends React.Component {
    * arrow with the border color, and an inner arrow with the background color.
    */
   _generateOuterArrowStyles(position) {
-    const {arrowSize, theme} = this.props;
+    const {arrowSize} = this.props;
     const {popperOffsets = {}} = this.state;
     const arrowOffsets = popperOffsets.arrow || {};
-    const borderColor =
-      theme === THEMES.LIGHT
-        ? defaultLightBodyStyles.borderColor
-        : defaultDarkBodyStyles.borderColor;
-    const isVertical =
-      position === POSITIONS.TOP || position === POSITIONS.BOTTOM;
 
     const style = {
-      position: 'absolute',
-      width: 0,
-      height: 0,
-      borderStyle: 'solid',
-      margin: `${arrowSize}px`,
-      ...this._generateTriangleStyles(position, arrowSize, borderColor)
+      ...this._generateTriangleStyles(position, arrowSize),
+      // Position the arrow to hang off the edge of the popover
+      // For example, a left-facing arrow would need the rule right: -{size}px
+      [getOppositePosition(position)]: -arrowSize
     };
-
-    // Default arrow to be centered
-    if (isVertical) {
-      style.left = `calc(50% - ${arrowSize}px)`;
-      style.marginTop = 0;
-      style.marginBottom = 0;
-    } else {
-      style.top = `calc(50% - ${arrowSize}px)`;
-      style.marginLeft = 0;
-      style.marginRight = 0;
-    }
 
     // Now apply arrow offsets calculated by popper library (if needed)
     if (arrowOffsets.top) {
@@ -315,34 +275,19 @@ class Popover extends React.Component {
   }
 
   _generateInnerArrowStyles(position) {
-    const {arrowSize, theme} = this.props;
-    const arrowColor = theme === THEMES.LIGHT ? '#fff' : '#000';
+    const {arrowSize} = this.props;
     const isVertical =
       position === POSITIONS.TOP || position === POSITIONS.BOTTOM;
 
-    const style = {
-      position: 'absolute',
-      width: 0,
-      height: 0,
-      borderStyle: 'solid'
-    };
-
-    // Add the necessary border rules to make it a triangle
-    const innerTriangleRules = this._generateTriangleStyles(
-      position,
-      arrowSize,
-      arrowColor
-    );
-    style.borderWidth = innerTriangleRules.borderWidth;
-    style.borderColor = innerTriangleRules.borderColor;
+    const style = this._generateTriangleStyles(position, arrowSize);
 
     // Offset the inner arrow a couple pixels from its parent (the outer arrow)
     if (isVertical) {
-      style.left = `-${arrowSize}px`;
-      style.top = position === POSITIONS.TOP ? `-${arrowSize + 2}px` : '2px';
+      style.left = -arrowSize;
+      style.top = position === POSITIONS.TOP ? -arrowSize : 0;
     } else {
-      style.top = `-${arrowSize}px`;
-      style.left = position === POSITIONS.LEFT ? `-${arrowSize + 2}px` : '2px';
+      style.top = -arrowSize;
+      style.left = position === POSITIONS.LEFT ? -arrowSize : 0;
     }
 
     return style;
@@ -365,7 +310,7 @@ class Popover extends React.Component {
         ref={el => {
           this.$target = el;
         }}
-        className="u-popover-target"
+        className="monochrome-popover--target"
       >
         {this.props.children}
       </div>
@@ -378,15 +323,17 @@ class Popover extends React.Component {
       position = POSITIONS.TOP;
     }
 
+
     return (
       <div
-        className="u-popover-arrow"
+        className={`monochrome-popover--arrow-border ${position}`}
         style={this._generateOuterArrowStyles(position)}
         ref={el => {
           this.$arrow = el;
         }}
       >
-        <div style={this._generateInnerArrowStyles(position)} />
+        <div className={`monochrome-popover--arrow ${position}`}
+          style={this._generateInnerArrowStyles(position)} />
       </div>
     );
   }
@@ -407,7 +354,7 @@ class Popover extends React.Component {
     if (position && position !== POSITIONS.AUTO && showArrow) {
       popperStyle[
         `margin${capitalize(getOppositePosition(position))}`
-      ] = `${arrowSize}px`;
+      ] = arrowSize;
     }
 
     const interactionProps = {};
@@ -416,45 +363,45 @@ class Popover extends React.Component {
       interactionProps.onMouseLeave = this._handlePopoverMouseLeave;
     }
 
-    const PortalClass = this.props.portalClass;
     return (
-      <PortalClass>
-        <div
-          {...interactionProps}
-          ref={el => {
-            this.$popper = el;
-          }}
-          style={popperStyle}
-        >
-          {this._renderContent()}
-          {showArrow && this._renderArrow(position)}
-        </div>
-      </PortalClass>
+      <div
+        {...interactionProps}
+        ref={el => {
+          this.$popper = el;
+        }}
+        style={popperStyle}
+      >
+        {this._renderContent()}
+        {showArrow && this._renderArrow(position)}
+      </div>
     );
   }
 
   _renderContent() {
+    const {className} = this.props;
     const content =
       typeof this.props.content === 'function'
         ? this.props.content()
         : this.props.content;
     return (
-      <div className="u-popover-body" style={this._getBodyStyle()}>
+      <div className={`monochrome-popover--body ${className}`} >
         {content}
       </div>
     );
   }
 
   render() {
-    const {style} = this.props;
     const {isVisible} = this.state;
     return (
-      <div className="u-popover-wrapper" style={style}>
+      <div className="monochrome-popover">
         {this._renderTarget()}
         {isVisible && this._renderBody()}
       </div>
     );
   }
 }
+
+Object.assign(Popover, POSITIONS);
+Object.assign(Popover, TRIGGERS);
 
 export default Popover;

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import {Popover, Tooltip} from 'monochrome/popover';
+import {Popover, Tooltip} from 'monochrome';
 
 const triggerStyle = {
   fontWeight: 'bold',

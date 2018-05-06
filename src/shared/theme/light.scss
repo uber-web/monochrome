@@ -1,0 +1,49 @@
+/* Colors */
+$primary: #11939A;
+
+$black: #000000 !default;
+$black-40: #939393 !default;
+$black-60: #717171 !default;
+$black-80: #494949 !default;
+$black-90: #282727 !default;
+$black-95: #1C1B1B !default;
+
+$blue: #11939A !default;
+$blue-20: #CAF2F4 !default;
+$blue-40: #a3e9ec !default;
+$blue-80: #17b8be !default;
+$blue-120: #108188 !default;
+
+$green: #629A41 !default;
+$orange: #CA3B27 !default;
+
+$white: #FFFFFF !default;
+$white-10: #f8f8f9 !default;
+$white-20: #F1F1F1 !default;
+$white-40: #E5E5E4 !default;
+$white-60: #D6D6D5 !default;
+$white-80: #c6c6c6 !default;
+$white-120: #A6A5A5 !default;
+
+$background: #FFFFFF !default;
+
+/* Typography */
+$text-body-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$text-body-font-size: 12px;
+$text-body-line-height: 1.5;
+$text-body-color: #000000 !default;
+
+/* Borders */
+$border-subtle-color: #D6D6D5 !default;
+$border-subtle: solid 1px $border-subtle-color !default;
+
+/* Shadows */
+$shadow-color: rgba(0, 0, 0, 0.15) !default;
+$shadow-small: 0 2px 4px 0 $shadow-color !default;
+
+/* Layout */
+$spacing-tiny: 4px;
+$spacing-small: 8px;
+$spacing-normal: 12px;
+$spacing-large: 24px;
+$spacing-huge: 48px;

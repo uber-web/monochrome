@@ -27,7 +27,6 @@
     "classnames": "^2.2.5",
     "popper.js": "^1.11.1",
     "prop-types": "^15.5.10",
-    "react-portal": "^4.1.2",
     "uuid": "^3.1.0"
   },
   "peerDependencies": {
@@ -55,6 +54,7 @@
     "eslint-plugin-react": "^7.5.1",
     "jsdom": "^9.11.0",
     "module-alias": "^2.0.0",
+    "node-sass": "^4.9.0",
     "nyc": "^10.2.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.9.2",

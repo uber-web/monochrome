@@ -1,1 +1,1 @@
-export * from './popover';
+export {Popover, Tooltip} from './shared/popover';
