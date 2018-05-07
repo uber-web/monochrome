@@ -60,6 +60,7 @@ export default class BasicInputsExample extends Component {
 
         {this._renderSectionHeader('RadioBox')}
         <RadioBox
+          label="Pet"
           data={SAMPLE_DATA}
           isEnabled={_enabled}
           value={this.state.radio}
@@ -68,6 +69,7 @@ export default class BasicInputsExample extends Component {
 
         {this._renderSectionHeader('Slider')}
         <Slider
+          label="Rating"
           min={0}
           max={1}
           step={0.01}

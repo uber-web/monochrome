@@ -24,6 +24,7 @@ A stateless text box component.
 
 ### CSS Classes
 
-* `mc-text-box` - wrapper element around both the label and the text box.
-* `mc-text-box--container` - wrapper element around the text box.
-* `mc-text-box--clear` - the clear button.
+* `mc-textbox--wrapper` - wrapper element around both the label and the text box.
+* `mc-textbox` - the container of the text box.
+* `mc-textbox--input` - the <input> element.
+* `mc-textbox--clear` - the clear button.

@@ -1,12 +1,9 @@
-@import '../theme/light';
+@import '../../themes/light';
 
 /* Dropdown */
-.mc-dropdown {
-  display: flex;
-  align-items: center;
-
+.mc-dropdown--wrapper {
   label {
-    flex-grow: 1;
+    display: block;
   }
 
   .mc-dropdown--arrow {

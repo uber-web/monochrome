@@ -38,7 +38,6 @@ export default class Dropdown extends PureComponent {
 
   static defaultProps = {
     className: '',
-    label: '',
     size: 18,
     isEnabled: true,
     onChange: () => {}
@@ -54,7 +53,7 @@ export default class Dropdown extends PureComponent {
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
-      'mc-dropdown'
+      'mc-dropdown--wrapper'
     );
 
     const inputStyle = {
@@ -66,12 +65,13 @@ export default class Dropdown extends PureComponent {
 
     return (
       <div className={className} style={isEnabled ? STYLES.default : STYLES.disabled}>
-        <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} >
           {label}
-        </Label>
+        </Label>}
 
-        <div className="mc-dropdown--container" style={STYLES.container}>
-          <select style={inputStyle}
+        <div className="mc-dropdown" style={STYLES.container}>
+          <select className="mc-dropdown--input"
+            style={inputStyle}
             onChange={this._onChange}
             value={value}>
 

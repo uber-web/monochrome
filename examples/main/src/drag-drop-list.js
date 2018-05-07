@@ -16,7 +16,6 @@ const SAMPLE_ITEMS_WITH_HEADER = new Array(8).fill(0).map((d, i) => ({
 
 const EXAMPLE_STYLE = `
 .sample-item { padding: 12px; font-size: 12px; border: 1px solid #fff; background: #f8f8fe; }
-button { margin-left: 12px; }
 `;
 
 /**
@@ -49,10 +48,10 @@ export default class DragDropListExample extends Component {
             onChange={e => this.setState({canRemoveItem: e.target.checked})}
           />
           <label htmlFor="canRemoveItem">Can Remove Items</label>
-          <button onClick={() => this.setState({items: SAMPLE_ITEMS_WITH_HEADER})}>
+          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS_WITH_HEADER})}>
             With Header
           </button>
-          <button onClick={() => this.setState({items: SAMPLE_ITEMS})}>Without Header</button>
+          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS})}>Without Header</button>
         </div>
         <div style={{width: 200}}>
           <DragDropList

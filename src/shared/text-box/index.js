@@ -63,7 +63,7 @@ export default class TextBox extends PureComponent {
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
-      'mc-text-box'
+      'mc-textbox--wrapper'
     );
 
     const inputStyle = {
@@ -76,20 +76,21 @@ export default class TextBox extends PureComponent {
     return (
       <div className={className} onClick={this._focus}
         style={isEnabled ? STYLES.default : STYLES.disabled}>
-        <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} >
           {label}
-        </Label>
-        <div className="mc-text-box--container" style={STYLES.container}>
+        </Label>}
+        <div className="mc-textbox" style={STYLES.container}>
           <input
             ref={ref => {
               this._input = ref;
             }}
+            className="mc-textbox--input"
             type="text"
             onChange={this._onChange}
             style={inputStyle}
             value={value} />
           {Boolean(value && showClearButton) &&
-            <div className="mc-text-box--clear" onClick={this._onClear} style={STYLES.clear} />}
+            <div className="mc-textbox--clear" onClick={this._onClear} style={STYLES.clear} />}
         </div>
       </div>
     );

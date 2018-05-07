@@ -1,0 +1,52 @@
+@import "../themes/light";
+
+.mc-form {
+
+  .mc-form--group {
+    .mc-form--group {
+      padding-left: 24px;
+    }
+  }
+
+  .mc-form--group-expander {
+    left: -20px;
+    top: 4px;
+
+    &:before {
+      content: '➖';
+    }
+    &.collapsed:before {
+      content: '➕';
+    }
+  }
+
+  .mc-form--input {
+    width: 100%;
+    display: flex;
+    line-height: 24px;
+    font-size: 12px;
+    margin-bottom: 8px;
+
+    label {
+      flex-grow: 1;
+    }
+
+    .mc-slider, .mc-dropdown, .mc-textbox {
+      flex-grow: 1;
+      max-width: 240px;
+    }
+    .mc-radiobox--item, .mc-radiobox--button {
+      margin-left: $spacing-small;
+    }
+  }
+
+  .mc-form--title {
+    font: $text-title;
+    margin: $spacing-normal 0;
+  }
+  .mc-form--heading {
+    font: $text-header;
+    margin: $spacing-normal 0;
+  }
+
+}

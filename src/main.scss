@@ -1,4 +1,4 @@
-@import 'shared/theme/light';
+@import 'themes/light';
 
 @import 'shared/popover/style';
 @import 'shared/checkbox/style';
@@ -12,6 +12,7 @@
 @import 'drag-drop-list/style';
 @import 'float-panel/style';
 @import 'playback-control/style';
+@import 'form/style';
 
 body {
   font: $text-body;

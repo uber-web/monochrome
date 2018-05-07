@@ -4,11 +4,8 @@ import {Popover, Tooltip} from 'monochrome';
 
 const triggerStyle = {
   fontWeight: 'bold',
-  cursor: 'pointer',
-  WebkitTextDecoration: 'black solid underline',
-  textDecoration: 'black solid underline',
-  WebkitTextDecorationSkip: 'ink',
-  textDecorationSkip: 'ink'
+  lineHeight: 3,
+  cursor: 'pointer'
 };
 
 export default class PopoverExample extends Component {

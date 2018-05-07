@@ -17,14 +17,28 @@ Import CSS stylesheet:
 
 ## Documentation
 
+### Basic Building Blocks
+
 * [CheckBox](docs/api-reference/checkbox.md)
-* [DragDropList](docs/api-reference/drag-drop-list.md)
 * [Draggable](docs/api-reference/draggable.md)
 * [Dropdown](docs/api-reference/dropdown.md)
-* [FloatPanel](docs/api-reference/float-panel.md)
 * [Label](docs/api-reference/label.md)
 * [Popover](docs/api-reference/popover.md)
 * [RadioBox](docs/api-reference/radiobox.md)
 * [Slider](docs/api-reference/slider.md)
 * [TextBox](docs/api-reference/textbox.md)
 * [Toggle](docs/api-reference/toggle.md)
+
+### UI Management
+
+* [DragDropList](docs/api-reference/drag-drop-list.md)
+* [FloatPanel](docs/api-reference/float-panel.md)
+* PanelDocker
+
+### Declarative UI
+
+* [Form](docs/api-reference/form.md)
+* MetricsCard
+* [PlaybackControl](docs/api-reference/playback-control.md)
+* MultiPlot
+* Table · TreeTable

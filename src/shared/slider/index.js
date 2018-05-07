@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import Label from '../label';
 import Draggable from '../draggable';
 import {clamp} from '../../utils/math';
 
@@ -40,6 +41,8 @@ export default class Slider extends PureComponent {
     step: PropTypes.number,
     size: PropTypes.number,
     tolerance: PropTypes.number,
+    label: PropTypes.string,
+    tooltip: PropTypes.string,
     isEnabled: PropTypes.bool
   }
 
@@ -87,20 +90,20 @@ export default class Slider extends PureComponent {
 
   render() {
     const {
-      tolerance, size,
+      tolerance, size, label, tooltip,
       value, min, max, step, isEnabled
     } = this.props;
     const {isDragging, hasDragged} = this.state;
     const className = classnames(
       {disabled: !isEnabled, active: isDragging},
       this.props.className,
-      'mc-slider'
+      'mc-slider-wrapper'
     );
 
     const ratio = (snap(value, min, max, step) - min) / (max - min);
 
     const eventCanvasStyle = {
-      margin: -tolerance,
+      margin: `${size / 2 - tolerance}px ${-tolerance}px`,
       padding: tolerance
     };
 
@@ -125,19 +128,25 @@ export default class Slider extends PureComponent {
     };
 
     return (
-      <div className={className} style={isEnabled ? STYLES.default : STYLES.disabled}>
-        <Draggable style={eventCanvasStyle}
-          onStart={this._onDragStart}
-          onDrag={this._onDrag}
-          onEnd={this._onDragEnd} >
-          <div className="mc-slider--track" style={STYLES.track}
-            ref={ref => {
-              this._track = ref;
-            }} >
-            <div className="mc-slider--track-fill" style={fillStyle} />
-            <div className="mc-slider--knob" style={knobStyle} />
-          </div>
-        </Draggable>
+      <div className={className}>
+        {label && <Label tooltip={tooltip} >
+          {label}
+        </Label>}
+
+        <div className="mc-slider" style={isEnabled ? STYLES.default : STYLES.disabled}>
+          <Draggable style={eventCanvasStyle}
+            onStart={this._onDragStart}
+            onDrag={this._onDrag}
+            onEnd={this._onDragEnd} >
+            <div className="mc-slider--track" style={STYLES.track}
+              ref={ref => {
+                this._track = ref;
+              }} >
+              <div className="mc-slider--track-fill" style={fillStyle} />
+              <div className="mc-slider--knob" style={knobStyle} />
+            </div>
+          </Draggable>
+        </div>
       </div>
     );
   }

@@ -23,7 +23,7 @@ A stateless toggle control component.
 
 ### CSS Classes
 
-* `mc-toggle` - wrapper element around both the label and the toggle.
-* `mc-toggle--container` - wrapper element around the toggle.
+* `mc-toggle--wrapper` - wrapper element around both the label and the toggle.
+* `mc-toggle` - the container of the toggle.
 * `mc-toggle--track` - the track element of the toggle.
 * `mc-toggle--knob` - the knob element of the toggle.

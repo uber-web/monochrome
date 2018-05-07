@@ -1,9 +1,9 @@
-@import '../theme/light';
+@import '../../themes/light';
 
 /* Radio Box */
-.mc-radio-box {
+.mc-radiobox {
 
-  .mc-radio-box--item {
+  .mc-radiobox--item {
     display: flex;
     align-items: center;
     margin-bottom: $spacing-tiny;
@@ -12,21 +12,21 @@
       flex-grow: 1;
     }
 
-    .mc-radio-box--button {
+    .mc-radiobox--button {
       background: $background;
       border: $border-strong;
       border-color: $color-control-inactive;
     }
 
-    &:hover .mc-radio-box--button {
+    &:hover .mc-radiobox--button {
       border-color: $color-control-hover;
     }
 
-    &.selected .mc-radio-box--button {
+    &.selected .mc-radiobox--button {
       border-color: $color-control-active;
       color: $color-control-active;
     }
-    &.selected .mc-radio-box--icon:before {
+    &.selected .mc-radiobox--icon:before {
       content: '●';
     }
   }
@@ -34,7 +34,7 @@
   &.disabled {
     color: $color-control-disabled;
 
-    .mc-radio-box--item .mc-radio-box--button {
+    .mc-radiobox--item .mc-radiobox--button {
       border-color: $color-control-disabled;
       color: $color-control-disabled;
     }

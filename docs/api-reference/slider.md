@@ -21,11 +21,14 @@ A stateless slider control component.
 * `size` **(number, optional)** - size of the toggle. Default is `18`.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
+* `label` **(string, optional)** - label for the control.
+* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 
 
 ### CSS Classes
 
-* `mc-slider` - wrapper element around the slider.
+* `mc-slider--wrapper` - wrapper element around both the label and the slider.
+* `mc-slider` - the container of the slider.
 * `mc-slider--track` - the track element.
 * `mc-slider--track-fill` - the part of the track left to the knob.
 * `mc-slider--track-knob` - the knob element.

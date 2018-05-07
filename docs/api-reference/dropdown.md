@@ -27,6 +27,7 @@ A stateless dropdown control component.
 
 ### CSS Classes
 
-* `mc-dropdown` - wrapper element around both the label and dropdown control.
-* `mc-dropdown--container` - wrapper element around the dropdown control.
+* `mc-dropdown--wrapper` - wrapper element around both the label and dropdown control.
+* `mc-dropdown` - the container of the dropdown.
+* `mc-dropdown--input` - the <select> element.
 * `mc-dropdown--arrow` - the arrow element on the right of the dropdown.

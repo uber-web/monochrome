@@ -28,6 +28,8 @@ export default class RadioBox extends PureComponent {
     onChange: PropTypes.func,
     data: PropTypes.object.isRequired,
     className: PropTypes.string,
+    label: PropTypes.string,
+    tooltip: PropTypes.string,
     size: PropTypes.number,
     isEnabled: PropTypes.bool
   };
@@ -44,11 +46,11 @@ export default class RadioBox extends PureComponent {
   }
 
   render() {
-    const {data, value, size, isEnabled} = this.props;
+    const {data, value, label, tooltip, size, isEnabled} = this.props;
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
-      'mc-radio-box'
+      'mc-radiobox'
     );
 
     const buttonStyle = {
@@ -61,9 +63,13 @@ export default class RadioBox extends PureComponent {
 
     return (
       <div className={className}>
+        {label && <Label tooltip={tooltip} >
+          {label}
+        </Label>}
+      
         {Object.keys(data).map(key => {
           const label = data[key];
-          const itemClassName = classnames('mc-radio-box--item', {
+          const itemClassName = classnames('mc-radiobox--item', {
             selected: key === value
           });
           return (
@@ -71,8 +77,8 @@ export default class RadioBox extends PureComponent {
               style={isEnabled ? STYLES.default : STYLES.disabled}
               onClick={() => this._onClick(key)}>
               <Label>{label}</Label>
-              <div className="mc-radio-box--button" style={buttonStyle} >
-                <div className="mc-radio-box--icon" style={STYLES.content} />
+              <div className="mc-radiobox--button" style={buttonStyle} >
+                <div className="mc-radiobox--icon" style={STYLES.content} />
               </div>
             </div>
           );

@@ -1,11 +1,8 @@
-@import '../theme/light';
+@import '../../themes/light';
 
-.mc-text-box {
-  display: flex;
-  align-items: center;
-  
+.mc-textbox--wrapper {
   label {
-    flex-grow: 1;
+    display: block;
   }
 
   &:hover input {
@@ -26,7 +23,7 @@
     }
   }
 
-  .mc-text-box--clear {
+  .mc-textbox--clear {
     padding: 8px;
     color: $color-control-inactive;
 
@@ -45,7 +42,7 @@
       border-color: $color-control-disabled;
       color: $color-control-disabled;
     }
-    .mc-text-box--clear {
+    .mc-textbox--clear {
       display: none;
     }
   }

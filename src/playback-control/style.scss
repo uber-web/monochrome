@@ -1,4 +1,4 @@
-@import "../shared/theme/light";
+@import "../themes/light";
 
 /* Playback controls */
 .mc-playback-control {
@@ -25,7 +25,7 @@
   }
 
   .mc-playback-control--slider {
-    margin: 16px 0;
+    margin: $spacing-small 0;
   }
 
   .mc-playback-control--play-pause-button {

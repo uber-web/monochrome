@@ -9,6 +9,7 @@ import BasicInputsExample from './inputs';
 import DragDropListExample from './drag-drop-list';
 import FloatPanelExample from './float-panel';
 import PlaybackControlExample from './playback-control';
+import FormExample from './form';
 
 class Example extends PureComponent {
   state = {};
@@ -41,6 +42,11 @@ class Example extends PureComponent {
         <h2>Playback Control</h2>
         <section>
           <PlaybackControlExample />
+        </section>
+
+        <h2>Form</h2>
+        <section>
+          <FormExample />
         </section>
       </div>
     );

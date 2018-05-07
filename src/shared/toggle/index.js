@@ -56,7 +56,7 @@ export default class Toggle extends PureComponent {
       {disabled: !isEnabled},
       this.props.className,
       value ? 'on' : 'off',
-      'mc-toggle'
+      'mc-toggle--wrapper'
     );
 
     const containerStyle = {
@@ -77,10 +77,10 @@ export default class Toggle extends PureComponent {
     return (
       <div className={className} onClick={this._onClick}
         style={isEnabled ? STYLES.default : STYLES.disabled}>
-        <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} >
           {label}
-        </Label>
-        <div className="mc-toggle--container" style={containerStyle}>
+        </Label>}
+        <div className="mc-toggle" style={containerStyle}>
           <div className="mc-toggle--track" style={STYLES.track} />
           <div className="mc-toggle--knob" style={knobStyle} />
         </div>

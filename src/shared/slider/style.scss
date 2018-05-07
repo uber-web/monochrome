@@ -1,7 +1,10 @@
-@import '../theme/light';
+@import '../../themes/light';
 
 /* Slider */
-.mc-slider {
+.mc-slider-wrapper {
+  label {
+    display: block;
+  }
 
   .mc-slider--track {
     background: $color-control-inactive;

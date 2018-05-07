@@ -1,7 +1,7 @@
-@import '../theme/light';
+@import '../../themes/light';
 
 /* Toggle */
-.mc-toggle {
+.mc-toggle--wrapper {
   display: flex;
   align-items: center;
 
@@ -9,7 +9,7 @@
     flex-grow: 1;
   }
 
-  .mc-toggle--container {
+  .mc-toggle {
     width: 36px;
   }
   .mc-toggle--track {
