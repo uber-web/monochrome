@@ -1,0 +1,42 @@
+@import '../theme/light';
+
+/* Radio Box */
+.mc-radio-box {
+
+  .mc-radio-box--item {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-tiny;
+    
+    label {
+      flex-grow: 1;
+    }
+
+    .mc-radio-box--button {
+      background: $background;
+      border: $border-strong;
+      border-color: $color-inactive;
+    }
+
+    &:hover .mc-radio-box--button {
+      border-color: $color-hover;
+    }
+
+    &.selected .mc-radio-box--button {
+      border-color: $color-active;
+      color: $color-active;
+    }
+    &.selected .mc-radio-box--icon:before {
+      content: '●';
+    }
+  }
+
+  &.disabled {
+    color: $color-disabled;
+
+    .mc-radio-box--item .mc-radio-box--button {
+      border-color: $color-disabled;
+      color: $color-disabled;
+    }
+  }
+}

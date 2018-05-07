@@ -1,0 +1,39 @@
+@import '../theme/light';
+
+/* Slider */
+.mc-slider {
+
+  .mc-slider--track {
+    background: $color-inactive;
+    height: 2px;
+  }
+  .mc-slider--track-fill {
+    background: $color-active;
+    transition: $transition;
+  }
+  .mc-slider--knob {
+    position: absolute;
+    border: $border-strong;
+    border-color: $color-inactive;
+    background: $background;
+    transition: $transition;
+  }
+  &:hover {
+    .mc-slider--knob {
+      border-color: $color-hover;
+    }
+  }
+  &.active {
+    .mc-slider--knob {
+      border-color: $color-active;
+    }
+  }
+  &.disabled {
+    .mc-slider--track, .mc-slider--track-fill {
+      background: $color-disabled;
+    }
+    .mc-slider--knob {
+      border-color: $color-disabled;
+    }
+  }
+}

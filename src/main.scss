@@ -1,10 +1,17 @@
 @import 'shared/theme/light';
 
+@import 'shared/popover/style';
+@import 'shared/checkbox/style';
+@import 'shared/dropdown/style';
+@import 'shared/label/style';
+@import 'shared/radio-box/style';
+@import 'shared/slider/style';
+@import 'shared/text-box/style';
+@import 'shared/toggle/style';
+
 body {
   font-family: $text-body-font-family;
   font-size: $text-body-font-size;
   line-height: $text-body-line-height;
   color: $text-body-color;
 }
-
-@import 'shared/popover/style';

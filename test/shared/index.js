@@ -1,1 +1,1 @@
-import './popover-deluxe-spec';
+import './popover';

@@ -33,10 +33,10 @@ test('Popover - hover trigger', t => {
   t.notOk($.find('.content').exists(), 'content should not be rendered yet');
   t.ok($.find('.target').exists(), 'target should be rendered');
 
-  $.find('.monochrome-popover--target').simulate('mouseenter');
+  $.find('.mc-popover--target').simulate('mouseenter');
   t.ok($.find('.content').exists(), 'content should now be rendered');
 
-  $.find('.monochrome-popover--target').simulate('mouseleave');
+  $.find('.mc-popover--target').simulate('mouseleave');
   t.notOk($.find('.content').exists(), 'content should now be hidden');
 
   t.end();
@@ -61,13 +61,13 @@ test('Popover - click trigger', t => {
   t.notOk($.find('.content').exists(), 'content should not be rendered yet');
   t.ok($.find('.target').exists(), 'target should be rendered');
 
-  $.find('.monochrome-popover--target').simulate('click');
+  $.find('.mc-popover--target').simulate('click');
   t.ok($.find('.content').exists(), 'content should now be rendered');
 
   $.find('.content').simulate('click');
   t.ok($.find('.content').exists(), 'clicking tooltip content should not hide it');
 
-  $.find('.monochrome-popover--target').simulate('click');
+  $.find('.mc-popover--target').simulate('click');
   t.notOk($.find('.content').exists(), 'content should now be hidden');
 
   t.end();
@@ -93,15 +93,15 @@ test('Popover - Arrow Styles', t => {
       width: 0,
       height: 0,
       borderStyle: 'solid',
-      borderTopWidth: 8,
+      borderTopWidth: 6,
       borderTopColor: undefined,
-      borderRightWidth: 8,
+      borderRightWidth: 6,
       borderRightColor: 'transparent',
       borderBottomWidth: 0,
       borderBottomColor: 'transparent',
-      borderLeftWidth: 8,
+      borderLeftWidth: 6,
       borderLeftColor: 'transparent',
-      bottom: -8
+      bottom: -6
     },
     'Generates correct outer arrow styles'
   );
@@ -113,16 +113,16 @@ test('Popover - Arrow Styles', t => {
       width: 0,
       height: 0,
       borderStyle: 'solid',
-      borderTopWidth: 8,
+      borderTopWidth: 6,
       borderTopColor: undefined,
-      borderRightWidth: 8,
+      borderRightWidth: 6,
       borderRightColor: 'transparent',
       borderBottomWidth: 0,
       borderBottomColor: 'transparent',
-      borderLeftWidth: 8,
+      borderLeftWidth: 6,
       borderLeftColor: 'transparent',
-      left: -8,
-      top: -8
+      left: -6,
+      top: -6
     },
     'Generates correct inner arrow styles'
   );

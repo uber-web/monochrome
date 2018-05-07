@@ -37,6 +37,7 @@ const POSITIONS_PROP_TYPE = PropTypes.oneOf([
 class Popover extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    style: PropTypes.object,
     content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
     position: POSITIONS_PROP_TYPE,
     // Arrow options
@@ -53,7 +54,7 @@ class Popover extends React.Component {
   static defaultProps = {
     className: '',
     showArrow: true,
-    arrowSize: 8,
+    arrowSize: 6,
     trigger: TRIGGERS.CLICK,
     onMouseOutDelay: 0,
     popperClass: Popper
@@ -310,7 +311,7 @@ class Popover extends React.Component {
         ref={el => {
           this.$target = el;
         }}
-        className="monochrome-popover--target"
+        className="mc-popover--target"
       >
         {this.props.children}
       </div>
@@ -326,20 +327,20 @@ class Popover extends React.Component {
 
     return (
       <div
-        className={`monochrome-popover--arrow-border ${position}`}
+        className={`mc-popover--arrow-border ${position}`}
         style={this._generateOuterArrowStyles(position)}
         ref={el => {
           this.$arrow = el;
         }}
       >
-        <div className={`monochrome-popover--arrow ${position}`}
+        <div className={`mc-popover--arrow ${position}`}
           style={this._generateInnerArrowStyles(position)} />
       </div>
     );
   }
 
   _renderBody() {
-    const {arrowSize, showArrow, trigger} = this.props;
+    const {className, arrowSize, showArrow, trigger} = this.props;
     const {popperStyles = {}} = this.state;
 
     const [position] = this.state.popperPlacement.split('-');
@@ -347,7 +348,7 @@ class Popover extends React.Component {
       position: 'absolute',
       top: 0,
       left: 0,
-      zIndex: 999,
+      zIndex: 99,
       ...popperStyles
     };
 
@@ -364,7 +365,7 @@ class Popover extends React.Component {
     }
 
     return (
-      <div
+      <div className={className}
         {...interactionProps}
         ref={el => {
           this.$popper = el;
@@ -378,22 +379,21 @@ class Popover extends React.Component {
   }
 
   _renderContent() {
-    const {className} = this.props;
     const content =
       typeof this.props.content === 'function'
         ? this.props.content()
         : this.props.content;
     return (
-      <div className={`monochrome-popover--body ${className}`} >
+      <div className="mc-popover--body" >
         {content}
       </div>
     );
   }
 
   render() {
-    const {isVisible} = this.state;
+    const {isVisible, style} = this.state;
     return (
-      <div className="monochrome-popover">
+      <div className="mc-popover" style={style}>
         {this._renderTarget()}
         {isVisible && this._renderBody()}
       </div>

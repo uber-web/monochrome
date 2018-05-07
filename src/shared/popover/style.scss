@@ -1,22 +1,23 @@
 @import '../theme/light';
 
-.monochrome-popover {
+.mc-popover {
   /* Default wrapper style should ideally be display: inline so that popover
   shows directly beneath child content, inline-flex just generally works
   better than inline */
   display: inline-flex;
 
-  .monochrome-popover--body {
-    background-color: $background;
-    border: $border-subtle;
+  .mc-popover--body {
+    background: $background;
+    border: $border-thin;
+    border-color: $color-subtle;
     box-shadow: $shadow-small;
   }
 
-  .monochrome-popover--arrow-border {
-    border-color: $border-subtle-color;
+  .mc-popover--arrow-border {
+    border-color: $color-subtle;
   }
 
-  .monochrome-popover--arrow {
+  .mc-popover--arrow {
     border-color: $background;
 
     &.top { margin-top: -1px; }
@@ -26,7 +27,9 @@
   }
 
   .tooltip {
-    max-width: 300px;
-    padding: $spacing-normal;
+    .mc-popover--body {
+      max-width: 300px;
+      padding: $spacing-small $spacing-normal;
+    }
   }
 }

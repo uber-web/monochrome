@@ -1,114 +1,55 @@
-# Popovers
+# Popover
 
-> Popover and tooltip components that you can rely on.
+Popover and tooltip components.
 
-## Background
+## Usage
 
-The superfine tooltip and popover components (@uber/react-tooltip and @uber/react-popover) have a number
-of shortcomings that make them difficult to use. In this package we offer some alternative components
-which have the following benefits:
+    import {Popover, Tooltip} from 'monochrome';
 
-- **Performance** - The ability to pass a render callback for the tooltip/popover content means your app won't waste time constructing components that aren't visible yet.
-- **Positioning** - Automatic positioning and bounds detection, so your tooltips never get clipped by the viewport.
-- **Themes** - This package supports both a dark and light theme
-- **Better default styles** - More sensible defaults for typography and padding, and the ability to override styles when desired.
-
-### Install
-
-    yarn add @uber/vis-popovers
-
-Usage:
-
-    import {Tooltip} from '@uber/vis-popovers';
-
+    <Popover content={() => <span>Bonjour!</span>}>
+      Click here
+    </Popover>
     <Tooltip content={() => <span>Bonjour!</span>}>
       Hover here
     </Tooltip>
 
 All styles are inlined as html style attributes, so there are no stylesheets to import.
 
-### API Reference
+## API Reference
 
-This package exports both a `Tooltip` and `Popover` component, as well as `POSITIONS`, `SIZES`, `TRIGGERS`, and `THEMES` constants in case you'd like to use them.
+### Props
 
-#### Components
+* `content` **(node|function)** - The content to render inside the popover body, either as a render callback function or react node. We recommend using a callback so that the content is rendered lazily for performance.
+* `position` **(enum, optional)** - Position of the popover relative to the target content. See constants:positions below. Defaults to `Popover.AUTO`.
+* `arrowPosition` **(enum, optional)** - Controls which end of the popover the arrow should be anchored on. See constants:positions below. Default is `Popover.AUTO`, which is generally centered.
+* `onMouseOutDelay` **(number, optional)** - If `trigger` is `hover`, this is the number of milliseconds to wait before hiding popover after users mouse leaves target, allowing them to interact with the popover content (highlight it, etc.)
+* `showArrow` **(bool, optional)** - Whether or not to show the arrow pointing from the popover to the target. Default is `true`.
+* `arrowSize` **(number, optional)** - How big the arrow should be in pixels. Default is `6`.
+* `trigger` **(enum)** - Whether to show the popover on hover or click of the target. See constants:triggers below. Default is `Popover.CLICK`. The `Tooltip` class is a convenient component that renders a popover that triggers on hover.
 
-### `<Tooltip>`
 
-##### PROPS
+### Constants
 
-**content** - *PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired* - The content to render inside the tooltip body, either as a render callback function or react node. We recommend using a callback so that the content is rendered lazily for performance.
+Positions:
 
-**position** - *PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'auto'])* - Position of the tooltip relative to the target content. Defaults to top.
+* `Popover.TOP`
+* `Popover.BOTTOM`
+* `Popover.LEFT`
+* `Popover.RIGHT`
+* `Popover.AUTO`
 
-**arrowPosition** - *PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'auto'])* - Controls which end of the tooltip the arrow should be anchored on. Default is auto, which is generally centered.
+Triggers:
 
-**horizontalSize** - *PropTypes.oneOf(['small', 'medium', 'large', 'none'])* - Sets the default `maxWidth` of the tooltip to a preset value. Using maxWidth means that tooltips with little content don't have a bunch of extra whitespace. Default is `medium`, which is 300px.
+* `Popover.HOVER`
+* `Popover.CLICK`
 
-**theme** - *PropTypes.oneOf(['light', 'dark'])* - Changes the visual style of the tooltip to light or dark. Default is dark.
 
-**onMouseOutDelay** - *PropTypes.number* - Number of milliseconds to wait before hiding tooltip after users mouse leaves target, allowing them to interact with the tooltip content (highlight it, etc.)
+### CSS Classes
 
-**style** - *PropTypes.object* - Because this component wraps the content that triggers the tooltip, it can affect the layout of this content. We use `display: inline-flex` for the trigger content by default, but you may use this prop to pass in a different display type or other style overrides.
+The following classes are available:
 
-**tooltipStyle** - *PropTypes.object* - Custom styles for the tooltip itself
-
-### `<Popover>`
-
-##### PROPS
-
-**content** - *PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired* - The content to render inside the popover body, either as a render callback function or react node. We recommend using a callback so that the content is rendered lazily for performance.
-
-**position** - *PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'auto'])* - Position of the popover relative to the target content. Defaults to auto.
-
-**arrowPosition** - *PropTypes.oneOf(['top', 'right', 'bottom', 'left', 'auto'])* - Controls which end of the popover the arrow should be anchored on. Default is auto, which is generally centered.
-
-**theme** - *PropTypes.oneOf(['light', 'dark'])* - Changes the visual style of the popover to light or dark. Default is light.
-
-**onMouseOutDelay** - *PropTypes.number* - If `trigger` is `hover`, this is the number of milliseconds to wait before hiding popover after users mouse leaves target, allowing them to interact with the popover content (highlight it, etc.)
-
-**style** - *PropTypes.object* - Because this component wraps the content that triggers the popover, it can affect the layout of this content. We use `display: inline-flex` for the trigger content by default, but you may use this prop to pass in a different display type or other style overrides.
-
-**bodyStyle** - *PropTypes.object* - Custom styles for the popover itself
-
-**showArrow** - *PropTypes.bool* - Whether or not to show the arrow pointing from the popover to the target. Defaults to true.
-
-**arrowSize** - *PropTypes.number* - How big the arrow should be in pixels
-
-**trigger** - *PropTypes.oneOf(['hover', 'click'])* - Whether to show the popover on hover or click of the target. Default is click.
-
-#### Constants
-
-#### `POSITIONS`
-
-**TOP**: `'top'`
-**RIGHT**: `'right'`
-**BOTTOM**: `'bottom'`
-**LEFT**: `'left'`
-**AUTO**: `'auto'`
-
-#### `SIZES`
-
-**SMALL**: `'small'` (150px)
-**MEDIUM**: `'medium'` (300px)
-**LARGE**: `'large'` (500px)
-**NONE**: `'none'` (no max-width)
-
-#### `THEMES`
-
-**LIGHT**: `'light'`
-**DARK**: `'dark'`
-
-#### `TRIGGERS`
-
-**HOVER**: `'hover'`
-**CLICK**: `'click'`
-
-#### CSS Classes
-
-Most styles can be overridden using the `style` and `bodyStyle` props, but if you'd prefer css classnames, the following classes are available:
-
-- `u-popover-wrapper`: We add a wrapper element around both the target element and the tooltip. You might use this class to change the `display` property or other related css rules.
-- `u-popover-target`: Wrapper element around the target element.
-- `u-popover-body`: Element for the popover/tooltip.
-- `u-popover-arrow`: The small arrow that points from the popover/tooltip to the target.
+- `mc-popover`: We add a wrapper element around both the target element and the tooltip. You might use this class to change the `display` property or other related css rules.
+- `mc-popover--target`: Wrapper element around the target element.
+- `mc-popover--body`: Element for the popover/tooltip.
+- `mc-popover--arrow-border`: The border of the arrow that points from the popover/tooltip to the target.
+- `mc-popover--arrow`: The body of the arrow that points from the popover/tooltip to the target.

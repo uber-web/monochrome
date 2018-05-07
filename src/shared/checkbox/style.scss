@@ -1,0 +1,46 @@
+@import '../theme/light';
+
+/* Checkbox */
+.mc-checkbox {
+  display: flex;
+  align-items: center;
+
+  .mc-checkbox--border {
+    width: 18px;
+    height: 18px;
+    margin-right: $spacing-small;
+    border: $border-strong;
+    border-color: $color-inactive;
+    color: $color-active;
+  }
+  &:hover {
+    .mc-checkbox--border {
+      border-color: $color-hover;
+    }
+  }
+
+  &.on {
+    .mc-checkbox--icon:before {
+      content: '✔';
+    }
+  }
+  &.off {
+    .mc-checkbox--icon:before {
+      content: '✕';
+    }
+  }
+  &.indeterminate {
+    .mc-checkbox--icon:before {
+      content: '-';
+    }
+  }
+
+  &.disabled {
+    color: $color-disabled;
+
+    .mc-checkbox--border {
+      border-color: $color-disabled;
+      color: $color-disabled;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+@import '../theme/light';
+
+/* Toggle */
+.mc-toggle {
+  display: flex;
+  align-items: center;
+
+  label {
+    flex-grow: 1;
+  }
+
+  .mc-toggle--container {
+    width: 36px;
+  }
+  .mc-toggle--track {
+    border-bottom: $border-strong;
+  }
+  .mc-toggle--knob {
+    background: $background;
+    border: $border-strong;
+    transition: $transition;
+  }
+  .mc-toggle--track, .mc-toggle--knob {
+    border-color: $color-inactive;
+  }
+
+  &:hover, &:focus {
+    .mc-toggle--track, .mc-toggle--knob {
+      border-color: $color-hover;
+    }
+  }
+
+  &.on {
+    .mc-toggle--track, .mc-toggle--knob {
+      border-color: $color-active;
+    }
+  }
+
+  &.disabled {
+    color: $color-disabled;
+
+    .mc-toggle--track, .mc-toggle--knob {
+      border-color: $color-disabled;
+    }
+  }
+}

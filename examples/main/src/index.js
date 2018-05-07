@@ -5,6 +5,7 @@ import {render} from 'react-dom';
 import 'monochrome/main.scss';
 
 import PopoverExample from './popover';
+import BasicInputsExample from './inputs';
 
 class Example extends PureComponent {
   state = {};
@@ -17,6 +18,11 @@ class Example extends PureComponent {
         <h2>Popover</h2>
         <section>
           <PopoverExample />
+        </section>
+
+        <h2>Inputs</h2>
+        <section>
+          <BasicInputsExample />
         </section>
       </div>
     );

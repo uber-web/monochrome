@@ -1,0 +1,60 @@
+@import '../theme/light';
+
+/* Dropdown */
+.mc-dropdown {
+  display: flex;
+  align-items: center;
+
+  label {
+    flex-grow: 1;
+  }
+
+  .mc-dropdown--container {
+    width: 240px;
+  }
+
+  .mc-dropdown--arrow {
+    color: $color-inactive;
+    padding: 8px;
+
+    &:after {
+      content: "▾";
+    }
+  }
+
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border-radius: 0;
+    border: $border-thin;
+    border-color: $color-inactive;
+    color: $color-inactive;
+    outline: 0;
+    padding-left: 8px;
+    padding-right: 24px;
+  }
+
+  &:hover, &:focus {
+    select {
+      border-color: $color-hover;
+      color: $color-hover;
+    }
+    .mc-dropdown--icon {
+      color: $color-hover;
+    }
+  }
+
+  select:focus {
+    border-color: $color-active;
+  }
+
+  &.disabled {
+    color: $color-disabled;
+
+    select {
+      border-color: $color-disabled;
+      color: $color-disabled;
+    }
+  }
+}

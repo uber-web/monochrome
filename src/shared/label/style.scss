@@ -1,0 +1,10 @@
+/* Label */
+.mc-label {
+
+  .mc-label--info {
+    display: inline-block;
+    margin: 0 $spacing-normal;
+    background: $color-inactive;
+    color: $background;
+  }
+}

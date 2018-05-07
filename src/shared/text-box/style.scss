@@ -1,0 +1,56 @@
+@import '../theme/light';
+
+.mc-text-box {
+  display: flex;
+  align-items: center;
+  
+  label {
+    flex-grow: 1;
+  }
+
+  .mc-text-box--container {
+    width: 240px;
+  }
+
+  &:hover input {
+    color: $color-hover;
+    border-color: $color-hover;
+  }
+
+  input {
+    outline: none;
+    padding: 0 8px;
+    color: $color-inactive;
+    border: $border-thin;
+    border-color: $color-inactive;
+
+    &:focus {
+      color: $color-hover;
+      border-color: $color-active;
+    }
+  }
+
+  .mc-text-box--clear {
+    padding: 8px;
+    color: $color-inactive;
+
+    &:hover {
+      color: $color-hover;
+    }
+    &:after {
+      content: '✕'
+    }
+  }
+
+  &.disabled {
+    color: $color-disabled;
+
+    input {
+      border-color: $color-disabled;
+      color: $color-disabled;
+    }
+    .mc-text-box--clear {
+      display: none;
+    }
+  }
+}
