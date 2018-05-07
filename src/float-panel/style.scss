@@ -1,0 +1,19 @@
+@import '../shared/theme/light';
+
+.mc-float-panel {
+
+  .mc-float-panel--title {
+    font: $text-header;
+    background: invert($color-inactive);
+    color: invert($text-body-color);
+    text-align: center;
+
+    &:hover {
+      background: $color-hover;
+    }
+  }
+  .mc-float-panel--resizer {
+    width: 12px;
+    height: 12px;
+  }
+}

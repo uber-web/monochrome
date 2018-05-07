@@ -19,7 +19,7 @@ A stateless dropdown control component.
 * `onChange` **(function)** - callback when the value is changed by user action.
 * `data` **(object)** - value to label mapping.
 * `size` **(number, optional)** - size of the dropdown. Default is `18`.
-* `isEnabled` **(bool, optional)** - whether the control is enabled. Default is `true`.
+* `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.

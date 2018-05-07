@@ -7,18 +7,18 @@ $color-hover: #1C1B1B !default;
 $color-active: #11939A !default;
 
 /* Typography */
-$text-body-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
-$text-body-font-size: 12px !default;
-$text-body-line-height: 1.5 !default;
-$text-body-color: #000000 !default;
+ /*font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif;*/
+$font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
+$text-body: normal 12px/1.5 $font-family !default;
+$text-body-color: #101010 !default;
+$text-header: 500 12px/28px $font-family !default;
 
 /* Borders */
 $border-thin: solid 1px !default;
 $border-strong: solid 2px !default;
 
 /* Shadows */
-$shadow-color: rgba(0, 0, 0, 0.15) !default;
-$shadow-small: 0 2px 4px 0 $shadow-color !default;
+$shadow-small: 0 2px 4px 0 rgba(0, 0, 0, 0.15) !default;
 
 /* Layout */
 $spacing-tiny: 4px !default;

@@ -18,8 +18,10 @@ Import CSS stylesheet:
 ## Documentation
 
 * [CheckBox](docs/api-reference/checkbox.md)
+* [DragDropList](docs/api-reference/drag-drop-list.md)
 * [Draggable](docs/api-reference/draggable.md)
 * [Dropdown](docs/api-reference/dropdown.md)
+* [FloatPanel](docs/api-reference/float-panel.md)
 * [Label](docs/api-reference/label.md)
 * [Popover](docs/api-reference/popover.md)
 * [RadioBox](docs/api-reference/radiobox.md)

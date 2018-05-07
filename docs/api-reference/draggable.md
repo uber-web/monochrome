@@ -16,7 +16,7 @@ A React component that handles drag & drop events
 
 * `className` **(string, optional)** - custom class name(s)
 * `style` **(object, optional)** - container style
-* `isEnabled` **(bool, optional)** - is component interactive. Default `true`.
+* `isEnabled` **(boolean, optional)** - is component interactive. Default `true`.
 * `threshold` **(number, optional)** - minimum pixels moved to be considered a drag. Default `0`.
 * `onStart` **(function, optional)** - callback when mouse is down. Called with a single argument that is an *event object*.
 * `onDrag` **(function, optional)** - callback when component is dragged (controlled by `threshold`). Called with a single argument that is an *event object*.

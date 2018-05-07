@@ -23,7 +23,7 @@ All styles are inlined as html style attributes, so there are no stylesheets to 
 * `position` **(enum, optional)** - Position of the popover relative to the target content. See constants:positions below. Defaults to `Popover.AUTO`.
 * `arrowPosition` **(enum, optional)** - Controls which end of the popover the arrow should be anchored on. See constants:positions below. Default is `Popover.AUTO`, which is generally centered.
 * `onMouseOutDelay` **(number, optional)** - If `trigger` is `hover`, this is the number of milliseconds to wait before hiding popover after users mouse leaves target, allowing them to interact with the popover content (highlight it, etc.)
-* `showArrow` **(bool, optional)** - Whether or not to show the arrow pointing from the popover to the target. Default is `true`.
+* `showArrow` **(boolean, optional)** - Whether or not to show the arrow pointing from the popover to the target. Default is `true`.
 * `arrowSize` **(number, optional)** - How big the arrow should be in pixels. Default is `6`.
 * `trigger` **(enum)** - Whether to show the popover on hover or click of the target. See constants:triggers below. Default is `Popover.CLICK`. The `Tooltip` class is a convenient component that renders a popover that triggers on hover.
 

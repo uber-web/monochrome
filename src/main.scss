@@ -9,9 +9,10 @@
 @import 'shared/text-box/style';
 @import 'shared/toggle/style';
 
+@import 'drag-drop-list/style';
+@import 'float-panel/style';
+
 body {
-  font-family: $text-body-font-family;
-  font-size: $text-body-font-size;
-  line-height: $text-body-line-height;
+  font: $text-body;
   color: $text-body-color;
 }

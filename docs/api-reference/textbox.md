@@ -15,8 +15,8 @@ A stateless text box component.
 * `value` **(string)** - value of the text box.
 * `onChange` **(function)** - callback when the value is changed by user action.
 * `size` **(number, optional)** - size of the text box. Default is `18`.
-* `showClearButton` **(bool, optional)** - whether to show a "clear all" button when the text box is not empty. Default is `true`.
-* `isEnabled` **(bool, optional)** - whether the control is enabled. Default is `true`.
+* `showClearButton` **(boolean, optional)** - whether to show a "clear all" button when the text box is not empty. Default is `true`.
+* `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.

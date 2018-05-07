@@ -1,0 +1,25 @@
+@import '../shared/theme/light';
+
+.mc-drag-drop-list {
+
+  .mc-drag-drop-list--item-title:before {
+    content: '☰';
+    margin-right: $spacing-tiny;
+    opacity: 0.3;
+  }
+  .mc-drag-drop-list--item-title:hover:before {
+    opacity: 1;
+  }
+
+  .mc-drag-drop-list--placeholder {
+    border: $border-strong;
+    border-color: $color-inactive;
+    border-style: dotted;
+  }
+
+  .mc-drag-drop-list--item.dragging {
+    .mc-drag-drop-list--item-content {
+      box-shadow: $shadow-small;
+    }
+  }
+}

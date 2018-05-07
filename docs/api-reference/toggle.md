@@ -12,10 +12,10 @@ A stateless toggle control component.
 
 ### Props
 
-* `value` **(bool)** - value of the toggle.
+* `value` **(boolean)** - value of the toggle.
 * `onChange` **(function)** - callback when the value is changed by user action.
 * `size` **(number, optional)** - size of the toggle. Default is `18`.
-* `isEnabled` **(bool, optional)** - whether the control is enabled. Default is `true`.
+* `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.

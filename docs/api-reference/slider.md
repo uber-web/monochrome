@@ -19,7 +19,7 @@ A stateless slider control component.
 * `step` **(number, optional)** - step to snap the value to. Default is `0` (no snapping).
 * `tolerance` **(number, optional)** - number of pixels around the slider that are also interactive. Default is `10`.
 * `size` **(number, optional)** - size of the toggle. Default is `18`.
-* `isEnabled` **(bool, optional)** - whether the control is enabled. Default is `true`.
+* `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
 
 
