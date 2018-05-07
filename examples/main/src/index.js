@@ -8,6 +8,7 @@ import PopoverExample from './popover';
 import BasicInputsExample from './inputs';
 import DragDropListExample from './drag-drop-list';
 import FloatPanelExample from './float-panel';
+import PlaybackControlExample from './playback-control';
 
 class Example extends PureComponent {
   state = {};
@@ -35,6 +36,11 @@ class Example extends PureComponent {
         <h2>Float Panel</h2>
         <section>
           <FloatPanelExample />
+        </section>
+
+        <h2>Playback Control</h2>
+        <section>
+          <PlaybackControlExample />
         </section>
       </div>
     );

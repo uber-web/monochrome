@@ -9,12 +9,8 @@
     flex-grow: 1;
   }
 
-  .mc-dropdown--container {
-    width: 240px;
-  }
-
   .mc-dropdown--arrow {
-    color: $color-inactive;
+    color: $color-control-inactive;
     padding: 8px;
 
     &:after {
@@ -28,8 +24,8 @@
     background: transparent;
     border-radius: 0;
     border: $border-thin;
-    border-color: $color-inactive;
-    color: $color-inactive;
+    border-color: $color-control-inactive;
+    color: $color-control-inactive;
     outline: 0;
     padding-left: 8px;
     padding-right: 24px;
@@ -37,24 +33,24 @@
 
   &:hover, &:focus {
     select {
-      border-color: $color-hover;
-      color: $color-hover;
+      border-color: $color-control-hover;
+      color: $color-control-hover;
     }
     .mc-dropdown--icon {
-      color: $color-hover;
+      color: $color-control-hover;
     }
   }
 
   select:focus {
-    border-color: $color-active;
+    border-color: $color-control-active;
   }
 
   &.disabled {
-    color: $color-disabled;
+    color: $color-control-disabled;
 
     select {
-      border-color: $color-disabled;
-      color: $color-disabled;
+      border-color: $color-control-disabled;
+      color: $color-control-disabled;
     }
   }
 }

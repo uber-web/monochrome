@@ -1,0 +1,60 @@
+@import "../shared/theme/light";
+
+/* Playback controls */
+.mc-playback-control {
+  background: $background-alt;
+  padding: 12px 0;
+
+  .mc-playback-control--ticks {
+    height: 20px;
+  }
+  .mc-playback-control--tick {
+    border-left: $border-thin;
+    border-color: $color-control-subtle;
+    height: 4px;
+    bottom: 0;
+  }
+  .mc-playback-control--tick-label {
+    font: $text-legal;
+    transform: translate(-50%,-18px);
+    color: $color-text-subtle;
+  }
+
+  .mc-playback-control--marker {
+    height: 3px;
+  }
+
+  .mc-playback-control--slider {
+    margin: 16px 0;
+  }
+
+  .mc-playback-control--play-pause-button {
+    width: 16px;
+    height: 16px;
+    color: $color-control-inactive;
+
+    &:hover {
+      color: $color-control-hover;
+    }
+    &:before {
+      content: '▶';
+    }
+  }
+
+  &.playing {
+    .mc-slider--knob, .mc-slider--track-fill {
+      transition: none;
+    }
+    .mc-playback-control--play-pause-button {
+      &:before {
+        content: '❙❙';
+      }
+    }
+  }
+
+  .mc-playback-control--timestamp {
+    color: $color-text-primary;
+    flex-grow: 1;
+  }
+
+}

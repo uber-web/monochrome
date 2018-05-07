@@ -10,3 +10,4 @@ export {default as Toggle} from './shared/toggle';
 
 export {default as DragDropList} from './drag-drop-list';
 export {default as FloatPanel} from './float-panel';
+export {default as PlaybackControl} from './playback-control';

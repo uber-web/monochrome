@@ -11,8 +11,9 @@
 
 @import 'drag-drop-list/style';
 @import 'float-panel/style';
+@import 'playback-control/style';
 
 body {
   font: $text-body;
-  color: $text-body-color;
+  color: $color-text-primary;
 }

@@ -35,7 +35,7 @@ export default class Slider extends PureComponent {
     value: PropTypes.number.isRequired,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     className: PropTypes.string,
     step: PropTypes.number,
     size: PropTypes.number,
@@ -48,7 +48,8 @@ export default class Slider extends PureComponent {
     size: 18,
     tolerance: 10,
     step: 0,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   }
 
   constructor(props) {
@@ -99,7 +100,7 @@ export default class Slider extends PureComponent {
     const ratio = (snap(value, min, max, step) - min) / (max - min);
 
     const eventCanvasStyle = {
-      margin: `${-tolerance}px ${size / 2 - tolerance}px`,
+      margin: -tolerance,
       padding: tolerance
     };
 

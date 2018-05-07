@@ -15,16 +15,16 @@
     .mc-radio-box--button {
       background: $background;
       border: $border-strong;
-      border-color: $color-inactive;
+      border-color: $color-control-inactive;
     }
 
     &:hover .mc-radio-box--button {
-      border-color: $color-hover;
+      border-color: $color-control-hover;
     }
 
     &.selected .mc-radio-box--button {
-      border-color: $color-active;
-      color: $color-active;
+      border-color: $color-control-active;
+      color: $color-control-active;
     }
     &.selected .mc-radio-box--icon:before {
       content: '●';
@@ -32,11 +32,11 @@
   }
 
   &.disabled {
-    color: $color-disabled;
+    color: $color-control-disabled;
 
     .mc-radio-box--item .mc-radio-box--button {
-      border-color: $color-disabled;
-      color: $color-disabled;
+      border-color: $color-control-disabled;
+      color: $color-control-disabled;
     }
   }
 }

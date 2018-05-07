@@ -61,7 +61,7 @@ export default class FloatPanelExample extends Component {
             checked={useTitleBar}
             onChange={e => this.setState({useTitleBar: e.target.checked})}
           />
-          <label htmlFor="canRemoveItem">Use Title Bar</label>
+          <label htmlFor="useTitleBar">Use Title Bar</label>
         </div>
         <div style={containerStyle} ref="container">
           <FloatPanel

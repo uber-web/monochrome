@@ -27,7 +27,7 @@ export default class TextBox extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
@@ -40,7 +40,8 @@ export default class TextBox extends PureComponent {
     className: '',
     size: 18,
     showClearButton: true,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   };
 
   _focus = () => {

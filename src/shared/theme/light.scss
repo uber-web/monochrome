@@ -1,17 +1,23 @@
 /* Colors */
 $background: #FFFFFF !default;
-$color-subtle: #D6D6D5 !default;
-$color-disabled: #D6D6D5 !default;
-$color-inactive: #A6A5A5 !default;
-$color-hover: #1C1B1B !default;
-$color-active: #11939A !default;
+$background-alt: #f8f8f9 !default;
+
+$color-control-subtle: #D6D6D5 !default;
+$color-control-disabled: #D6D6D5 !default;
+$color-control-inactive: #A6A5A5 !default;
+$color-control-hover: #1C1B1B !default;
+$color-control-active: #11939A !default;
+
+$color-text-primary: #1C1B1B !default;
+$color-text-secondary: #717171 !default;
+$color-text-subtle: #A6A5A5 !default;
 
 /* Typography */
  /*font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif;*/
 $font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
 $text-body: normal 12px/1.5 $font-family !default;
-$text-body-color: #101010 !default;
-$text-header: 500 12px/28px $font-family !default;
+$text-legal: normal 10px/1.5 $font-family !default;
+$text-header: 500 14px/2 $font-family !default;
 
 /* Borders */
 $border-thin: solid 1px !default;

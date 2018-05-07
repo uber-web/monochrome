@@ -12,6 +12,7 @@
   "rules": {
     "guard-for-in": 0,
     "no-inline-comments": 0,
+    "no-invalid-this": 0,
     "camelcase": 0,
     "react/forbid-prop-types": 0
   },

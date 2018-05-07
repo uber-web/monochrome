@@ -8,34 +8,30 @@
     flex-grow: 1;
   }
 
-  .mc-text-box--container {
-    width: 240px;
-  }
-
   &:hover input {
-    color: $color-hover;
-    border-color: $color-hover;
+    color: $color-control-hover;
+    border-color: $color-control-hover;
   }
 
   input {
     outline: none;
     padding: 0 8px;
-    color: $color-inactive;
+    color: $color-control-inactive;
     border: $border-thin;
-    border-color: $color-inactive;
+    border-color: $color-control-inactive;
 
     &:focus {
-      color: $color-hover;
-      border-color: $color-active;
+      color: $color-control-hover;
+      border-color: $color-control-active;
     }
   }
 
   .mc-text-box--clear {
     padding: 8px;
-    color: $color-inactive;
+    color: $color-control-inactive;
 
     &:hover {
-      color: $color-hover;
+      color: $color-control-hover;
     }
     &:after {
       content: '✕'
@@ -43,11 +39,11 @@
   }
 
   &.disabled {
-    color: $color-disabled;
+    color: $color-control-disabled;
 
     input {
-      border-color: $color-disabled;
-      color: $color-disabled;
+      border-color: $color-control-disabled;
+      color: $color-control-disabled;
     }
     .mc-text-box--clear {
       display: none;

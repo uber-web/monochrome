@@ -4,12 +4,12 @@
 
   .mc-float-panel--title {
     font: $text-header;
-    background: invert($color-inactive);
-    color: invert($text-body-color);
+    background: invert($color-control-inactive);
+    color: invert($color-text-primary);
     text-align: center;
 
     &:hover {
-      background: $color-hover;
+      background: $color-control-hover;
     }
   }
   .mc-float-panel--resizer {

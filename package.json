@@ -25,9 +25,9 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
+    "d3-scale": "^2.0.0",
     "popper.js": "^1.11.1",
-    "prop-types": "^15.5.10",
-    "uuid": "^3.1.0"
+    "prop-types": "^15.5.10"
   },
   "peerDependencies": {
     "react": ">=15.x"

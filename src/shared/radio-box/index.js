@@ -25,7 +25,7 @@ export default class RadioBox extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     data: PropTypes.object.isRequired,
     className: PropTypes.string,
     size: PropTypes.number,
@@ -35,7 +35,8 @@ export default class RadioBox extends PureComponent {
   static defaultProps = {
     className: '',
     size: 18,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   };
 
   _onClick = value => {

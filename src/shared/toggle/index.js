@@ -25,7 +25,7 @@ export default class Toggle extends PureComponent {
 
   static propTypes = {
     value: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
@@ -37,7 +37,8 @@ export default class Toggle extends PureComponent {
     className: '',
     value: true,
     size: 18,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   };
 
   _onClick = () => {

@@ -21,26 +21,26 @@
     transition: $transition;
   }
   .mc-toggle--track, .mc-toggle--knob {
-    border-color: $color-inactive;
+    border-color: $color-control-inactive;
   }
 
   &:hover, &:focus {
     .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-hover;
+      border-color: $color-control-hover;
     }
   }
 
   &.on {
     .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-active;
+      border-color: $color-control-active;
     }
   }
 
   &.disabled {
-    color: $color-disabled;
+    color: $color-control-disabled;
 
     .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-disabled;
+      border-color: $color-control-disabled;
     }
   }
 }

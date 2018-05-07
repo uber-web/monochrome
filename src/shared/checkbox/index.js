@@ -30,7 +30,7 @@ export default class CheckBox extends PureComponent {
 
   static propTypes = {
     value: PropTypes.oneOf([CHECKBOX_STATE.OFF, CHECKBOX_STATE.INDETERMINATE, CHECKBOX_STATE.ON]).isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
@@ -42,7 +42,8 @@ export default class CheckBox extends PureComponent {
     className: '',
     label: '',
     size: 18,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   };
 
   _onClick = event => {

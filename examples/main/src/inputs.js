@@ -26,7 +26,7 @@ export default class BasicInputsExample extends Component {
   }
 
   _renderSectionHeader(name) {
-    return <h3 style={{marginTop: 32}}>{name}</h3>;
+    return <h3>{name}</h3>;
   }
 
   render() {

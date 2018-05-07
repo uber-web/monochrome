@@ -10,12 +10,12 @@
     height: 18px;
     margin-right: $spacing-small;
     border: $border-strong;
-    border-color: $color-inactive;
-    color: $color-active;
+    border-color: $color-control-inactive;
+    color: $color-control-active;
   }
   &:hover {
     .mc-checkbox--border {
-      border-color: $color-hover;
+      border-color: $color-control-hover;
     }
   }
 
@@ -36,11 +36,11 @@
   }
 
   &.disabled {
-    color: $color-disabled;
+    color: $color-control-disabled;
 
     .mc-checkbox--border {
-      border-color: $color-disabled;
-      color: $color-disabled;
+      border-color: $color-control-disabled;
+      color: $color-control-disabled;
     }
   }
 }

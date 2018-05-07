@@ -27,7 +27,7 @@ export default class Dropdown extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     data: PropTypes.object.isRequired,
     className: PropTypes.string,
     label: PropTypes.string,
@@ -40,7 +40,8 @@ export default class Dropdown extends PureComponent {
     className: '',
     label: '',
     size: 18,
-    isEnabled: true
+    isEnabled: true,
+    onChange: () => {}
   };
 
   _onChange = event => {
