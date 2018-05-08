@@ -28,3 +28,11 @@ Parameters:
   + `event.items` **(array)** - rearranged items list
   + `event.removedItems` **(array)** - removed items
   + `event.targetRect` **(object)** - the bounding box of where the item is dropped
+
+### CSS Classes
+
+* `mc-drag-drop-list` - wrapper around the whole control
+* `mc-drag-drop-list--item` - container of each item in the list
+* `mc-drag-drop-list--item-title` - title of an item in the list
+* `mc-drag-drop-list--item-content` - content of an item in the list
+* `mc-drag-drop-list--placeholder` - the placeholder shown during dragging

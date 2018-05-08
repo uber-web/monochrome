@@ -32,3 +32,10 @@ A stateless component that renders a floating panel.
 * `resizable` **(boolean, optional)** - whether the panel can be resized, default false
 * `minimizable` **(boolean, optional)** - whether the panel can be minimized, default true
 * `onUpdate` **(function, optional)** - callback when user move/resize/minimize the panel
+
+### CSS Classes
+
+* `mc-float-panel` - wrapper around the whole control
+* `mc-float-panel--title` - title of the float panel
+* `mc-float-panel--content` - content of the float panel
+* `mc-float-panel--resizer` - hit area of the resize button

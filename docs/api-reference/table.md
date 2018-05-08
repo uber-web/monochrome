@@ -55,3 +55,13 @@ Inherits all `Table`'s props, and the following:
     + `children` (Array) - child rows
 - `indentSize` (Number, optional) - Default `12`.
 
+### CSS Classes
+
+* `mc-table` - wrapper around the whole control
+* `mc-table--header` - header of the table
+* `mc-table--header-cell` - a cell in the header
+* `mc-table--sort-icon` - the sorting indicator
+* `mc-table--item` - wrapper around each top level item in the table
+* `mc-table--row` - container of a row
+* `mc-table--cell` - a cell in the table
+* `mc-table--row-expander` - the expand/collapse button in tree table
