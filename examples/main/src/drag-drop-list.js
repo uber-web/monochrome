@@ -48,10 +48,15 @@ export default class DragDropListExample extends Component {
             onChange={e => this.setState({canRemoveItem: e.target.checked})}
           />
           <label htmlFor="canRemoveItem">Can Remove Items</label>
-          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS_WITH_HEADER})}>
+          <button
+            style={{marginLeft: 12}}
+            onClick={() => this.setState({items: SAMPLE_ITEMS_WITH_HEADER})}
+          >
             With Header
           </button>
-          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS})}>Without Header</button>
+          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS})}>
+            Without Header
+          </button>
         </div>
         <div style={{width: 200}}>
           <DragDropList

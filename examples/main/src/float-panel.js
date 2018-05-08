@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FloatPanel} from 'monochrome';
+import {AutoSizer, FloatPanel} from 'monochrome';
 
 /**
  * Float Panel Example
@@ -8,8 +8,6 @@ export default class FloatPanelExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      windowWidth: 0,
-      windowHeight: 400,
       useTitleBar: true,
       panelState: {
         x: 0,
@@ -20,36 +18,24 @@ export default class FloatPanelExample extends Component {
     };
   }
 
-  componentDidMount() {
-    const container = this.refs.container;
-
-    /* eslint-disable react/no-did-mount-set-state */
-    this.setState({
-      windowWidth: container.clientWidth
-    });
-    /* eslint-enable react/no-did-mount-set-state */
-  }
-
-  _onUpdatePanel({x, y, width, minimized}) {
+  _onUpdatePanel = ({x, y, width, minimized}) => {
     width = Math.min(400, Math.max(50, width));
 
     this.setState({
       panelState: {x, y, minimized, size: width}
     });
-  }
+  };
 
   render() {
     const {
       panelState: {x, y, size, minimized},
-      useTitleBar,
-      windowWidth,
-      windowHeight
+      useTitleBar
     } = this.state;
+
     const containerStyle = {
       position: 'relative',
       background: '#efefef',
-      width: windowWidth.width || '100%',
-      height: windowHeight
+      height: 400
     };
 
     return (
@@ -63,23 +49,30 @@ export default class FloatPanelExample extends Component {
           />
           <label htmlFor="useTitleBar">Use Title Bar</label>
         </div>
-        <div style={containerStyle} ref="container">
-          <FloatPanel
-            title={useTitleBar ? 'My Photo' : null}
-            parentWidth={windowWidth}
-            parentHeight={windowHeight}
-            x={x}
-            y={y}
-            width={size}
-            height={size}
-            minimized={minimized}
-            movable={true}
-            resizable={true}
-            minimizable={true}
-            onUpdate={this._onUpdatePanel.bind(this)}
-          >
-            <img src="https://avatars2.githubusercontent.com/u/2059298?v=3&s=460" width="100%" />
-          </FloatPanel>
+        <div style={containerStyle}>
+          <AutoSizer>
+            {({width, height}) => (
+              <FloatPanel
+                title={useTitleBar ? 'My Photo' : null}
+                parentWidth={width}
+                parentHeight={height}
+                x={x}
+                y={y}
+                width={size}
+                height={size}
+                minimized={minimized}
+                movable={true}
+                resizable={true}
+                minimizable={true}
+                onUpdate={this._onUpdatePanel}
+              >
+                <img
+                  src="https://avatars2.githubusercontent.com/u/2059298?v=3&s=460"
+                  width="100%"
+                />
+              </FloatPanel>
+            )}
+          </AutoSizer>
         </div>
       </div>
     );

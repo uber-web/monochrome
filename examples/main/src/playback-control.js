@@ -1,7 +1,7 @@
 /* Playback control example */
 /* global window */
 import React, {Component} from 'react';
-import {PlaybackControl, Dropdown} from 'monochrome';
+import {PlaybackControl, Dropdown, AutoSizer} from 'monochrome';
 
 const PLAYBACK_SPEEDS = {
   '-1': 'Reverse',
@@ -23,7 +23,7 @@ export default class PlaybackControlExample extends Component {
     super(props);
 
     this.state = {
-      windowWidth: 0,
+      width: 0,
       isPlaying: false,
       currentTime: 0,
       speed: 1
@@ -32,19 +32,8 @@ export default class PlaybackControlExample extends Component {
     this._timer = null;
   }
 
-  componentDidMount() {
-    window.addEventListener('resize', this._onResize);
-    this._onResize();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._onResize);
-    window.cancelAnimationFrame(this._timer);
-  }
-
-  _onResize = () => {
-    const {container} = this.refs;
-    this.setState({windowWidth: container.clientWidth});
+  _onResize = ({width}) => {
+    this.setState({width});
   };
 
   // A simple timer that simulates video playback
@@ -82,13 +71,15 @@ export default class PlaybackControlExample extends Component {
   };
 
   render() {
-    const {isPlaying, currentTime, speed, windowWidth} = this.state;
+    const {isPlaying, currentTime, speed, width} = this.state;
 
     return (
-      <div ref="container">
+      <div>
+        <AutoSizer onResize={this._onResize} />
+
         <h3>Custom content</h3>
         <PlaybackControl
-          width={windowWidth}
+          width={width}
           currentTime={currentTime}
           startTime={0}
           endTime={CLIP_LENGTH}
@@ -109,7 +100,7 @@ export default class PlaybackControlExample extends Component {
         <h3>Markers</h3>
         <PlaybackControl
           className="dark"
-          width={windowWidth}
+          width={width}
           currentTime={currentTime}
           startTime={0}
           endTime={CLIP_LENGTH}

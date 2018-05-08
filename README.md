@@ -41,4 +41,4 @@ Import CSS stylesheet:
 * MetricsCard
 * [PlaybackControl](docs/api-reference/playback-control.md)
 * MultiPlot
-* Table · TreeTable
+* [Table · TreeTable](docs/api-reference/table.md)

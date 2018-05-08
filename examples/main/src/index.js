@@ -10,6 +10,7 @@ import DragDropListExample from './drag-drop-list';
 import FloatPanelExample from './float-panel';
 import PlaybackControlExample from './playback-control';
 import FormExample from './form';
+import TreeTableExample from './table';
 
 class Example extends PureComponent {
   state = {};
@@ -47,6 +48,11 @@ class Example extends PureComponent {
         <h2>Form</h2>
         <section>
           <FormExample />
+        </section>
+
+        <h2>Table</h2>
+        <section>
+          <TreeTableExample />
         </section>
       </div>
     );

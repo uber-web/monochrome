@@ -16,9 +16,10 @@ $color-text-subtle: #A6A5A5 !default;
  /*font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif;*/
 $font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
 $text-body: normal 12px/1.5 $font-family !default;
+$text-emphasis: bold 12px/1.5 $font-family !default;
 $text-legal: normal 10px/1.5 $font-family !default;
-$text-header: 500 14px/2 $font-family !default;
-$text-title: 100 18px/2 $font-family !default;
+$text-header: bold 14px/2 $font-family !default;
+$text-title: lighter 18px/2 $font-family !default;
 
 /* Borders */
 $border-thin: solid 1px !default;

@@ -1,5 +1,7 @@
-export {Popover, Tooltip} from './popover';
+export {default as AutoSizer} from './autosizer';
 export {default as Draggable} from './draggable';
+
+export {Popover, Tooltip} from './popover';
 export {default as CheckBox} from './checkbox';
 export {default as Dropdown} from './dropdown';
 export {default as Label} from './label';
