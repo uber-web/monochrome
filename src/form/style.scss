@@ -1,4 +1,5 @@
 @import "../themes/light";
+@import '../shared/style';
 
 .mc-form {
 
@@ -27,7 +28,7 @@
     font-size: 12px;
     margin-bottom: 8px;
 
-    label {
+    .mc-label {
       flex-grow: 1;
     }
 
@@ -41,11 +42,11 @@
   }
 
   .mc-form--title {
-    font: $text-title;
+    @include text-title;
     margin: $spacing-normal 0;
   }
   .mc-form--heading {
-    font: $text-header;
+    @include text-header;
     margin: $spacing-normal 0;
   }
 

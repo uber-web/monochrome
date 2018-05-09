@@ -50,7 +50,7 @@ export default class TreeTableRow extends PureComponent {
             style={expanderStyle}
             onClick={() => this._toggleExpansion(id)} />)}
 
-          <div style={{width: indent}} />
+          <div style={{flexShrink: 0, width: indent}} />
 
           {data.data.map((colValue, colIndex) => {
             const column = columns[colIndex];

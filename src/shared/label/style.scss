@@ -1,10 +1,16 @@
-/* Label */
-.mc-label {
+@import '../../themes/light';
+@import '../../utils/exports';
+@import '../popover/style';
 
-  .mc-label--info {
-    display: inline-block;
-    margin-left: $spacing-normal;
-    background: $color-control-inactive;
-    color: $background;
+@include exports(label) {
+  /* Label */
+  .mc-label {
+
+    .mc-label--info {
+      display: inline-block;
+      margin: 0 $spacing-normal;
+      background: $color-control-inactive;
+      color: $color-text-invert;
+    }
   }
 }

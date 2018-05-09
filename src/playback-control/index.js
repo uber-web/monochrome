@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import Slider from '../shared/slider';
-import Dropdown from '../shared/dropdown';
 import {getTimelineTicks, formatTimeCode} from './utils';
 import {scaleLinear} from 'd3-scale';
 

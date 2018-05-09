@@ -7,13 +7,17 @@ Monochrome is a React component library that offers highly stylable UI controls.
 Import components:
 
 ```js
-import {Slider} from 'monochrome';
+// Import component
+import {Form} from 'monochrome';
+// Import CSS stylesheet
+import 'monochrome/dist/main.css';
 ```
 
-Import CSS stylesheet:
+Import stylesheet in Sass:
 ```sass
-@import 'node_modules/monochrome/main';
+@import 'node_modules/monochrome/src/main';
 ```
+
 
 ## Documentation
 

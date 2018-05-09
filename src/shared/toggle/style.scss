@@ -1,46 +1,50 @@
 @import '../../themes/light';
+@import '../../utils/exports';
+@import '../label/style';
 
-/* Toggle */
-.mc-toggle--wrapper {
-  display: flex;
-  align-items: center;
+@include exports(toggle) {
+  /* Toggle */
+  .mc-toggle--wrapper {
+    display: flex;
+    align-items: center;
 
-  label {
-    flex-grow: 1;
-  }
-
-  .mc-toggle {
-    width: 36px;
-  }
-  .mc-toggle--track {
-    border-bottom: $border-strong;
-  }
-  .mc-toggle--knob {
-    background: $background;
-    border: $border-strong;
-    transition: $transition;
-  }
-  .mc-toggle--track, .mc-toggle--knob {
-    border-color: $color-control-inactive;
-  }
-
-  &:hover, &:focus {
-    .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-control-hover;
+    .mc-label {
+      flex-grow: 1;
     }
-  }
 
-  &.on {
-    .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-control-active;
+    .mc-toggle {
+      width: 36px;
     }
-  }
-
-  &.disabled {
-    color: $color-control-disabled;
-
+    .mc-toggle--track {
+      border-bottom: $border-strong;
+    }
+    .mc-toggle--knob {
+      background: $background;
+      border: $border-strong;
+      transition: $transition;
+    }
     .mc-toggle--track, .mc-toggle--knob {
-      border-color: $color-control-disabled;
+      border-color: $color-control-inactive;
+    }
+
+    &:hover, &:focus {
+      .mc-toggle--track, .mc-toggle--knob {
+        border-color: $color-control-hover;
+      }
+    }
+
+    &.on {
+      .mc-toggle--track, .mc-toggle--knob {
+        border-color: $color-control-active;
+      }
+    }
+
+    &.disabled {
+      color: $color-control-disabled;
+
+      .mc-toggle--track, .mc-toggle--knob {
+        border-color: $color-control-disabled;
+      }
     }
   }
 }

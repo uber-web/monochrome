@@ -1,14 +1,6 @@
 @import 'themes/light';
 
-@import 'shared/popover/style';
-@import 'shared/checkbox/style';
-@import 'shared/dropdown/style';
-@import 'shared/label/style';
-@import 'shared/radio-box/style';
-@import 'shared/slider/style';
-@import 'shared/text-box/style';
-@import 'shared/toggle/style';
-
+@import 'shared/style';
 @import 'drag-drop-list/style';
 @import 'float-panel/style';
 @import 'playback-control/style';
@@ -16,6 +8,5 @@
 @import 'table/style';
 
 body {
-  font: $text-body;
-  color: $color-text-primary;
+  @include text-body;
 }

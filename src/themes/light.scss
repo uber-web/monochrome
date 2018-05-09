@@ -1,6 +1,6 @@
 /* Colors */
 $background: #FFFFFF !default;
-$background-alt: #f8f8f9 !default;
+$background-alt: #F8F8F9 !default;
 
 $color-control-subtle: #D6D6D5 !default;
 $color-control-disabled: #D6D6D5 !default;
@@ -11,15 +11,48 @@ $color-control-active: #11939A !default;
 $color-text-primary: #1C1B1B !default;
 $color-text-secondary: #717171 !default;
 $color-text-subtle: #A6A5A5 !default;
+$color-text-invert: #F8F8F9 !default;
 
 /* Typography */
  /*font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif;*/
 $font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !default;
-$text-body: normal 12px/1.5 $font-family !default;
-$text-emphasis: bold 12px/1.5 $font-family !default;
-$text-legal: normal 10px/1.5 $font-family !default;
-$text-header: bold 14px/2 $font-family !default;
-$text-title: lighter 18px/2 $font-family !default;
+
+@mixin text-body($color: $color-text-primary) {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $color;
+}
+@mixin text-bold($color: $color-text-primary) {
+  font-family: $font-family;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.5;
+  color: $color;
+}
+@mixin text-legal($color: $color-text-secondary) {
+  font-family: $font-family;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.5;
+  color: $color;
+}
+@mixin text-header($color: $color-text-subtle) {
+  font-family: $font-family;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 2;
+  color: $color;
+}
+@mixin text-title($color: $color-text-primary) {
+  font-family: $font-family;
+  font-weight: 200;
+  font-size: 20px;
+  line-height: 2;
+  color: $color;
+}
 
 /* Borders */
 $border-thin: solid 1px !default;

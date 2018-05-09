@@ -1,53 +1,57 @@
 @import '../../themes/light';
+@import '../../utils/exports';
+@import '../label/style';
 
-/* Dropdown */
-.mc-dropdown--wrapper {
-  label {
-    display: block;
-  }
-
-  .mc-dropdown--arrow {
-    color: $color-control-inactive;
-    padding: 8px;
-
-    &:after {
-      content: "▾";
+@include exports(dropdown) {
+  /* Dropdown */
+  .mc-dropdown--wrapper {
+    label {
+      display: block;
     }
-  }
 
-  select {
-    -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    border-radius: 0;
-    border: $border-thin;
-    border-color: $color-control-inactive;
-    color: $color-control-inactive;
-    outline: 0;
-    padding-left: 8px;
-    padding-right: 24px;
-  }
+    .mc-dropdown--arrow {
+      color: $color-control-inactive;
+      padding: 8px;
 
-  &:hover, &:focus {
-    select {
-      border-color: $color-control-hover;
-      color: $color-control-hover;
+      &:after {
+        content: "▾";
+      }
     }
-    .mc-dropdown--icon {
-      color: $color-control-hover;
+
+    .mc-dropdown--input {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      border-radius: 0;
+      border: $border-thin;
+      border-color: $color-control-inactive;
+      color: $color-control-inactive;
+      outline: 0;
+      padding-left: 8px;
+      padding-right: 24px;
     }
-  }
 
-  select:focus {
-    border-color: $color-control-active;
-  }
+    &:hover {
+      .mc-dropdown--input {
+        border-color: $color-control-hover;
+        color: $color-control-hover;
+      }
+      .mc-dropdown--icon {
+        color: $color-control-hover;
+      }
+    }
 
-  &.disabled {
-    color: $color-control-disabled;
+    .mc-dropdown--input:focus {
+      border-color: $color-control-active;
+    }
 
-    select {
-      border-color: $color-control-disabled;
+    &.disabled {
       color: $color-control-disabled;
+
+      .mc-dropdown--input {
+        border-color: $color-control-disabled;
+        color: $color-control-disabled;
+      }
     }
   }
 }

@@ -3,9 +3,8 @@
 .mc-float-panel {
 
   .mc-float-panel--title {
-    font: $text-header;
+    @include text-header($color-text-invert);
     background: invert($color-control-inactive);
-    color: invert($color-text-primary);
     text-align: center;
 
     &:hover {

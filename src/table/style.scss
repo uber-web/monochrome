@@ -3,10 +3,9 @@
 .mc-table {
 
   .mc-table--header-cell {
-    font: $text-emphasis;
+    @include text-bold($color-text-invert);
     background: $color-control-inactive;
     padding: $spacing-tiny $spacing-small;
-    color: $background;
 
     &:hover {
       background: $color-control-hover !important;

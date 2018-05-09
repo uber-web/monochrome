@@ -1,42 +1,48 @@
 @import '../../themes/light';
+@import '../../utils/exports';
+@import '../label/style';
 
-/* Slider */
-.mc-slider-wrapper {
-  label {
-    display: block;
-  }
+@include exports(slider) {
+  /* Slider */
+  .mc-slider-wrapper {
+    .mc-label {
+      display: block;
+    }
 
-  .mc-slider--track {
-    background: $color-control-inactive;
-    height: 2px;
-  }
-  .mc-slider--track-fill {
-    background: $color-control-active;
-    transition: $transition;
-  }
-  .mc-slider--knob {
-    position: absolute;
-    border: $border-strong;
-    border-color: $color-control-inactive;
-    background: $background;
-    transition: $transition;
-  }
-  &:hover {
-    .mc-slider--knob {
-      border-color: $color-control-hover;
+    .mc-slider--track {
+      background: $color-control-inactive;
+      height: 2px;
     }
-  }
-  &.active {
-    .mc-slider--knob {
-      border-color: $color-control-active;
-    }
-  }
-  &.disabled {
-    .mc-slider--track, .mc-slider--track-fill {
-      background: $color-control-disabled;
+    .mc-slider--track-fill {
+      background: $color-control-active;
+      transition: $transition;
     }
     .mc-slider--knob {
-      border-color: $color-control-disabled;
+      position: absolute;
+      border: $border-strong;
+      border-color: $color-control-inactive;
+      background: $background;
+      transition: $transition;
+    }
+    &:hover {
+      .mc-slider--knob {
+        border-color: $color-control-hover;
+      }
+    }
+    &.active {
+      .mc-slider--knob {
+        border-color: $color-control-active;
+      }
+    }
+    &.disabled {
+      color: $color-control-disabled;
+
+      .mc-slider--track, .mc-slider--track-fill {
+        background: $color-control-disabled;
+      }
+      .mc-slider--knob {
+        border-color: $color-control-disabled;
+      }
     }
   }
 }

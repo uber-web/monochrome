@@ -40,7 +40,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, '_enabled')}
         />
 
-        {this._renderSectionHeader('TextBox')}
+        <h3>TextBox</h3>
         <TextBox
           label="Your name"
           tooltip="LAST, First"
@@ -49,7 +49,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, 'textbox')}
         />
 
-        {this._renderSectionHeader('Dropdown')}
+        <h3>Dropdown</h3>
         <Dropdown
           data={SAMPLE_DATA}
           label="Pet"
@@ -58,7 +58,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, 'dropdown')}
         />
 
-        {this._renderSectionHeader('RadioBox')}
+        <h3>RadioBox</h3>
         <RadioBox
           label="Pet"
           data={SAMPLE_DATA}
@@ -67,7 +67,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, 'radio')}
         />
 
-        {this._renderSectionHeader('Slider')}
+        <h3>Slider</h3>
         <Slider
           label="Rating"
           min={0}
@@ -78,7 +78,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, 'slider')}
         />
 
-        {this._renderSectionHeader('Toggle')}
+        <h3>Toggle</h3>
         <Toggle
           label="Do not disturb"
           tooltip="Disable notifications"
@@ -87,7 +87,7 @@ export default class BasicInputsExample extends Component {
           onChange={this._onSettingsChange.bind(this, 'toggle')}
         />
 
-        {this._renderSectionHeader('Checkbox')}
+        <h3>Checkbox</h3>
         <CheckBox
           label="location services"
           isEnabled={_enabled}

@@ -1,49 +1,54 @@
 @import '../../themes/light';
+@import '../../utils/exports';
+@import '../label/style';
 
-.mc-textbox--wrapper {
-  label {
-    display: block;
-  }
+@include exports(textbox) {
+  /* TextBox */
+  .mc-textbox--wrapper {
+    label {
+      display: block;
+    }
 
-  &:hover input {
-    color: $color-control-hover;
-    border-color: $color-control-hover;
-  }
-
-  input {
-    outline: none;
-    padding: 0 8px;
-    color: $color-control-inactive;
-    border: $border-thin;
-    border-color: $color-control-inactive;
-
-    &:focus {
+    &:hover input {
       color: $color-control-hover;
-      border-color: $color-control-active;
+      border-color: $color-control-hover;
     }
-  }
 
-  .mc-textbox--clear {
-    padding: 8px;
-    color: $color-control-inactive;
+    .mc-textbox--input {
+      outline: none;
+      padding: 0 8px;
+      color: $color-control-inactive;
+      border: $border-thin;
+      border-color: $color-control-inactive;
 
-    &:hover {
-      color: $color-control-hover;
+      &:focus {
+        color: $color-control-hover;
+        border-color: $color-control-active;
+      }
     }
-    &:after {
-      content: '✕'
-    }
-  }
 
-  &.disabled {
-    color: $color-control-disabled;
-
-    input {
-      border-color: $color-control-disabled;
-      color: $color-control-disabled;
-    }
     .mc-textbox--clear {
-      display: none;
+      padding: 8px;
+      color: $color-control-inactive;
+
+      &:hover {
+        color: $color-control-hover;
+      }
+      &:after {
+        content: '✕'
+      }
+    }
+
+    &.disabled {
+      color: $color-control-disabled;
+
+      .mc-textbox--input {
+        border-color: $color-control-disabled;
+        color: $color-control-disabled;
+      }
+      .mc-textbox--clear {
+        display: none;
+      }
     }
   }
 }

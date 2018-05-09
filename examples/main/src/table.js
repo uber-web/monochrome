@@ -47,10 +47,10 @@ export default class TreeTableExample extends Component {
   render() {
     return (
       <div>
-        <h5>Table</h5>
+        <h3>Table</h3>
         <Table columns={COLUMNS} rows={ROWS} style={{height: 400}} />
 
-        <h5 style={{marginTop: 48}}>TreeTable</h5>
+        <h3>TreeTable</h3>
         <TreeTable columns={COLUMNS} rows={ROWS} style={{height: 400}} />
       </div>
     );

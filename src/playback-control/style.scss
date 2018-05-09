@@ -1,4 +1,5 @@
 @import "../themes/light";
+@import '../shared/style';
 
 /* Playback controls */
 .mc-playback-control {
@@ -15,9 +16,8 @@
     bottom: 0;
   }
   .mc-playback-control--tick-label {
-    font: $text-legal;
+    @include text-legal($color-text-subtle);
     transform: translate(-50%,-18px);
-    color: $color-text-subtle;
   }
 
   .mc-playback-control--marker {
