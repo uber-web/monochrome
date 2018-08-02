@@ -1,5 +1,6 @@
 {
-  "name": "monochrome",
+  "name": "monochrome-ui",
+  "version": "0.0.1",
   "description": "A toolkit of React components",
   "license": "MIT",
   "private": "true",
@@ -18,8 +19,8 @@
     "build": "scripts/build.sh",
     "cover": "nyc npm run test",
     "lint": "scripts/lint.sh",
-    "publish-prod": "npm run build && npm run test && npm run publish",
-    "publish-beta": "npm run build && npm run test && npm run publish -- beta",
+    "publish-prod": "npm run build && npm run test && npm publish",
+    "publish-beta": "npm run build && npm run test && npm publish --tag beta",
     "start": "cd examples/main && (path-exists node_modules || npm i) && npm run start",
     "test": "NODE_ENV=test tape -r @babel/register test/node.js"
   },
