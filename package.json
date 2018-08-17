@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "A toolkit of React components",
   "license": "MIT",
-  "private": "true",
   "keywords": [
     "react",
     "UI"
