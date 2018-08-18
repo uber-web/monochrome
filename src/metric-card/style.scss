@@ -1,0 +1,104 @@
+@import "../themes/light";
+@import '../shared/style';
+
+/* Metric Card */
+.mc-metric-card {
+  background: $background;
+
+  svg {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* react-vis classes */
+  .rv-crosshair__item {
+    font-size: 0;
+    line-height: 18px;
+    height: 18px;
+    position: relative;
+
+    span {
+      font-size: 10px;
+    }
+    .rv-crosshair__item__title:not(:empty) {
+      margin-right: 8px;
+    }
+    .rv-crosshair__item__legend {
+      width: 4px;
+      height: 18px;
+      left: -10px;
+      vertical-align: middle;
+      position: absolute;
+    }
+    &:first-child .rv-crosshair__item__legend {
+      height: 25px;
+      top: -7px;
+      border-top-left-radius: 4px;
+    }
+    &:last-child .rv-crosshair__item__legend {
+      height: 25px;
+      bottom: -7px;
+      border-bottom-left-radius: 4px;
+    }
+    .rv-crosshair__item__unit {
+      color: $color-text-secondary;
+      margin-left: 4px;
+    }
+  }
+
+  .rv-crosshair__inner {
+    z-index: 2;
+    margin: -6px;
+    transform: translateY(100%);
+    bottom: 0;
+    top: auto;
+    display: none;
+  }
+  .rv-crosshair__line {
+    background: $color-text-secondary;
+  }
+  &:hover {
+    .rv-crosshair__inner {
+      display: block;
+    }
+  }
+  .rv-xy-plot {
+    font-family: ff-clan-web-pro, 'Helvetica Neue', Helvetica;
+  }
+  .rv-xy-plot__grid-lines__line {
+    stroke: $color-text-subtle;
+    stroke-dasharray: 1, 2;
+  }
+  .rv-xy-plot__axis__line {
+    display: none;
+  }
+  .rv-xy-plot__axis__tick__line {
+    display: none;
+  }
+  .rv-xy-plot__axis__tick__text {
+    fill: $color-text-subtle;
+    font-size: 10px;
+  }
+  .rv-xy-plot__series--mark circle {
+    stroke: #fff !important;
+    stroke-width: 2px;
+  }
+}
+
+.mc-metric-card--chart {
+  cursor: pointer;
+}
+
+.mc-metric-card--title {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  max-width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mc-metric-card--error {
+  color: $color-control-inactive;
+  font-size: 10px;
+}

@@ -19,10 +19,16 @@ const makeUuid = () => {
   return id.map((d, i) => String(d).padStart(len[i], '0')).join('-');
 };
 
+const MAX_NODE_COUNT = 2000;
+let nodeCount = 0;
 const makeRandomData = depth => {
   id[depth]++;
 
-  const childCount = depth < id.length - 1 ? Math.round(1 / (depth + 1) / Math.random()) : 0;
+  const childCount =
+    depth < id.length - 1 && nodeCount < MAX_NODE_COUNT
+      ? Math.round(1 / (depth + 1) / Math.random())
+      : 0;
+  nodeCount += childCount;
 
   return {
     data: [

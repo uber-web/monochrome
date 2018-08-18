@@ -17,3 +17,4 @@ export {default as FloatPanel} from './float-panel';
 export {default as PlaybackControl} from './playback-control';
 export {default as Form} from './form';
 export {Table, TreeTable} from './table';
+export {MetricCard, StatefulMetricChart as MetricChart} from './metric-card';
