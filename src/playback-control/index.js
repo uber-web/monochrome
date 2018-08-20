@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import AutoSizer from '../shared/autosizer';
 import Slider from '../shared/slider';
 import {getTimelineTicks, formatTimeCode} from './utils';
 import {scaleLinear} from 'd3-scale';
@@ -30,7 +31,7 @@ const STYLES = {
 export default class PlaybackControl extends PureComponent {
 
   static propTypes = {
-    width: PropTypes.number.isRequired,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     currentTime: PropTypes.number.isRequired,
     startTime: PropTypes.number,
     endTime: PropTypes.number.isRequired,
@@ -52,6 +53,7 @@ export default class PlaybackControl extends PureComponent {
   };
 
   static defaultProps = {
+    width: '100%',
     className: '',
     startTime: 0,
     step: 0.1,
@@ -68,8 +70,7 @@ export default class PlaybackControl extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.scale = scaleLinear().domain([props.startTime, props.endTime])
-        .range([0, props.width - props.padding * 2]);
+    this.scale = scaleLinear().domain([props.startTime, props.endTime]);
   }
 
   componentWillReceiveProps(newProps) {
@@ -84,10 +85,6 @@ export default class PlaybackControl extends PureComponent {
       // Update currentTime to make sure it is the start of the new range
       this._updatePlaybackPosition(newProps.startTime);
       this.scale.domain([newProps.startTime, newProps.endTime]);
-    }
-
-    if (newProps.width !== props.width || newProps.padding !== props.padding) {
-      this.scale.range([0, newProps.width - newProps.padding * 2]);
     }
   }
 
@@ -110,6 +107,13 @@ export default class PlaybackControl extends PureComponent {
       this.props.onSeek(newTime);
     }
   };
+
+  _onResize = ({width}) => {
+    const {padding} = this.props;
+    this.scale.range([0, width - padding * 2]);
+    // Trigger rerender
+    this.setState({width});
+  }
 
   _renderMarker(marker, i, scale) {
     const {
@@ -217,6 +221,7 @@ export default class PlaybackControl extends PureComponent {
     return (
       <div className={className}
            style={wrapperStyle}>
+        <AutoSizer disableHeight={true} onResize={this._onResize} />
         { this._renderTimeline() }
         { this._renderSlider() }
 

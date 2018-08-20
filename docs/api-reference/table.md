@@ -21,21 +21,22 @@ import {Table} from 'monochrome';
 
 ### Props
 
-- `columns` (Array) - list of column definitions. Each column definition may contain the following fields:
-    + `name` (String) - display name of the column.
-    + `type` (String) - `string`, `boolean`, etc.
-- `rows` (Array) - list of rows to render. Each row object must contain the following fields:
-    + `data` (Array) - value for each column, e.g. `[val1, val2, ...]`
-- `renderHeader` (Function, optional) - custom renderer for each column's header. Receives one argument with the following fields:
-    + `column` (Object) - the column definition
-    + `columnIndex` (Number) - the column index
-- `renderCell` (Function, optional) - custom renderer for each cell. Receives one argument with the following fields:
-    + `value` (Object) - the cell value
-    + `column` (Object) - the column definition
-    + `columnIndex` (Number) - the column index
-    + `row` (Object) - the row definition
-    + `rowId` (String) - the row identifier
-- `style` (Object, optional) - Additional style for the table container.
+- `width` **(string|number, optional)** - Width of the table. Default `100%`.
+- `height` **(string|number, optional)** - Height of the table. Default `400`.
+- `columns` **(array)** - list of column definitions. Each column definition may contain the following fields:
+    + `name` **(string)** - display name of the column.
+    + `type` **(string)** - `string`, `boolean`, etc.
+- `rows` **(array)** - list of rows to render. Each row object must contain the following fields:
+    + `data` **(array)** - value for each column, e.g. `[val1, val2, ...]`
+- `renderHeader` **(function, optional)** - custom renderer for each column's header. Receives one argument with the following fields:
+    + `column` **(object)** - the column definition
+    + `columnIndex` **(number)** - the column index
+- `renderCell` **(function, optional)** - custom renderer for each cell. Receives one argument with the following fields:
+    + `value` **(object)** - the cell value
+    + `column` **(object)** - the column definition
+    + `columnIndex` **(number)** - the column index
+    + `row` **(object)** - the row definition
+    + `rowId` **(string)** - the row identifier
 
 
 ## TreeTable
@@ -50,10 +51,10 @@ import {TreeTable} from 'monochrome';
 
 Inherits all `Table`'s props, and the following:
 
-- `rows` (Array) - list of rows to render. Each row object must contain the following fields:
-    + `data` (Array) - value for each column, e.g. `[val1, val2, ...]`
-    + `children` (Array) - child rows
-- `indentSize` (Number, optional) - Default `12`.
+- `rows` **(array)** - list of rows to render. Each row object must contain the following fields:
+    + `data` **(array)** - value for each column, e.g. `[val1, val2, ...]`
+    + `children` **(array)** - child rows
+- `indentSize` **(number, optional)** - Default `12`.
 
 ### CSS Classes
 

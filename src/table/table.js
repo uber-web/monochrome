@@ -14,14 +14,17 @@ const STYLES = {
 export default class Table extends PureComponent {
 
   static propTypes = {
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     columns: PropTypes.array,
     rows: PropTypes.array,
     renderHeader: PropTypes.func,
-    renderCell: PropTypes.func,
-    style: PropTypes.object
+    renderCell: PropTypes.func
   };
 
   static defaultProps = {
+    width: '100%',
+    height: 400,
     rows: [],
     renderHeader: ({column}) => column.name,
     renderCell: ({value}) => value === null ? null : String(value)
@@ -139,10 +142,11 @@ export default class Table extends PureComponent {
   }
 
   render() {
-    const {columns, renderHeader, style} = this.props;
+    const {width, height, columns, renderHeader, style} = this.props;
 
     const tableStyle = {
-      ...style,
+      width,
+      height,
       display: 'flex',
       flexDirection: 'column'
     };

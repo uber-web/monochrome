@@ -31,7 +31,7 @@ A stateless video playback control component.
 
 ### Props
 
-* `width` **(string)** -  width of the control in pixels
+* `width` **(string|number, optional)** -  width of the control. Default `100%`.
 * `padding` **(number, optional)** -  padding at the sides in pixels, default `24`.
 * `currentTime` **(number)** -  current time in seconds
 * `startTime` **(number, optional)** -  start time in seconds, default `0`

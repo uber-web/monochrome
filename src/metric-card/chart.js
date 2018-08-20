@@ -20,8 +20,8 @@ const noop = () => {};
  */
 export default class Chart extends PureComponent {
   static propTypes = {
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     margin: PropTypes.object,
     unit: PropTypes.string,
 
@@ -58,6 +58,8 @@ export default class Chart extends PureComponent {
   };
 
   static defaultProps = {
+    width: '100%',
+    height: 300,
     margin: { left: 20, right: 20, top: 20, bottom: 20 },
     data: {},
     dataFilter: (key) => true,

@@ -1,7 +1,7 @@
 /* Playback control example */
 /* global window */
 import React, {Component} from 'react';
-import {PlaybackControl, Dropdown, AutoSizer} from 'monochrome';
+import {PlaybackControl, Dropdown} from 'monochrome';
 
 const PLAYBACK_SPEEDS = {
   '-1': 'Reverse',
@@ -23,7 +23,6 @@ export default class PlaybackControlExample extends Component {
     super(props);
 
     this.state = {
-      width: 0,
       isPlaying: false,
       currentTime: 0,
       speed: 1
@@ -31,10 +30,6 @@ export default class PlaybackControlExample extends Component {
 
     this._timer = null;
   }
-
-  _onResize = ({width}) => {
-    this.setState({width});
-  };
 
   // A simple timer that simulates video playback
   _onUpdateTimer(lastUpdateTimestamp) {
@@ -71,15 +66,12 @@ export default class PlaybackControlExample extends Component {
   };
 
   render() {
-    const {isPlaying, currentTime, speed, width} = this.state;
+    const {isPlaying, currentTime, speed} = this.state;
 
     return (
       <div>
-        <AutoSizer onResize={this._onResize} />
-
         <h3>Custom content</h3>
         <PlaybackControl
-          width={width}
           currentTime={currentTime}
           startTime={0}
           endTime={CLIP_LENGTH}
@@ -100,7 +92,6 @@ export default class PlaybackControlExample extends Component {
         <h3>Markers</h3>
         <PlaybackControl
           className="dark"
-          width={width}
           currentTime={currentTime}
           startTime={0}
           endTime={CLIP_LENGTH}

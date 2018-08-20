@@ -53,8 +53,8 @@ Components that render a plot of multiple data series.
 
 ### Styling Props
 
-* `width` **(number|string)** - width of the chart.
-* `height` **(number|string)** - height of the chart.
+* `width` **(number|string, optional)** - width of the chart. Default `100%`.
+* `height` **(number|string, optional)** - height of the chart. Default `300`.
 * `margin` **(object, optional)** - margin of the plot. Default `{left: 20, top: 20, right: 20, bottom: 20}`.
 * `xDomain` **([number, number], optional)** - [min, max] of the x axis.
 * `yDomain` **([number, number], optional)** - [min, max] of the y axis.
