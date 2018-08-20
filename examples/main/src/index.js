@@ -11,6 +11,7 @@ import FloatPanelExample from './float-panel';
 import PlaybackControlExample from './playback-control';
 import FormExample from './form';
 import MetricCardExample from './metric-card';
+import RichMetricChartExample from './rich-metric-chart';
 import TreeTableExample from './table';
 
 class Example extends PureComponent {
@@ -34,6 +35,11 @@ class Example extends PureComponent {
         <h2>Metric Card</h2>
         <section>
           <MetricCardExample />
+        </section>
+
+        <h2>Rich Metric Chart</h2>
+        <section>
+          <RichMetricChartExample />
         </section>
 
         <h2>Drag Drop List</h2>

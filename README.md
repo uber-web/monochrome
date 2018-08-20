@@ -42,7 +42,6 @@ Import stylesheet in Sass:
 ### Declarative UI
 
 * [Form](docs/api-reference/form.md)
-* MetricsCard
+* [MetricsCard](docs/api-reference/metric-card.md)
 * [PlaybackControl](docs/api-reference/playback-control.md)
-* MultiPlot
 * [Table · TreeTable](docs/api-reference/table.md)

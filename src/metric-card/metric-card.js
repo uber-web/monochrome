@@ -48,7 +48,7 @@ export default class MetricCard extends PureComponent {
           </div>
         )}
 
-        {this.props.children}
+        {!isLoading && !error && this.props.children}
         {isLoading && <div className="mc-metric-card--preloader" />}
 
         {error && (

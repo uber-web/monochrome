@@ -32,7 +32,7 @@ export default class MetricCardExample extends Component {
           margin={margin}
           getX={d => d[0]}
           getY={d => d[1]}
-          lineColors={lineColors}
+          getColor={lineColors}
           formatTitle={title => title}
           formatValue={v => v.toFixed(3)}
           formatXTick={x => `${x}π`}
