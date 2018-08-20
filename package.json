@@ -25,7 +25,6 @@
   },
   "dependencies": {
     "classnames": "^2.2.5",
-    "d3-scale": "^2.0.0",
     "debounce": "^1.1.0",
     "popper.js": "^1.11.1",
     "prop-types": "^15.5.10",
