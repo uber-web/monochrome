@@ -14,10 +14,18 @@ import 'monochrome/dist/main.css';
 ```
 
 Import stylesheet in Sass:
+
 ```sass
 @import 'node_modules/monochrome/src/main';
 ```
 
+## Developing
+
+Run flow type checking
+
+```
+npm run flow
+```
 
 ## Documentation
 
