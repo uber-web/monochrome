@@ -83,7 +83,7 @@ export default class PlaybackControl extends PureComponent {
       // Kill any running animation to avoid callbacks in incorrect time range
       this._pause();
       // Update currentTime to make sure it is the start of the new range
-      this._updatePlaybackPosition(newProps.startTime);
+      this._seek(newProps.startTime);
       this.scale.domain([newProps.startTime, newProps.endTime]);
     }
   }
