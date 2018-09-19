@@ -2,16 +2,36 @@
   "env": {
     "es5": {
       "presets": [
-        ["@babel/es2015", {"modules": "commonjs"}],
-        "@babel/react",
-        ["@babel/stage-2", {"decoratorsLegacy": true}]
+        ["@babel/env", {
+          "forceAllTransforms": true,
+          "modules": "commonjs"
+        }],
+        "@babel/flow",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/proposal-class-properties"
       ]
     },
     "esm": {
       "presets": [
-        ["@babel/es2015", {modules: false}],
-        "@babel/react",
-        ["@babel/stage-2", {"decoratorsLegacy": true}]
+        [ "@babel/env", {
+          "targets": {
+            "chrome": "60",
+            "edge": "15",
+            "firefox": "53",
+            "ios": "9",
+            "safari": "9",
+            "ie": "11",
+            "node": "6"
+          },
+          "modules": false
+        }],
+        "@babel/flow",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/proposal-class-properties"
       ]
     },
     "es6": {
@@ -27,17 +47,23 @@
           },
           "modules": false
         }],
-        "@babel/react",
-        ["@babel/stage-2", {"decoratorsLegacy": true}]
+        "@babel/flow",
+        "@babel/react"
+      ],
+      "plugins": [
+        "@babel/proposal-class-properties"
       ]
     },
     "test": {
       "presets": [
-        ["@babel/es2015"],
-        "@babel/react",
-        ["@babel/stage-2", {"decoratorsLegacy": true}]
+        ["@babel/env", {
+          "modules": "commonjs"
+        }],
+        "@babel/flow",
+        "@babel/react"
       ],
       "plugins": [
+        "@babel/proposal-class-properties",
         "istanbul"
       ]
     }
