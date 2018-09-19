@@ -29,7 +29,7 @@ export type State = {
   width: number,
   height: number,
   dragStartOffset: {left: number, top: number},
-  dragPos: DragPos | null
+  dragPos: DragPos
 };
 export default class DragDropListItem extends React.PureComponent<Prop, State> {
   _container: any;
@@ -57,7 +57,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
     width: 0,
     height: 0,
     dragStartOffset: {left: 0, top: 0},
-    dragPos: null
+    dragPos: {deltaX: 0, deltaY: 0}
   };
 
   componentWillUnmount() {
@@ -70,7 +70,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
     return this._container.getBoundingClientRect();
   }
 
-  _onDragStart = evt => {
+  _onDragStart = (evt: DragPos) => {
     const container = this._container;
 
     this.setState({
@@ -90,7 +90,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
     this.props.onDragMove(evt);
   };
 
-  _onDragEnd = evt => {
+  _onDragEnd = (evt: DragPos) => {
     this.setState({
       isDragging: false,
       dragStartOffset: this._container.getBoundingClientRect(),
