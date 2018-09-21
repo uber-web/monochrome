@@ -214,7 +214,7 @@ export default class Chart extends PureComponent {
       return null;
     }
 
-    const { unit, dataFilter, getColor, formatTitle, formatValue, getX, getY, xDomain } = this.props;
+    const { unit, dataFilter, getColor, formatTitle, formatValue, getX, getY, getY0, xDomain } = this.props;
 
     const crosshairItems = Object.keys(highlightValues)
       .filter(key => {
@@ -227,6 +227,7 @@ export default class Chart extends PureComponent {
         const color = this._getColor(key);
         const x = getX(value);
         const y = getY(value);
+        const y0 = getY0(value);
         return {
           x,
           y,
@@ -238,6 +239,7 @@ export default class Chart extends PureComponent {
           ),
           value: (
             <span>
+              {Number.isFinite(y0) && `${formatValue(y0)}, `}
               {formatValue(y)}
               {unit && <span className="rv-crosshair__item__unit">{unit}</span>}
             </span>

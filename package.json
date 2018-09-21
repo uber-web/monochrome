@@ -34,7 +34,7 @@
     "popper.js": "^1.11.1",
     "prop-types": "^15.5.10",
     "react-virtualized": "^9.18.5",
-    "react-vis": "^1.8.1"
+    "react-vis": "^1.11.2"
   },
   "peerDependencies": {
     "react": ">=15.x"
