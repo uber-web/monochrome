@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AutoSizer from '../shared/autosizer';
 
 import XYPlot from 'react-vis/dist/plot/xy-plot';
+import AreaSeries from 'react-vis/dist/plot/series/area-series';
 import LineSeries from 'react-vis/dist/plot/series/line-series';
 import MarkSeries from 'react-vis/dist/plot/series/mark-series';
 import HorizontalGridLines from 'react-vis/dist/plot/horizontal-grid-lines';
@@ -37,6 +38,7 @@ export default class Chart extends PureComponent {
     onSeriesMouseOut: PropTypes.func,
 
     getX: PropTypes.func,
+    getY0: PropTypes.func,
     getY: PropTypes.func,
     xDomain: PropTypes.array,
     yDomain: PropTypes.array,
@@ -74,6 +76,7 @@ export default class Chart extends PureComponent {
     onSeriesMouseOut: noop,
 
     getX: (d) => d.x,
+    getY0: (d) => null,
     getY: (d) => d.y,
 
     // Backward compatibility
@@ -84,10 +87,7 @@ export default class Chart extends PureComponent {
 
     formatTitle: (value) => String(value),
     formatValue: (value) => String(value),
-    // TODO: This is likely a bug.
-    // `Date(<any number>)` will always return
-    // the current date.
-    // $FlowFixMe
+
     formatXTick: (value) => String(value),
     formatYTick: (value) => String(value),
 
@@ -96,7 +96,7 @@ export default class Chart extends PureComponent {
 
   /* eslint-disable max-depth */
   _getScaleSettings() {
-    const { data, dataFilter, xDomain, yDomain, getX, getY } = this.props;
+    const { data, dataFilter, xDomain, yDomain, getX, getY0, getY } = this.props;
 
     if (xDomain && yDomain) {
       return {xDomain, yDomain};
@@ -110,13 +110,20 @@ export default class Chart extends PureComponent {
         const values = data[key];
         if (Array.isArray(values) && values.length > 0) {
           x = xDomain || values.reduce((acc, d) => {
-            acc[0] = Math.min(acc[0], getX(d));
-            acc[1] = Math.max(acc[1], getX(d));
+            const x = getX(d);
+            acc[0] = Math.min(acc[0], x);
+            acc[1] = Math.max(acc[1], x);
             return acc;
           }, x);
           y = yDomain || values.reduce((acc, d) => {
-            acc[0] = Math.min(acc[0], getY(d));
-            acc[1] = Math.max(acc[1], getY(d));
+            const y = getY(d);
+            const y0 = getY0(d);
+            acc[0] = Math.min(acc[0], y);
+            acc[1] = Math.max(acc[1], y);
+            if (Number.isFinite(y0)) {
+              acc[0] = Math.min(acc[0], y0);
+              acc[1] = Math.max(acc[1], y0);
+            }
             return acc;
           }, y);
         }
@@ -148,12 +155,14 @@ export default class Chart extends PureComponent {
   }
 
   // Populate series
-  _renderLineSeries() {
-    const { data, dataFilter, highlightSeries, getX, getY, xDomain } = this.props;
+  _renderSeries() {
+    const { data, dataFilter, highlightSeries, getX, getY0, getY, xDomain } = this.props;
+    const areas = [];
+    const lines = [];
 
-    return Object.keys(data).map(key => {
+    Object.keys(data).forEach(key => {
       if (!dataFilter(key)) {
-        return null;
+        return;
       }
 
       // Temporary patch until vis-gl fixes issue with rendering data outside of domain
@@ -162,20 +171,40 @@ export default class Chart extends PureComponent {
         const x = getX(point);
         return x >= xDomain[0] && x <= xDomain[1];
       }) : data[key];
-      return (
-        <LineSeries
+
+      if (!datums.length) {
+        return;
+      }
+
+      const isArea = Number.isFinite(getY0(datums[0]));
+      const Type = isArea ? AreaSeries : LineSeries;
+      const color = this._getColor(key);
+
+      const series = (
+        <Type
           key={`value-${key}-line`}
           data={datums}
           getX={getX}
           getY={getY}
-          color={this._getColor(key)}
+          getY0={getY0}
+          color={color}
+          fill={color}
           strokeWidth={highlightSeries === key ? 4 : 2}
           onNearestX={this.props.onNearestX.bind(this, key)}
           onSeriesMouseOver={() => this.props.onSeriesMouseOver(key)}
           onSeriesMouseOut={() => this.props.onSeriesMouseOut(key)}
         />
       );
+
+      if (isArea) {
+        areas.push(series);
+      } else {
+        lines.push(series);
+      }
     });
+
+    // Render lines on top
+    return areas.concat(lines);
   }
 
   _renderCrosshair() {
@@ -267,7 +296,7 @@ export default class Chart extends PureComponent {
               {horizontalGridLines > 0 && <HorizontalGridLines tickTotal={horizontalGridLines} />}
               {verticalGridLines > 0 && <VerticalGridLines tickTotal={verticalGridLines} />}
 
-              {this._renderLineSeries()}
+              {this._renderSeries()}
               {this._renderCrosshair()}
             </XYPlot>
           )}
