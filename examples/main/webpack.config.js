@@ -23,7 +23,8 @@ const CONFIG = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/es2015', '@babel/react', ['@babel/stage-2', {decoratorsLegacy: true}]]
+            presets: ['@babel/env', '@babel/flow', '@babel/react'],
+            plugins: ['@babel/proposal-class-properties']
           }
         }
       },

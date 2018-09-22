@@ -50,6 +50,7 @@ Components that render a plot of multiple data series.
 * `unit` **(string, optional)** - unit of the y axis.
 * `getX` **(function, optional)** - accessor of the `x` value from each data point. Default `d => d.x`.
 * `getY` **(function, optional)** - accessor of the `y` value from each data point. Default `d => d.y`.
+* `getY0` **(function, optional)** - accessor of the `y0` value from each data point. Default `d => null`. If `y0` is not null, the series is rendered as an area filled from `y0` (bottom) to `y` (top).
 
 ### Styling Props
 
