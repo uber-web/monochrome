@@ -34,6 +34,7 @@
   }
   .mc-toggle {
     width: 36px;
+    flex-shrink: 0;
   }
   .mc-toggle--track {
     border-bottom: $border-strong;

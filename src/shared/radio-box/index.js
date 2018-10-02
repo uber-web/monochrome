@@ -30,6 +30,7 @@ export default class RadioBox extends PureComponent {
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     size: PropTypes.number,
     isEnabled: PropTypes.bool
   };
@@ -46,7 +47,7 @@ export default class RadioBox extends PureComponent {
   }
 
   render() {
-    const {data, value, label, tooltip, size, isEnabled} = this.props;
+    const {data, value, label, tooltip, badge, size, isEnabled} = this.props;
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
@@ -63,7 +64,7 @@ export default class RadioBox extends PureComponent {
 
     return (
       <div className={className}>
-        {label && <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
       

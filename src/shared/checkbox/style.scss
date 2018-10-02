@@ -43,6 +43,7 @@
   .mc-checkbox--border {
     width: 18px;
     height: 18px;
+    flex-shrink: 0;
     margin-right: $spacing-small;
     border: $border-strong;
     border-color: $color-control-inactive;

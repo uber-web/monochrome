@@ -35,6 +35,7 @@ Config object fields:
 * `type`: type of the control, see next section
 * `title`: label of the control, usually displayed on top. Can be set to empty. Styling may vary based on the control type.
 * `tooltip`: show hover tooltip that provides further information about this setting.
+* `badge`: show an additional badge next to the label.
 * `visible`: if this control is visible. Can be a boolean, or function that takes the current values object and returns a boolean.
 * `enabled`: if this control is enabled. Can be a boolean, or function that takes the current values object and returns a boolean.
 * `children`: a nested settings object. The nested controls will be indented to align with the parent label.

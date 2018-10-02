@@ -34,12 +34,14 @@ export default class CheckBox extends PureComponent {
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     size: PropTypes.number,
     isEnabled: PropTypes.bool
   };
 
   static defaultProps = {
     className: '',
+    value: CHECKBOX_STATE.OFF,
     label: '',
     size: 18,
     isEnabled: true,
@@ -51,7 +53,7 @@ export default class CheckBox extends PureComponent {
   }
 
   render() {
-    const {value, label, tooltip, size, isEnabled} = this.props;
+    const {value, label, tooltip, badge, size, isEnabled} = this.props;
 
     const className = classnames(
       this.props.className,
@@ -74,7 +76,7 @@ export default class CheckBox extends PureComponent {
         <div className="mc-checkbox--border" style={borderStyle}>
           <div className="mc-checkbox--icon" style={STYLES.icon} />
         </div>
-        <Label tooltip={tooltip} >
+        <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>
       </div>

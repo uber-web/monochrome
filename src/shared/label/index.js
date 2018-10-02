@@ -21,7 +21,8 @@ export default class Label extends PureComponent {
 
   static propTypes = {
     for: PropTypes.string,
-    tooltip: PropTypes.string
+    tooltip: PropTypes.string,
+    badge: PropTypes.element
   };
 
   _renderTooltip() {
@@ -37,7 +38,7 @@ export default class Label extends PureComponent {
   }
 
   render() {
-    const {for: htmlFor, children} = this.props;
+    const {for: htmlFor, children, badge} = this.props;
     const labelProps = {};
 
     if (htmlFor) {
@@ -48,6 +49,7 @@ export default class Label extends PureComponent {
       <label className="mc-label" style={STYLES.label} {...labelProps}>
         {children}
         {this._renderTooltip()}
+        {badge}
       </label>
     );
   }

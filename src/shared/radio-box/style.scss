@@ -20,6 +20,7 @@
     background: $background;
     border: $border-strong;
     border-color: $color-control-inactive;
+    flex-shrink: 0;
   }
 
   .mc-radiobox--item {

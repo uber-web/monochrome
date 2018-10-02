@@ -31,6 +31,7 @@ export default class TextBox extends PureComponent {
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     size: PropTypes.number,
     showClearButton: PropTypes.bool,
     isEnabled: PropTypes.bool
@@ -59,7 +60,7 @@ export default class TextBox extends PureComponent {
   };
 
   render() {
-    const {value, label, tooltip, size, showClearButton, isEnabled} = this.props;
+    const {value, label, tooltip, badge, size, showClearButton, isEnabled} = this.props;
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
@@ -76,7 +77,7 @@ export default class TextBox extends PureComponent {
     return (
       <div className={className} onClick={this._focus}
         style={isEnabled ? STYLES.default : STYLES.disabled}>
-        {label && <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
         <div className="mc-textbox" style={STYLES.container}>

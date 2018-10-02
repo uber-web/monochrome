@@ -13,6 +13,7 @@ A label component.
 ### Props
 
 * `tooltip` **(string, optional)** - if supplied, render a "?" icon next to the label to offer more information.
+* `badge` **(element, optional)** - if supplied, will be rendered next to the label text.
 
 
 ### CSS Classes

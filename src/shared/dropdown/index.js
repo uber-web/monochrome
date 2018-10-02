@@ -10,9 +10,6 @@ const STYLES = {
   disabled: {
     pointerEvents: 'none'
   },
-  container: {
-    position: 'relative'
-  },
   arrow: {
     pointerEvents: 'none',
     position: 'absolute',
@@ -32,6 +29,7 @@ export default class Dropdown extends PureComponent {
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     size: PropTypes.number,
     isEnabled: PropTypes.bool
   };
@@ -49,7 +47,7 @@ export default class Dropdown extends PureComponent {
   }
 
   render() {
-    const {data, label, tooltip, value, size, isEnabled} = this.props;
+    const {data, label, tooltip, badge, value, size, isEnabled} = this.props;
     const className = classnames(
       {disabled: !isEnabled},
       this.props.className,
@@ -63,13 +61,18 @@ export default class Dropdown extends PureComponent {
       lineHeight: `${size + 8}px`
     };
 
+    const containerStyle = {
+      position: 'relative',
+      height: size + 8
+    };
+
     return (
       <div className={className} style={isEnabled ? STYLES.default : STYLES.disabled}>
-        {label && <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
 
-        <div className="mc-dropdown" style={STYLES.container}>
+        <div className="mc-dropdown" style={containerStyle}>
           <select className="mc-dropdown--input"
             style={inputStyle}
             onChange={this._onChange}

@@ -29,6 +29,7 @@ export default class Toggle extends PureComponent {
     className: PropTypes.string,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     size: PropTypes.number,
     isEnabled: PropTypes.bool
   };
@@ -50,7 +51,7 @@ export default class Toggle extends PureComponent {
   };
 
   render() {
-    const {value, size, label, tooltip, isEnabled} = this.props;
+    const {value, size, label, tooltip, badge, isEnabled} = this.props;
     const {id} = this;
     const className = classnames(
       {disabled: !isEnabled},
@@ -77,7 +78,7 @@ export default class Toggle extends PureComponent {
     return (
       <div className={className} onClick={this._onClick}
         style={isEnabled ? STYLES.default : STYLES.disabled}>
-        {label && <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
         <div className="mc-toggle" style={containerStyle}>

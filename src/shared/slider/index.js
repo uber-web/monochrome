@@ -43,6 +43,7 @@ export default class Slider extends PureComponent {
     tolerance: PropTypes.number,
     label: PropTypes.string,
     tooltip: PropTypes.string,
+    badge: PropTypes.element,
     isEnabled: PropTypes.bool
   }
 
@@ -90,7 +91,7 @@ export default class Slider extends PureComponent {
 
   render() {
     const {
-      tolerance, size, label, tooltip,
+      tolerance, size, label, tooltip, badge,
       value, min, max, step, isEnabled
     } = this.props;
     const {isDragging, hasDragged} = this.state;
@@ -129,7 +130,7 @@ export default class Slider extends PureComponent {
 
     return (
       <div className={className}>
-        {label && <Label tooltip={tooltip} >
+        {label && <Label tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
 
