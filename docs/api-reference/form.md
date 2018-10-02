@@ -9,7 +9,7 @@ This component sets up a list of input controls using JSON descriptors.
     <Form
       data={SETTINGS}
       values={this.state.values}
-      onSettingsChange={values => this.setState({values: {...this.state.values, ...values}}) />
+      onChange={values => this.setState({values: {...this.state.values, ...values}}) />
 
     const SETTINGS = {
       userHeader: {type: 'header', title: 'User Settings'},

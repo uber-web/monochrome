@@ -10,7 +10,7 @@ class Tooltip extends React.Component {
   static propTypes = Popover.propTypes;
 
   static defaultProps = {
-    className: 'tooltip',
+    className: 'mc-tooltip',
     position: Popover.TOP
   };
 

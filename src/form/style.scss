@@ -1,53 +1,49 @@
 @import "../themes/light";
 @import '../shared/style';
 
-.mc-form {
-
+.mc-form--group {
   .mc-form--group {
-    .mc-form--group {
-      padding-left: 24px;
-    }
+    padding-left: 24px;
+  }
+}
+
+.mc-form--group-expander {
+  left: -20px;
+  top: 4px;
+
+  &:before {
+    content: '➖';
+  }
+  &.collapsed:before {
+    content: '➕';
+  }
+}
+
+.mc-form--input {
+  width: 100%;
+  display: flex;
+  line-height: 24px;
+  font-size: 12px;
+  margin-bottom: 8px;
+
+  .mc-label {
+    flex-grow: 1;
   }
 
-  .mc-form--group-expander {
-    left: -20px;
-    top: 4px;
-
-    &:before {
-      content: '➖';
-    }
-    &.collapsed:before {
-      content: '➕';
-    }
+  .mc-slider, .mc-dropdown, .mc-textbox {
+    flex-grow: 1;
+    max-width: 240px;
   }
-
-  .mc-form--input {
-    width: 100%;
-    display: flex;
-    line-height: 24px;
-    font-size: 12px;
-    margin-bottom: 8px;
-
-    .mc-label {
-      flex-grow: 1;
-    }
-
-    .mc-slider, .mc-dropdown, .mc-textbox {
-      flex-grow: 1;
-      max-width: 240px;
-    }
-    .mc-radiobox--item, .mc-radiobox--button {
-      margin-left: $spacing-small;
-    }
+  .mc-radiobox--item, .mc-radiobox--button {
+    margin-left: $spacing-small;
   }
+}
 
-  .mc-form--title {
-    @include text-title;
-    margin: $spacing-normal 0;
-  }
-  .mc-form--heading {
-    @include text-header;
-    margin: $spacing-normal 0;
-  }
-
+.mc-form--title {
+  @include text-title;
+  margin: $spacing-normal 0;
+}
+.mc-form--heading {
+  @include text-header;
+  margin: $spacing-normal 0;
 }

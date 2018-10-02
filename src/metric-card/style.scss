@@ -116,22 +116,6 @@
     font-weight: bold;
   }
 
-  .mc-metric-chart--legend-icon {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    margin-right: 8px;
-    font-size: 9px;
-    line-height: 16px;
-    text-align: center;
-    color: $color-text-invert;
-
-    &:before {
-      content: '✓';
-    }
-  }
-
   &.off {
     color: $color-control-disabled;
     .mc-metric-chart--legend-icon {
@@ -141,6 +125,22 @@
         content: '';
       }
     }
+  }
+}
+
+.mc-metric-chart--legend-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 8px;
+  margin-right: 8px;
+  font-size: 9px;
+  line-height: 16px;
+  text-align: center;
+  color: $color-text-invert;
+
+  &:before {
+    content: '✓';
   }
 }
 

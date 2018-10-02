@@ -1,66 +1,62 @@
 @import '../themes/light';
 
-.mc-table {
+.mc-table--header-cell {
+  @include text-bold($color-text-invert);
+  background: $color-control-inactive;
+  padding: $spacing-tiny $spacing-small;
 
-  .mc-table--header-cell {
-    @include text-bold($color-text-invert);
-    background: $color-control-inactive;
-    padding: $spacing-tiny $spacing-small;
-
-    &:hover {
-      background: $color-control-hover !important;
-    }
-    &.ascending, &.descending {
-      background: $color-control-active;
-    }
-    &.ascending .mc-table--sort-icon {
-      &:before {
-        content: '↑';
-      }
-    }
-    &.descending .mc-table--sort-icon {
-      &:before {
-        content: '↓';
-      }
+  &:hover {
+    background: $color-control-hover !important;
+  }
+  &.ascending, &.descending {
+    background: $color-control-active;
+  }
+  &.ascending .mc-table--sort-icon {
+    &:before {
+      content: '↑';
     }
   }
-  .mc-table--sort-icon {
-    right: $spacing-tiny;
-    bottom: $spacing-tiny;
-  }
-
-  .mc-table--item {
-    &:nth-child(2n) {
-      background: $background;
-    }
-    &:nth-child(2n+1) {
-      background: $background-alt;
+  &.descending .mc-table--sort-icon {
+    &:before {
+      content: '↓';
     }
   }
+}
+.mc-table--sort-icon {
+  right: $spacing-tiny;
+  bottom: $spacing-tiny;
+}
 
-  .mc-table--row {
-    border-bottom: $border-thin;
+.mc-table--item {
+  &:nth-child(2n) {
+    background: $background;
+  }
+  &:nth-child(2n+1) {
+    background: $background-alt;
+  }
+}
+
+.mc-table--row {
+  border-bottom: $border-thin;
+  border-color: $color-control-subtle;
+}
+
+.mc-table--cell {
+  padding: $spacing-tiny $spacing-small;
+
+  & + .mc-table--cell {
+    border-left: $border-thin;
     border-color: $color-control-subtle;
   }
+}
 
-  .mc-table--cell {
-    padding: $spacing-tiny $spacing-small;
+.mc-table--row-expander {
+  left: -$spacing-small;
 
-    & + .mc-table--cell {
-      border-left: $border-thin;
-      border-color: $color-control-subtle;
-    }
+  &:before {
+    content: '▸';
   }
-
-  .mc-table--row-expander {
-    left: -$spacing-small;
-
-    &:before {
-      content: '▸';
-    }
-    &.expanded:before {
-      content: '▾';
-    }
+  &.expanded:before {
+    content: '▾';
   }
-
 }

@@ -142,7 +142,7 @@ test('Tooltip - simple render test', t => {
   const $popover = $.find(Popover);
   t.ok($popover.exists(), 'Should render a popover');
   t.is($popover.prop('trigger'), 'hover', 'Should pass correct trigger prop');
-  t.is($popover.prop('className'), 'tooltip', 'Should pass correct className');
+  t.is($popover.prop('className'), 'mc-tooltip', 'Should pass correct className');
 
   t.end();
 });

@@ -4,13 +4,10 @@
 
 @include exports(label) {
   /* Label */
-  .mc-label {
-
-    .mc-label--info {
-      display: inline-block;
-      margin: 0 $spacing-normal;
-      background: $color-control-inactive;
-      color: $color-text-invert;
-    }
+  .mc-label--info {
+    display: inline-block;
+    margin: 0 $spacing-normal;
+    background: $color-control-inactive;
+    color: $color-text-invert;
   }
 }

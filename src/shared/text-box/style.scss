@@ -14,31 +14,6 @@
       border-color: $color-control-hover;
     }
 
-    .mc-textbox--input {
-      outline: none;
-      padding: 0 8px;
-      color: $color-control-inactive;
-      border: $border-thin;
-      border-color: $color-control-inactive;
-
-      &:focus {
-        color: $color-control-hover;
-        border-color: $color-control-active;
-      }
-    }
-
-    .mc-textbox--clear {
-      padding: 8px;
-      color: $color-control-inactive;
-
-      &:hover {
-        color: $color-control-hover;
-      }
-      &:after {
-        content: '✕'
-      }
-    }
-
     &.disabled {
       color: $color-control-disabled;
 
@@ -49,6 +24,30 @@
       .mc-textbox--clear {
         display: none;
       }
+    }
+  }
+  .mc-textbox--input {
+    outline: none;
+    padding: 0 8px;
+    color: $color-control-inactive;
+    border: $border-thin;
+    border-color: $color-control-inactive;
+
+    &:focus {
+      color: $color-control-hover;
+      border-color: $color-control-active;
+    }
+  }
+
+  .mc-textbox--clear {
+    padding: 8px;
+    color: $color-control-inactive;
+
+    &:hover {
+      color: $color-control-hover;
+    }
+    &:after {
+      content: '✕'
     }
   }
 }
