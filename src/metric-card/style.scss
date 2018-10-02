@@ -42,6 +42,9 @@
       bottom: -7px;
       border-bottom-left-radius: 4px;
     }
+    &:first-child:last-child .rv-crosshair__item__legend {
+      height: 32px;
+    }
     .rv-crosshair__item__unit {
       color: $color-text-secondary;
       margin-left: 4px;

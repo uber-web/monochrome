@@ -98,9 +98,10 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
     });
 
     // When transition is done, remove z-index and drop shadow
-    this._timer = window.setTimeout(() => this.setState({isActive: false}), TRANSITION);
-
-    this.props.onDragEnd(evt);
+    this._timer = window.setTimeout(() => {
+      this.setState({isActive: false});
+      this.props.onDragEnd(evt);
+    }, TRANSITION);
   };
 
   renderTitle() {
@@ -124,6 +125,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
       ? {
           boxSizing: 'border-box',
           position: 'fixed',
+          zIndex: 999,
           left: dragStartOffset.left + dragPos.deltaX,
           top: dragStartOffset.top + dragPos.deltaY,
           width,
