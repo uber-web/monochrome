@@ -97,11 +97,16 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
       dragPos: {deltaX: 0, deltaY: 0}
     });
 
-    // When transition is done, remove z-index and drop shadow
-    this._timer = window.setTimeout(() => {
-      this.setState({isActive: false});
+    if (this.props.removed) {
+      // No transition for removed items
       this.props.onDragEnd(evt);
-    }, TRANSITION);
+    } else {
+      // Wait for transition to be done, then remove z-index and drop shadow
+      this._timer = window.setTimeout(() => {
+        this.setState({isActive: false});
+        this.props.onDragEnd(evt);
+      }, TRANSITION);
+    }
   };
 
   renderTitle() {
