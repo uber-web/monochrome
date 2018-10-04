@@ -31,4 +31,4 @@ A stateless slider control component.
 * `mc-slider` - the container of the slider.
 * `mc-slider--track` - the track element.
 * `mc-slider--track-fill` - the part of the track left to the knob.
-* `mc-slider--track-knob` - the knob element.
+* `mc-slider--knob` - the knob element.
