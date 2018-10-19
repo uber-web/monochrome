@@ -1,21 +1,4 @@
 /**
- * Get page offset of a DOM element
- * @params {DOMElement} - element
- * @returns {object} - {left: number, top: number}
- */
-export function getPageOffset(element) {
-  let obj = element;
-  let left = 0;
-  let top = 0;
-  while (obj && Number.isFinite(obj.offsetLeft)) {
-    left += obj.offsetLeft;
-    top += obj.offsetTop;
-    obj = obj.offsetParent;
-  }
-  return {left, top};
-}
-
-/**
  * Get CSS vendor prefix
  * @returns {string} - vendor prefix if any
  */

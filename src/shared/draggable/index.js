@@ -2,7 +2,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import {getCSSVendorPrefix, getPageOffset} from '../../utils/dom';
+import {getCSSVendorPrefix} from '../../utils/dom';
 
 const vendorPrefix = getCSSVendorPrefix();
 
@@ -67,8 +67,8 @@ export default class Draggable extends PureComponent {
       srcEvent: evt,
       x: evt.clientX,
       y: evt.clientY,
-      offsetX: evt.pageX - offset.left,
-      offsetY: evt.pageY - offset.top,
+      offsetX: evt.clientX - offset.left,
+      offsetY: evt.clientY - offset.top,
       hasDragged
     };
     if (dragStartPos) {
@@ -87,7 +87,7 @@ export default class Draggable extends PureComponent {
     }
     evt.stopPropagation();
 
-    const offset = getPageOffset(this._element);
+    const offset = this._element.getBoundingClientRect();
     const eventData = this._getEventData(evt, offset);
 
     this.setState({

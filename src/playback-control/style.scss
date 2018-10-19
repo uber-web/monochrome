@@ -4,7 +4,6 @@
 /* Playback controls */
 .mc-playback-control {
   background: $background-alt;
-  padding: 12px 0;
 
   &.playing {
     .mc-slider--knob, .mc-slider--track-fill {
@@ -40,8 +39,6 @@
 }
 
 .mc-playback-control--play-pause-button {
-  width: 16px;
-  height: 16px;
   color: $color-control-inactive;
 
   &:hover {

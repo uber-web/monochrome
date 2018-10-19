@@ -25,6 +25,19 @@ const STYLES = {
   }
 };
 
+function normalizePadding(padding) {
+  padding = padding || 0;
+  if (Number.isFinite(padding)) {
+    return {top: padding, right: padding, bottom: padding, left: padding};
+  }
+  return Object.assign({
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
+  }, padding);
+}
+
 /*
  * @class
  */
@@ -40,7 +53,7 @@ export default class PlaybackControl extends PureComponent {
 
     // config
     step: PropTypes.number,
-    padding: PropTypes.number,
+    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     tickSpacing: PropTypes.number,
     markers: PropTypes.arrayOf(PropTypes.object),
 
@@ -109,8 +122,8 @@ export default class PlaybackControl extends PureComponent {
   };
 
   _onResize = ({width}) => {
-    const {padding} = this.props;
-    this.scale.range([0, width - padding * 2]);
+    const padding = normalizePadding(this.props.padding);
+    this.scale.range([0, width - padding.left - padding.right]);
     // Trigger rerender
     this.setState({width});
   }
@@ -204,7 +217,8 @@ export default class PlaybackControl extends PureComponent {
   }
 
   render() {
-    const {width, isPlaying, padding} = this.props;
+    const {width, isPlaying} = this.props;
+    const padding = normalizePadding(this.props.padding);
     const className = classnames(
       {playing: isPlaying},
       this.props.className,
@@ -214,8 +228,10 @@ export default class PlaybackControl extends PureComponent {
     const wrapperStyle = {
       boxSizing: 'border-box',
       width,
-      paddingLeft: padding,
-      paddingRight: padding
+      paddingTop: padding.top,
+      paddingBottom: padding.bottom,
+      paddingLeft: padding.left,
+      paddingRight: padding.right
     }
 
     return (

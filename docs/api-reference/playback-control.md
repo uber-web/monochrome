@@ -32,7 +32,7 @@ A stateless video playback control component.
 ### Props
 
 * `width` **(string|number, optional)** -  width of the control. Default `100%`.
-* `padding` **(number, optional)** -  padding at the sides in pixels, default `24`.
+* `padding` **(number|object, optional)** -  padding at the sides in pixels. If provided as object, in the shape of `{top, right, bottom, left}`. Default `24`.
 * `currentTime` **(number)** -  current time in seconds
 * `startTime` **(number, optional)** -  start time in seconds, default `0`
 * `endTime` **(number)** -  end time in seconds
