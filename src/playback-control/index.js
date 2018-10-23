@@ -22,6 +22,9 @@ const STYLES = {
   },
   ticksContainer: {
     position: 'relative'
+  },
+  buffer: {
+    height: '100%'
   }
 };
 
@@ -55,6 +58,7 @@ export default class PlaybackControl extends PureComponent {
     step: PropTypes.number,
     padding: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     tickSpacing: PropTypes.number,
+    bufferRange: PropTypes.arrayOf(PropTypes.object),
     markers: PropTypes.arrayOf(PropTypes.object),
 
     // callbacks
@@ -128,7 +132,8 @@ export default class PlaybackControl extends PureComponent {
     this.setState({width});
   }
 
-  _renderMarker(marker, i, scale) {
+  _renderMarker(marker, i, className, extraStyle) {
+    const {scale} = this;
     const {
       startTime = marker.time,
       endTime = marker.time,
@@ -139,13 +144,14 @@ export default class PlaybackControl extends PureComponent {
     const x1 = scale(marker.endTime);
 
     const markerStyle = {
+      ...extraStyle,
       ...style,
       position: 'absolute',
       left: x0,
       width: x1 - x0
     };
     return (
-      <div key={i} className="mc-playback-control--marker" style={markerStyle} >
+      <div key={i} className={className} style={markerStyle} >
         {content}
       </div>
     );
@@ -174,14 +180,18 @@ export default class PlaybackControl extends PureComponent {
         </div>
 
         { markers && (<div style={STYLES.markerContainer} >
-          {markers.map((marker, i) => this._renderMarker(marker, i, scale))}
+          {markers.map(
+            (marker, i) => this._renderMarker(marker, i, 'mc-playback-control--marker')
+          )}
         </div>)}
       </div>
     );
   }
 
   _renderSlider() {
-    const {currentTime, startTime, endTime, step} = this.props;
+    const {currentTime, startTime, endTime, step, bufferRange = []} = this.props;
+
+    const buffers = Array.isArray(bufferRange) ? bufferRange : [bufferRange];
 
     return (
       <Slider
@@ -191,7 +201,11 @@ export default class PlaybackControl extends PureComponent {
         knobSize={18}
         step={step}
         min={startTime}
-        max={endTime} />
+        max={endTime} >
+        {buffers.map(
+          (range, i) => this._renderMarker(range, i, 'mc-playback-control--buffer', STYLES.buffer)
+        )}
+      </Slider>
     );
   }
 

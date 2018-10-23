@@ -37,6 +37,9 @@
 .mc-playback-control--slider {
   margin: $spacing-small 0;
 }
+.mc-playback-control--buffer {
+  background: $color-control-inactive;
+}
 
 .mc-playback-control--play-pause-button {
   color: $color-control-inactive;

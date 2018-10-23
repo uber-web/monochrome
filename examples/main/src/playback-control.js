@@ -18,6 +18,8 @@ const MARKERS = [
   {startTime: 14, endTime: 20, style: {background: '#fa0'}}
 ];
 
+const BUFFER_RANGE = {startTime: 0, endTime: 15};
+
 export default class PlaybackControlExample extends Component {
   constructor(props) {
     super(props);
@@ -97,6 +99,7 @@ export default class PlaybackControlExample extends Component {
           endTime={CLIP_LENGTH}
           isPlaying={isPlaying}
           markers={MARKERS}
+          bufferRange={BUFFER_RANGE}
           onPlay={this._onPlay}
           onPause={this._onPause}
           onSeek={this._onSeek}

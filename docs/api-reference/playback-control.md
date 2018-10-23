@@ -42,7 +42,10 @@ A stateless video playback control component.
 * `formatTick` **(function, optional)** -  format of ticks. Default `t => formatTimeCode(t, '{mm}:{ss}')`.
 * `formatTimestamp` **(function, optional)** -  format of the current time label. Default `t => formatTimeCode(t, '{mm}:{ss}.{S}')`.
 * `className` **(string, optional)** -  additional class name
-* `markers` **(array, optional)** -  array of highlights to mark the timeline. Each marker should contain the following fields:
+* `bufferRange` **(array|object, optional)** -  one or multiple time ranges of loaded buffers to mark the track. Each item should contain the following fields:
+  + `startTime` **(number)** starting timestamp of a time range
+  + `endTime` **(number)** ending timestamp of a time range
+* `markers` **(array, optional)** -  array of additional highlights to mark the timeline. Each marker should contain the following fields:
   + `time` or `startTime`, `endTime` **(number)** a single timestamp or a time range
   + `style` **(object, optional)** style of the marker
   + `content` **(element, optional)** content of the marker

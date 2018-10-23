@@ -92,7 +92,7 @@ export default class Slider extends PureComponent {
   render() {
     const {
       tolerance, size, label, tooltip, badge,
-      value, min, max, step, isEnabled
+      value, min, max, step, isEnabled, children
     } = this.props;
     const {isDragging, hasDragged} = this.state;
     const className = classnames(
@@ -109,6 +109,7 @@ export default class Slider extends PureComponent {
     };
 
     const fillStyle = {
+      position: 'absolute',
       transitionProperty: 'width',
       transitionDuration: hasDragged ? '0s' : undefined,
       width: `${ratio * 100}%`,
@@ -143,6 +144,7 @@ export default class Slider extends PureComponent {
               ref={ref => {
                 this._track = ref;
               }} >
+              {children}
               <div className="mc-slider--track-fill" style={fillStyle} />
               <div className="mc-slider--knob" style={knobStyle} />
             </div>
