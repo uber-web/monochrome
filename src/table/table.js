@@ -123,7 +123,9 @@ export default class Table extends PureComponent {
     return <TableHeader width={width} columns={this.state.columns} />;
   };
 
-  _renderBody = ({width, height}) => {
+  // AutoSizer is a pure component. By default child function is only called if dimensions change.
+  // Rebind this function every render to respond to state change
+  _renderBody({width, height}) {
     const {columns, rows} = this.state;
 
     if (!columns) {
@@ -164,7 +166,7 @@ export default class Table extends PureComponent {
 
         <div className="mc-table--body" style={STYLES.body}>
           <AutoSizer>
-            {this._renderBody}
+            {this._renderBody.bind(this)}
           </AutoSizer>
         </div>
       </div>
