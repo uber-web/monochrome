@@ -15,6 +15,11 @@ const ThemeContext = React.createContext({
   textColorSubtle: '#A6A5A5',
   textColorInvert: '#F8F8F9',
 
+  /* Typography */
+  fontFamily: '\'Helvetica Neue\', Helvetica, Arial, sans-serif',
+  fontSize: 12,
+  lineHeight: 1.5,
+
   /* Effects */
   transitionDuration: '300ms',
   transitionTimingFunction: 'ease',
