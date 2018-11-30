@@ -92,7 +92,7 @@ export default class PlaybackControl extends PureComponent {
     this.scale = scaleLinear().domain([props.startTime, props.endTime]);
   }
 
-  componentWillReceiveProps(newProps) {
+  UNSAFE_componentWillReceiveProps(newProps) {
     const props = this.props;
 
     if (
@@ -139,8 +139,8 @@ export default class PlaybackControl extends PureComponent {
   _renderMarker(marker, i, className, extraStyle) {
     const {scale} = this;
     const {startTime = marker.time, endTime = marker.time, style, content} = marker;
-    const x0 = scale(marker.startTime);
-    const x1 = scale(marker.endTime);
+    const x0 = scale(startTime);
+    const x1 = scale(endTime);
 
     const markerStyle = {
       ...extraStyle,

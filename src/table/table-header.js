@@ -38,7 +38,7 @@ export default class TableHeader extends PureComponent {
     this._cells = [];
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.columns !== nextProps.columns) {
       this.setState({
         columns: this._formatColumns(nextProps.columns)

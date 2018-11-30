@@ -30,12 +30,11 @@ export default class MetricCard extends PureComponent {
     description: '',
 
     error: null,
-    warning: null,
     isLoading: false
   };
 
   render() {
-    const {error, warning, isLoading, className, title, description} = this.props;
+    const {error, isLoading, className, title, description} = this.props;
 
     return (
       <div className={`mc-metric-card ${className}`} style={STYLES.container}>

@@ -94,7 +94,7 @@ export default class Chart extends PureComponent {
     getColor: '#000'
   };
 
-  /* eslint-disable max-depth */
+  /* eslint-disable max-depth, complexity */
   _getScaleSettings() {
     const {data, dataFilter, xDomain, yDomain, getX, getY0, getY} = this.props;
 
@@ -112,18 +112,18 @@ export default class Chart extends PureComponent {
           x =
             xDomain ||
             values.reduce((acc, d) => {
-              const x = getX(d);
-              acc[0] = Math.min(acc[0], x);
-              acc[1] = Math.max(acc[1], x);
+              const x0 = getX(d);
+              acc[0] = Math.min(acc[0], x0);
+              acc[1] = Math.max(acc[1], x0);
               return acc;
             }, x);
           y =
             yDomain ||
             values.reduce((acc, d) => {
-              const y = getY(d);
+              const y1 = getY(d);
               const y0 = getY0(d);
-              acc[0] = Math.min(acc[0], y);
-              acc[1] = Math.max(acc[1], y);
+              acc[0] = Math.min(acc[0], y1);
+              acc[1] = Math.max(acc[1], y1);
               if (Number.isFinite(y0)) {
                 acc[0] = Math.min(acc[0], y0);
                 acc[1] = Math.max(acc[1], y0);
@@ -144,7 +144,7 @@ export default class Chart extends PureComponent {
 
     return {xDomain: x, yDomain: y};
   }
-  /* eslint-enable max-depth */
+  /* eslint-enable max-depth, complexity */
 
   _getColor(key) {
     const {getColor} = this.props;
@@ -223,17 +223,7 @@ export default class Chart extends PureComponent {
       return null;
     }
 
-    const {
-      unit,
-      dataFilter,
-      getColor,
-      formatTitle,
-      formatValue,
-      getX,
-      getY,
-      getY0,
-      xDomain
-    } = this.props;
+    const {unit, dataFilter, formatTitle, formatValue, getX, getY, getY0, xDomain} = this.props;
 
     const crosshairItems = Object.keys(highlightValues)
       .filter(key => {

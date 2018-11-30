@@ -44,7 +44,7 @@ export default class Table extends PureComponent {
     this._cache = new CellMeasurerCache({fixedWidth: true});
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.rows !== nextProps.rows) {
       this.setState({
         rows: this._formatRows(nextProps.rows, this.state.sortFunc)
@@ -90,7 +90,7 @@ export default class Table extends PureComponent {
     }
   };
 
-  _renderRow = ({key, index, style}) => {
+  _renderRow({key, index, style}) {
     const {renderCell} = this.props;
     const row = this.state.rows[index];
 
@@ -104,7 +104,7 @@ export default class Table extends PureComponent {
         columns={this.state.columns}
       />
     );
-  };
+  }
 
   _renderRowMeasurer = ({key, parent, index, style}) => {
     return (
@@ -143,7 +143,7 @@ export default class Table extends PureComponent {
   }
 
   render() {
-    const {width, height, columns, renderHeader, style} = this.props;
+    const {width, height, columns, renderHeader} = this.props;
 
     const tableStyle = {
       width,

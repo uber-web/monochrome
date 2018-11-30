@@ -30,7 +30,7 @@ export default class MetricChart extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.highlightX !== nextProps.highlightX || this.props.data !== nextProps.data) {
       this.setState({
         currentValues: this._getCurrentValues(nextProps)

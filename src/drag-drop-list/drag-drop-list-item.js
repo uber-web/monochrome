@@ -32,8 +32,6 @@ export type State = {
   dragPos: DragPos
 };
 export default class DragDropListItem extends React.PureComponent<Prop, State> {
-  _container: any;
-
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
@@ -63,6 +61,8 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
   componentWillUnmount() {
     window.clearTimeout(this._timer);
   }
+
+  _container: any;
 
   _timer = null;
 

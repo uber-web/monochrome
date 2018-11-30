@@ -36,7 +36,7 @@ export default class TreeTable extends Table {
     this._list.recomputeRowHeights(rootRowIndex);
   };
 
-  _renderRow = ({key, index, style}) => {
+  _renderRow({key, index, style}) {
     const {indentSize, renderCell} = this.props;
     const row = this.state.rows[index];
 
@@ -53,5 +53,5 @@ export default class TreeTable extends Table {
         columns={this.state.columns}
       />
     );
-  };
+  }
 }

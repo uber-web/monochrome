@@ -15,7 +15,9 @@
     "no-inline-comments": 0,
     "no-invalid-this": 0,
     "camelcase": 0,
-    "react/forbid-prop-types": 0
+    "react/forbid-prop-types": 0,
+    "flowtype/define-flow-type": "error",
+    "flowtype/use-flow-type": "error"
   },
   "parserOptions": {
     "ecmaVersion": 2017

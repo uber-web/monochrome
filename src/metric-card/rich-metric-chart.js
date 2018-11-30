@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import MetricChart from './metric-chart';
 
-import {scaleLinear, scaleOrdinal} from 'd3-scale';
+import {scaleOrdinal} from 'd3-scale';
 import {extent} from 'd3-array';
 
 const DEFAULT_COLORS = scaleOrdinal().range([
@@ -63,7 +63,7 @@ export default class MetricChartWithLegends extends PureComponent {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.data !== nextProps.data) {
       this.setState({
         dataSeries: this._extractDataSeries(nextProps)
