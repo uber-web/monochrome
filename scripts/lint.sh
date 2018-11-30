@@ -3,11 +3,11 @@
 
 set -e
 
-prettier-check "{modules,examples,test}/**/*.js" || \
+prettier-check "{src,examples,test}/**/*.js" || \
   echo "Running prettier." && \
-  prettier --write "{modules,examples,test}/**/*.js" --loglevel warn
+  prettier --write "{src,examples,test}/**/*.js" --loglevel warn
 
-eslint modules test examples
+eslint src test examples
 
 # check if yarn.lock contains private registery information
 [ -n "`grep unpm.u yarn.lock`" ] && \

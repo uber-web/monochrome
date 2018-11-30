@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import MetricChart from './metric-chart';
 
-import { scaleLinear, scaleOrdinal } from 'd3-scale';
-import { extent } from 'd3-array';
+import {scaleLinear, scaleOrdinal} from 'd3-scale';
+import {extent} from 'd3-array';
 
 const DEFAULT_COLORS = scaleOrdinal().range([
   '#12939A',
@@ -48,7 +48,7 @@ export default class MetricChartWithLegends extends PureComponent {
     topSeriesCount: PropTypes.number
   });
 
-  static defaultProps = Object.assign({}, MetricChart.defaultProps,{
+  static defaultProps = Object.assign({}, MetricChart.defaultProps, {
     topSeriesCount: 5,
     getColor: DEFAULT_COLORS
   });
@@ -72,17 +72,17 @@ export default class MetricChartWithLegends extends PureComponent {
   }
 
   _getColor(key) {
-    const { getColor } = this.props;
+    const {getColor} = this.props;
 
     switch (typeof getColor) {
-    case 'object':
-      return getColor[key];
+      case 'object':
+        return getColor[key];
 
-    case 'function':
-      return getColor(key);
+      case 'function':
+        return getColor(key);
 
-    default:
-      return getColor;
+      default:
+        return getColor;
     }
   }
 
@@ -113,25 +113,25 @@ export default class MetricChartWithLegends extends PureComponent {
   }
 
   // Check if a certain data series is turned on by user settings
-  _isDataVisible = (key) => {
-    const { showTopSeriesOnly, dataSeries, dataVisibility } = this.state;
+  _isDataVisible = key => {
+    const {showTopSeriesOnly, dataSeries, dataVisibility} = this.state;
     if (dataVisibility[key] === false) {
       // turned of by the user
       return false;
     }
     if (showTopSeriesOnly) {
-      const { topSeriesCount } = this.props;
+      const {topSeriesCount} = this.props;
       return dataSeries.findIndex(s => s.key === key) < topSeriesCount;
     }
     return true;
   };
 
-  _setHoveredDataName = (key) => {
-    this.setState({ hoveredSeriesName: key });
-  }
+  _setHoveredDataName = key => {
+    this.setState({hoveredSeriesName: key});
+  };
 
-  _toggleDataVisibility = (key) => {
-    const { dataVisibility } = this.state;
+  _toggleDataVisibility = key => {
+    const {dataVisibility} = this.state;
 
     this.setState({
       dataVisibility: {
@@ -140,12 +140,12 @@ export default class MetricChartWithLegends extends PureComponent {
         [key]: dataVisibility[key] === false
       }
     });
-  }
+  };
 
   // Legends (also as visibility toggle) of the data streams
   _renderDataLegends() {
-    const { dataSeries, showTopSeriesOnly, hoveredSeriesName } = this.state;
-    const { topSeriesCount } = this.props;
+    const {dataSeries, showTopSeriesOnly, hoveredSeriesName} = this.state;
+    const {topSeriesCount} = this.props;
 
     const series = showTopSeriesOnly ? dataSeries.slice(0, topSeriesCount) : dataSeries;
 
@@ -155,7 +155,7 @@ export default class MetricChartWithLegends extends PureComponent {
           <div
             className={`mc-metric-chart--show-all ${showTopSeriesOnly ? '' : 'expanded'}`}
             style={STYLES.clickable}
-            onClick={() => this.setState({ showTopSeriesOnly: !showTopSeriesOnly })}
+            onClick={() => this.setState({showTopSeriesOnly: !showTopSeriesOnly})}
           >
             {showTopSeriesOnly ? 'Show all' : 'Show less'}
           </div>
@@ -176,7 +176,7 @@ export default class MetricChartWithLegends extends PureComponent {
               onMouseOut={() => this._setHoveredDataName(null)}
               onClick={() => this._toggleDataVisibility(s.key)}
             >
-              <div className="mc-metric-chart--legend-icon" style={{ background: s.color }} />
+              <div className="mc-metric-chart--legend-icon" style={{background: s.color}} />
               <span>{s.displayName}</span>
             </div>
           );
@@ -188,7 +188,8 @@ export default class MetricChartWithLegends extends PureComponent {
   render() {
     return (
       <div>
-        <MetricChart {...this.props}
+        <MetricChart
+          {...this.props}
           highlightSeries={this.state.hoveredSeriesName}
           onSeriesMouseOver={key => this._setHoveredDataName(key)}
           onMouseLeave={() => this._setHoveredDataName(null)}

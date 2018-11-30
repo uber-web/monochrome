@@ -24,11 +24,41 @@ A stateless radio box control component.
 * `className` **(string, optional)** - custom class name for the control.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.
+* `style` **(string, optional)** - custom style. See "styling" section below.
 
 
-### CSS Classes
+### Styling
 
-* `mc-radiobox` - wrapper element around all radio controls.
-* `mc-radiobox--item` - wrapper element around each label and radio button.
-* `mc-radiobox--button` - the border element of the radio button.
-* `mc-radiobox--icon` - the icon element of the radio bottom.
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - wrapper element around all radio controls.
+* `item` - wrapper element around each label and radio button.
+* `button` - the border element of the radio button.
+* `icon` - the icon element of the radio bottom.
+* `size` **(number)** - size of the check box. Default is `18`.
+* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+```jsx
+const radioStyle = {
+  button: {
+    width: 20,
+    height: 20
+  },
+  icon: props => ({
+    '&:before': {
+      content: props.isSelected ? '"x"' : '""'
+    }
+  })
+};
+```
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `size` **(number)** - the size of the checkbox
+  - `isEnabled` **(boolean)** - if the control is enabled
+  - `isSelected` **(boolean)** - if the control is selected. Not available for `wrapper`.
+  - `isHovered` **(boolean)** - if the pointer is hovering over the control. Not available for `wrapper`.

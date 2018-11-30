@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import {Tooltip} from '../shared/popover';
 
@@ -34,17 +34,14 @@ export default class MetricCard extends PureComponent {
     isLoading: false
   };
 
-
   render() {
-    const { error, warning, isLoading, className, title, description } = this.props;
+    const {error, warning, isLoading, className, title, description} = this.props;
 
     return (
-      <div className={`mc-metric-card ${className}`} style={STYLES.container} >
+      <div className={`mc-metric-card ${className}`} style={STYLES.container}>
         {title && (
           <div key="header" className="mc-metric-card--title">
-            <Tooltip content={description}>
-              {title}
-            </Tooltip>
+            <Tooltip content={description}>{title}</Tooltip>
           </div>
         )}
 

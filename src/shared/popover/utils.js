@@ -25,14 +25,9 @@ export function getOppositePosition(side) {
  * rules, but in the interest of having zero css dependencies, we'll move
  * this styling/positioning logic into js
  */
-export function  generateTriangleStyles(position, size) {
+export function generateTriangleStyles(position, size) {
   // Generate borderWidth & borderColor rules
-  const positions = [
-    POSITIONS.TOP,
-    POSITIONS.RIGHT,
-    POSITIONS.BOTTOM,
-    POSITIONS.LEFT
-  ];
+  const positions = [POSITIONS.TOP, POSITIONS.RIGHT, POSITIONS.BOTTOM, POSITIONS.LEFT];
   // Set border width to zero for opposite position
   const oppositePosition = getOppositePosition(position);
   const style = {

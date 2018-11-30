@@ -14,8 +14,7 @@ import {
   positionsToPopperPlacement
 } from './utils';
 
-const isBrowser =
-  typeof document !== 'undefined' && Boolean(document.createElement);
+const isBrowser = typeof document !== 'undefined' && Boolean(document.createElement);
 
 export const POSITIONS = {
   TOP: 'top',
@@ -30,6 +29,9 @@ export const TRIGGERS = {
   HOVER: 'hover'
 };
 
+const DEFAULT_ARROW_SIZE = 6;
+const DEFAULT_BORDER_WIDTH = 1;
+
 const PopoverComponent = styled.div(props => ({
   /* Default wrapper style should ideally be display: inline so that popover
   shows directly beneath child content, inline-flex just generally works
@@ -42,7 +44,7 @@ const PopoverTarget = styled.div(props => ({
   ...evaluateStyle(props.userStyle, props)
 }));
 
-const PopoverContent = styled.div(props => ({  
+const PopoverContent = styled.div(props => ({
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -61,10 +63,10 @@ const PopoverBody = styled.div(props => {
     top: 0,
     left: 0,
     zIndex: 99,
-    background: props.theme.background,
+    background: props.background || props.theme.background,
     borderStyle: 'solid',
-    borderWidth: 1,
-    borderColor: props.theme.controlColorPrimary,
+    borderWidth: props.borderWidth,
+    borderColor: props.borderColor || props.theme.controlColorPrimary,
     boxShadow: props.theme.shadow,
 
     ...props.popperStyles,
@@ -79,13 +81,17 @@ const OuterArrow = styled.div(props => {
    * to achieve this effect, we generate two arrows and overlap them–an outer
    * arrow with the border color, and an inner arrow with the background color.
    */
- 
+
   const {position, arrowSize, popperOffsets} = props;
+
+  if (!arrowSize) {
+    return null;
+  }
+
   const arrowOffsets = popperOffsets.arrow || {};
 
   const style = {
-    borderColor: props.theme.controlColorPrimary,
-    ...generateTriangleStyles(position, arrowSize),
+    borderColor: props.borderColor || props.theme.controlColorPrimary,
     // Position the arrow to hang off the edge of the popover
     // For example, a left-facing arrow would need the rule right: -{size}px
     [getOppositePosition(position)]: -arrowSize
@@ -99,31 +105,42 @@ const OuterArrow = styled.div(props => {
     style.left = arrowOffsets.left;
   }
 
-  return Object.assign(style, evaluateStyle(props.userStyle, props));
+  return Object.assign(
+    style,
+    evaluateStyle(props.userStyle, props),
+    generateTriangleStyles(position, arrowSize)
+  );
 });
 
 const InnerArrow = styled.div(props => {
   const {position, arrowSize} = props;
-  const isVertical =
-    position === POSITIONS.TOP || position === POSITIONS.BOTTOM;
+
+  if (!arrowSize) {
+    return null;
+  }
+
+  const isVertical = position === POSITIONS.TOP || position === POSITIONS.BOTTOM;
 
   const style = {
-    borderColor: props.theme.background,
-    ...generateTriangleStyles(position, arrowSize)
+    borderColor: props.background || props.theme.background
   };
 
   // Offset the inner arrow a couple pixels from its parent (the outer arrow)
   if (isVertical) {
     style.left = -arrowSize;
     style.top = position === POSITIONS.TOP ? -arrowSize : 0;
-    style.marginTop = position === POSITIONS.TOP ? -1 : 1;
+    style.marginTop = (position === POSITIONS.TOP ? -1 : 1) * props.borderWidth;
   } else {
     style.top = -arrowSize;
     style.left = position === POSITIONS.LEFT ? -arrowSize : 0;
-    style.marginLeft = position === POSITIONS.LEFT ? -1 : 1;
+    style.marginLeft = (position === POSITIONS.LEFT ? -1 : 1) * props.borderWidth;
   }
 
-  return Object.assign(style, evaluateStyle(props.userStyle, props));
+  return Object.assign(
+    style,
+    evaluateStyle(props.userStyle, props),
+    generateTriangleStyles(position, arrowSize)
+  );
 });
 
 const POSITIONS_PROP_TYPE = PropTypes.oneOf([
@@ -141,8 +158,6 @@ class Popover extends React.Component {
     content: PropTypes.oneOfType([PropTypes.node, PropTypes.func]).isRequired,
     position: POSITIONS_PROP_TYPE,
     // Arrow options
-    showArrow: PropTypes.bool,
-    arrowSize: PropTypes.number,
     arrowPosition: POSITIONS_PROP_TYPE,
     // Interaction
     onMouseOutDelay: PropTypes.number,
@@ -154,8 +169,6 @@ class Popover extends React.Component {
   static defaultProps = {
     className: '',
     style: {},
-    showArrow: true,
-    arrowSize: 6,
     trigger: TRIGGERS.CLICK,
     onMouseOutDelay: 0,
     popperClass: Popper
@@ -176,7 +189,7 @@ class Popover extends React.Component {
           // Passing the arrow ref will measure the arrow when calculating styles
           arrow: {
             element: this.$arrow,
-            enabled: this.props.showArrow
+            enabled: true
           },
           // Disable default styling modifier, and use our custom react one instead
           applyStyle: {enabled: false},
@@ -203,10 +216,7 @@ class Popover extends React.Component {
     return {
       isVisible: false,
       popperOffsets: {},
-      popperPlacement: positionsToPopperPlacement(
-        props.position,
-        props.arrowPosition
-      ),
+      popperPlacement: positionsToPopperPlacement(props.position, props.arrowPosition),
       popperStyles: {}
     };
   }
@@ -251,7 +261,6 @@ class Popover extends React.Component {
   };
 
   _showPopover() {
-    console.log('showing popover');
     this.setState({isVisible: true});
   }
 
@@ -341,7 +350,6 @@ class Popover extends React.Component {
 
   _renderArrow(styleProps) {
     const {style} = this.props;
-    const {arrowPosition} = styleProps;
 
     return (
       <OuterArrow
@@ -351,13 +359,13 @@ class Popover extends React.Component {
           this.$arrow = el;
         }}
       >
-        <InnerArrow userStyle={style.arrow} {...styleProps}/>
+        <InnerArrow userStyle={style.arrow} {...styleProps} />
       </OuterArrow>
     );
   }
 
   _renderBody(styleProps) {
-    const {className, style, showArrow, trigger} = this.props;
+    const {className, style, trigger} = this.props;
 
     const interactionProps = {};
     if (trigger === TRIGGERS.HOVER) {
@@ -366,7 +374,8 @@ class Popover extends React.Component {
     }
 
     return (
-      <PopoverBody className={className}
+      <PopoverBody
+        className={className}
         {...interactionProps}
         userStyle={style.body}
         {...styleProps}
@@ -375,16 +384,14 @@ class Popover extends React.Component {
         }}
       >
         {this._renderContent(styleProps)}
-        {showArrow && this._renderArrow(styleProps)}
+        {this._renderArrow(styleProps)}
       </PopoverBody>
     );
   }
 
   _renderContent(styleProps) {
     const content =
-      typeof this.props.content === 'function'
-        ? this.props.content()
-        : this.props.content;
+      typeof this.props.content === 'function' ? this.props.content() : this.props.content;
     return (
       <PopoverContent userStyle={this.props.style.content} {...styleProps}>
         {content}
@@ -393,7 +400,7 @@ class Popover extends React.Component {
   }
 
   render() {
-    const {theme, style, showArrow, arrowSize} = this.props;
+    const {theme, style} = this.props;
     const {isVisible, popperPlacement, popperStyles, popperOffsets} = this.state;
 
     const [position] = popperPlacement.split('-');
@@ -401,7 +408,10 @@ class Popover extends React.Component {
 
     const styleProps = {
       theme,
-      arrowSize: showArrow ? arrowSize : 0,
+      arrowSize: 'arrowSize' in style ? style.arrowSize : DEFAULT_ARROW_SIZE,
+      background: style.background,
+      borderWidth: 'borderWidth' in style ? style.borderWidth : DEFAULT_BORDER_WIDTH,
+      borderColor: style.borderColor,
       position,
       arrowPosition,
       popperStyles,

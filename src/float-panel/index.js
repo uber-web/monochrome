@@ -22,7 +22,6 @@ const STYLES = {
  * @class
  */
 export default class FloatPanel extends PureComponent {
-
   static propTypes = {
     className: PropTypes.string,
     // container
@@ -128,10 +127,7 @@ export default class FloatPanel extends PureComponent {
 
     if (movable) {
       return (
-        <Draggable
-          onStart={this._onMoveStart}
-          onDrag={this._onMoveDrag}
-          onEnd={this._onMoveEnd} >
+        <Draggable onStart={this._onMoveStart} onDrag={this._onMoveDrag} onEnd={this._onMoveEnd}>
           {children}
         </Draggable>
       );
@@ -152,13 +148,17 @@ export default class FloatPanel extends PureComponent {
     };
 
     return (
-      <div className="mc-float-panel--content" style={contentStyle} >
-        { this.props.children }
+      <div className="mc-float-panel--content" style={contentStyle}>
+        {this.props.children}
 
-        {resizable && (<Draggable className="mc-float-panel--resizer"
-          style={STYLES.resizer}
-          onStart={this._onResizeStart}
-          onDrag={this._onResizeDrag} />)}
+        {resizable && (
+          <Draggable
+            className="mc-float-panel--resizer"
+            style={STYLES.resizer}
+            onStart={this._onResizeStart}
+            onDrag={this._onResizeDrag}
+          />
+        )}
       </div>
     );
   }
@@ -176,9 +176,10 @@ export default class FloatPanel extends PureComponent {
 
     // Only title bar is draggable
     return (
-      <div style={containerStyle} className={containerClassName} >
-        {title ? this.renderMover(<div className="mc-float-panel--title">{title}</div>) :
-          this.renderMover(this.renderContent())}
+      <div style={containerStyle} className={containerClassName}>
+        {title
+          ? this.renderMover(<div className="mc-float-panel--title">{title}</div>)
+          : this.renderMover(this.renderContent())}
         {title && this.renderContent()}
       </div>
     );

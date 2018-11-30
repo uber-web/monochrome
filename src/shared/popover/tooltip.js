@@ -2,14 +2,12 @@
  * Tooltip is just a Popover with some style overrides
  */
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {evaluateStyle} from '../theme';
 
 import Popover from './popover';
 
 class Tooltip extends React.Component {
-
   static propTypes = Popover.propTypes;
 
   static defaultProps = {

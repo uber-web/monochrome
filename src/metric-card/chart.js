@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import AutoSizer from '../shared/autosizer';
 
@@ -12,7 +12,7 @@ import XAxis from 'react-vis/dist/plot/axis/x-axis';
 import YAxis from 'react-vis/dist/plot/axis/y-axis';
 import Crosshair from 'react-vis/dist/plot/crosshair';
 
-import { scaleLinear } from 'd3-scale';
+import {scaleLinear} from 'd3-scale';
 
 const noop = () => {};
 
@@ -62,9 +62,9 @@ export default class Chart extends PureComponent {
   static defaultProps = {
     width: '100%',
     height: 300,
-    margin: { left: 20, right: 20, top: 20, bottom: 20 },
+    margin: {left: 20, right: 20, top: 20, bottom: 20},
     data: {},
-    dataFilter: (key) => true,
+    dataFilter: key => true,
     unit: '',
 
     onClick: noop,
@@ -75,9 +75,9 @@ export default class Chart extends PureComponent {
     onSeriesMouseOver: noop,
     onSeriesMouseOut: noop,
 
-    getX: (d) => d.x,
-    getY0: (d) => null,
-    getY: (d) => d.y,
+    getX: d => d.x,
+    getY0: d => null,
+    getY: d => d.y,
 
     // Backward compatibility
     xTicks: 4,
@@ -85,18 +85,18 @@ export default class Chart extends PureComponent {
     horizontalGridLines: 4,
     verticalGridLines: 4,
 
-    formatTitle: (value) => String(value),
-    formatValue: (value) => String(value),
+    formatTitle: value => String(value),
+    formatValue: value => String(value),
 
-    formatXTick: (value) => String(value),
-    formatYTick: (value) => String(value),
+    formatXTick: value => String(value),
+    formatYTick: value => String(value),
 
     getColor: '#000'
   };
 
   /* eslint-disable max-depth */
   _getScaleSettings() {
-    const { data, dataFilter, xDomain, yDomain, getX, getY0, getY } = this.props;
+    const {data, dataFilter, xDomain, yDomain, getX, getY0, getY} = this.props;
 
     if (xDomain && yDomain) {
       return {xDomain, yDomain};
@@ -109,54 +109,61 @@ export default class Chart extends PureComponent {
       if (dataFilter(key)) {
         const values = data[key];
         if (Array.isArray(values) && values.length > 0) {
-          x = xDomain || values.reduce((acc, d) => {
-            const x = getX(d);
-            acc[0] = Math.min(acc[0], x);
-            acc[1] = Math.max(acc[1], x);
-            return acc;
-          }, x);
-          y = yDomain || values.reduce((acc, d) => {
-            const y = getY(d);
-            const y0 = getY0(d);
-            acc[0] = Math.min(acc[0], y);
-            acc[1] = Math.max(acc[1], y);
-            if (Number.isFinite(y0)) {
-              acc[0] = Math.min(acc[0], y0);
-              acc[1] = Math.max(acc[1], y0);
-            }
-            return acc;
-          }, y);
+          x =
+            xDomain ||
+            values.reduce((acc, d) => {
+              const x = getX(d);
+              acc[0] = Math.min(acc[0], x);
+              acc[1] = Math.max(acc[1], x);
+              return acc;
+            }, x);
+          y =
+            yDomain ||
+            values.reduce((acc, d) => {
+              const y = getY(d);
+              const y0 = getY0(d);
+              acc[0] = Math.min(acc[0], y);
+              acc[1] = Math.max(acc[1], y);
+              if (Number.isFinite(y0)) {
+                acc[0] = Math.min(acc[0], y0);
+                acc[1] = Math.max(acc[1], y0);
+              }
+              return acc;
+            }, y);
         }
       }
     }
 
     if (!yDomain) {
       // Snap the bounds to nice round numbers
-      y = scaleLinear().domain(y).nice().domain();
+      y = scaleLinear()
+        .domain(y)
+        .nice()
+        .domain();
     }
 
-    return { xDomain: x, yDomain: y };
+    return {xDomain: x, yDomain: y};
   }
   /* eslint-enable max-depth */
 
   _getColor(key) {
-    const { getColor } = this.props;
+    const {getColor} = this.props;
 
     switch (typeof getColor) {
-    case 'object':
-      return getColor[key];
+      case 'object':
+        return getColor[key];
 
-    case 'function':
-      return getColor(key);
+      case 'function':
+        return getColor(key);
 
-    default:
-      return getColor;
+      default:
+        return getColor;
     }
   }
 
   // Populate series
   _renderSeries() {
-    const { data, dataFilter, highlightSeries, getX, getY0, getY, xDomain } = this.props;
+    const {data, dataFilter, highlightSeries, getX, getY0, getY, xDomain} = this.props;
     const areas = [];
     const lines = [];
 
@@ -167,10 +174,12 @@ export default class Chart extends PureComponent {
 
       // Temporary patch until vis-gl fixes issue with rendering data outside of domain
       // https://github.com/uber/react-vis/issues/627
-      const datums = xDomain ? data[key].filter(point => {
-        const x = getX(point);
-        return x >= xDomain[0] && x <= xDomain[1];
-      }) : data[key];
+      const datums = xDomain
+        ? data[key].filter(point => {
+            const x = getX(point);
+            return x >= xDomain[0] && x <= xDomain[1];
+          })
+        : data[key];
 
       if (!datums.length) {
         return;
@@ -208,13 +217,23 @@ export default class Chart extends PureComponent {
   }
 
   _renderCrosshair() {
-    const { highlightValues } = this.props;
+    const {highlightValues} = this.props;
 
     if (!highlightValues) {
       return null;
     }
 
-    const { unit, dataFilter, getColor, formatTitle, formatValue, getX, getY, getY0, xDomain } = this.props;
+    const {
+      unit,
+      dataFilter,
+      getColor,
+      formatTitle,
+      formatValue,
+      getX,
+      getY,
+      getY0,
+      xDomain
+    } = this.props;
 
     const crosshairItems = Object.keys(highlightValues)
       .filter(key => {
@@ -233,7 +252,7 @@ export default class Chart extends PureComponent {
           y,
           title: (
             <span>
-              <div className="rv-crosshair__item__legend" style={{ background: color }} />
+              <div className="rv-crosshair__item__legend" style={{background: color}} />
               {formatTitle(key)}
             </span>
           ),
@@ -255,7 +274,12 @@ export default class Chart extends PureComponent {
         titleFormat={() => null}
         itemsFormat={values => values}
       />,
-      <MarkSeries key="hovered-values" data={crosshairItems} getFill={d => d.color} fillType="literal" />
+      <MarkSeries
+        key="hovered-values"
+        data={crosshairItems}
+        getFill={d => d.color}
+        fillType="literal"
+      />
     ];
   }
 
@@ -278,8 +302,8 @@ export default class Chart extends PureComponent {
     } = this.props;
 
     return (
-      <div className="mc-metric-chart" style={{width, height}} >
-        <AutoSizer >
+      <div className="mc-metric-chart" style={{width, height}}>
+        <AutoSizer>
           {({width: chartWidth, height: chartHeight}) => (
             <XYPlot
               width={chartWidth}

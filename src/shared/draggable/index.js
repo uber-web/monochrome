@@ -1,17 +1,12 @@
-/* global document */
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import {getCSSVendorPrefix} from '../../utils/dom';
-
-const vendorPrefix = getCSSVendorPrefix();
 
 const STYLES = {
   enabled: {
-    cursor: `${vendorPrefix}grab`
+    cursor: 'grab'
   },
   active: {
-    cursor: `${vendorPrefix}grabbing`
+    cursor: 'grabbing'
   },
   backdrop: {
     position: 'fixed',
@@ -23,13 +18,12 @@ const STYLES = {
   }
 };
 
-function noop() {};
+function noop() {}
 
 /**
  * @class
  */
 export default class Draggable extends PureComponent {
-
   static propTypes = {
     // container
     className: PropTypes.string,
@@ -80,9 +74,9 @@ export default class Draggable extends PureComponent {
       result.deltaY = 0;
     }
     return result;
-  }
+  };
 
-  _onMouseDown = (evt) => {
+  _onMouseDown = evt => {
     if (!this.props.isEnabled) {
       return;
     }
@@ -100,7 +94,7 @@ export default class Draggable extends PureComponent {
     this.props.onStart(eventData);
   };
 
-  _onMouseMove = (evt) => {
+  _onMouseMove = evt => {
     if (!this.props.isEnabled) {
       return;
     }
@@ -121,7 +115,7 @@ export default class Draggable extends PureComponent {
     }
   };
 
-  _onMouseUp = (evt) => {
+  _onMouseUp = evt => {
     if (this.state.isMouseDown) {
       this.setState({
         isMouseDown: false,
@@ -132,25 +126,21 @@ export default class Draggable extends PureComponent {
   };
 
   render() {
-    const {isEnabled, style, tolerance} = this.props;
+    const {isEnabled, className, tolerance} = this.props;
     const {isMouseDown} = this.state;
 
-    const containerStyle = Object.assign({
-      margin: -tolerance,
-      padding: tolerance
-    },
+    const containerStyle = Object.assign(
+      {
+        margin: -tolerance,
+        padding: tolerance
+      },
       isEnabled ? STYLES.enabled : null,
       isMouseDown ? STYLES.active : null
     );
 
-    const className = classnames(
-      'mc-draggable',
-      this.props.className,
-      {disabled: !isEnabled}
-    );
-
     return (
-      <div className={className}
+      <div
+        className={className}
         ref={ref => {
           this._element = ref;
         }}
@@ -158,12 +148,11 @@ export default class Draggable extends PureComponent {
         onMouseDown={this._onMouseDown}
         onMouseMove={this._onMouseMove}
         onMouseLeave={this._onMouseUp}
-        onMouseUp={this._onMouseUp}>
-
+        onMouseUp={this._onMouseUp}
+      >
         {isMouseDown && <div style={STYLES.backdrop} />}
 
         {this.props.children}
-
       </div>
     );
   }

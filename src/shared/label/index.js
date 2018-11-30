@@ -8,6 +8,7 @@ import {Tooltip} from '../popover';
 
 const LabelComponent = styled.label(props => ({
   cursor: 'inherit',
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -15,13 +16,13 @@ const LabelInfo = styled.div(props => ({
   display: 'inline-block',
   marginLeft: props.theme.spacingNormal,
   marginRight: props.theme.spacingNormal,
-  background: props.theme.controlColorPrimary,
+  background: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
   color: props.theme.textColorInvert,
   cursor: 'default',
   borderRadius: '50%',
-  fontSize: '10px',
-  lineHeight: '12px',
-  width: '12px',
+  fontSize: '0.8em',
+  width: props.theme.fontSize,
+  lineHeight: `${props.theme.fontSize}px`,
   textAlign: 'center',
 
   '&:before': {
@@ -32,32 +33,40 @@ const LabelInfo = styled.div(props => ({
 
 // Input component that can be toggled on and off
 class Label extends PureComponent {
-
   static propTypes = {
     for: PropTypes.string,
     style: PropTypes.object,
     tooltip: PropTypes.string,
-    badge: PropTypes.element
+    badge: PropTypes.element,
+    isEnabled: PropTypes.bool
   };
 
   static defaultProps = {
-    style: {}
+    style: {},
+    isEnabled: true
   };
 
   render() {
-    const {theme, for: htmlFor, style, children, tooltip, badge} = this.props;
+    const {theme, isEnabled, for: htmlFor, style, children, tooltip, badge} = this.props;
     const labelProps = {};
 
     if (htmlFor) {
       labelProps.htmlFor = htmlFor;
     }
 
+    const styleProps = {
+      theme,
+      isEnabled
+    };
+
     return (
-      <LabelComponent theme={theme} userStyle={style.label}>
+      <LabelComponent {...styleProps} userStyle={style.label}>
         {children}
-        {tooltip && (<Tooltip style={style.tooltip} content={tooltip} >
-          <LabelInfo theme={theme} userStyle={style.tooltipTarget} />
-        </Tooltip>)}
+        {tooltip && (
+          <Tooltip style={style.tooltip} content={tooltip}>
+            <LabelInfo {...styleProps} userStyle={style.tooltipTarget} />
+          </Tooltip>
+        )}
         {badge}
       </LabelComponent>
     );

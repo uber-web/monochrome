@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
@@ -53,11 +52,14 @@ const SliderKnob = styled.div(props => ({
   borderStyle: 'solid',
   borderWidth: 2,
   borderColor: props.isEnabled
-    ? (props.isActive ? props.theme.controlColorActive : props.theme.controlColorPrimary)
+    ? props.isActive
+      ? props.theme.controlColorActive
+      : props.isHovered
+      ? props.theme.controlColorHovered
+      : props.theme.controlColorPrimary
     : props.theme.controlColorDisabled,
   background: props.theme.background,
   boxSizing: 'border-box',
-  position: 'absolute',
   width: props.knobSize,
   height: props.knobSize,
   borderRadius: '50%',
@@ -67,17 +69,13 @@ const SliderKnob = styled.div(props => ({
   transitionProperty: 'left',
   transitionDuration: props.isDragging ? '0s' : props.theme.transitionDuration,
 
-  '&:hover': {
-    borderColor: props.theme.controlColorHovered
-  },
   ...evaluateStyle(props.userStyle, props)
 }));
 
 /*
-* @class
-*/
+ * @class
+ */
 class Slider extends PureComponent {
-
   static propTypes = {
     value: PropTypes.number.isRequired,
     min: PropTypes.number.isRequired,
@@ -86,32 +84,26 @@ class Slider extends PureComponent {
     className: PropTypes.string,
     style: PropTypes.object,
     step: PropTypes.number,
-    knobSize: PropTypes.number,
-    tolerance: PropTypes.number,
     label: PropTypes.string,
     tooltip: PropTypes.string,
     badge: PropTypes.element,
     isEnabled: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     className: '',
-    knobSize: 18,
-    tolerance: 10,
     style: {},
     step: 0,
     isEnabled: true,
     onChange: () => {}
-  }
+  };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      width: 1,
-      isDragging: false,
-      hasDragged: false
-    };
-  }
+  state = {
+    width: 1,
+    isHovered: false,
+    isDragging: false,
+    hasDragged: false
+  };
 
   _updateValue = (offsetX, width) => {
     const {min, max, step} = this.props;
@@ -120,6 +112,10 @@ class Slider extends PureComponent {
 
     this.props.onChange(value);
   };
+
+  _onMouseEnter = () => this.setState({isHovered: true});
+
+  _onMouseLeave = () => this.setState({isHovered: false});
 
   _onDragStart = evt => {
     const width = this._track.clientWidth;
@@ -139,40 +135,60 @@ class Slider extends PureComponent {
 
   render() {
     const {
-      tolerance, knobSize, label, tooltip, badge,
-      value, min, max, step, isEnabled, children,
-      className, style, theme
+      label,
+      tooltip,
+      badge,
+      value,
+      min,
+      max,
+      step,
+      isEnabled,
+      children,
+      className,
+      style,
+      theme
     } = this.props;
-    const {isDragging, hasDragged} = this.state;
+    const {isHovered, isDragging, hasDragged} = this.state;
 
+    const {tolerance = 0, knobSize = theme.controlSize} = style;
     const ratio = (snap(value, min, max, step) - min) / (max - min);
 
     const styleProps = {
       theme,
       knobSize,
       isEnabled,
+      isHovered,
       isActive: isDragging,
       isDragging: hasDragged,
       filled: ratio
     };
     return (
       <SliderWrapper {...styleProps} userStyle={style.wrapper} className={className}>
-        {label && <Label style={style.label} tooltip={tooltip} badge={badge}>
-          {label}
-        </Label>}
+        {label && (
+          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
+            {label}
+          </Label>
+        )}
 
-        <SliderComponent {...styleProps} userStyle={style.slider}>
+        <SliderComponent
+          {...styleProps}
+          userStyle={style.slider}
+          onMouseEnter={this._onMouseEnter}
+          onMouseLeave={this._onMouseLeave}
+        >
           <Draggable
-            tolerance={tolerance}
+            tolerance={knobSize / 2 + tolerance}
             onStart={this._onDragStart}
             onDrag={this._onDrag}
-            onEnd={this._onDragEnd} >
+            onEnd={this._onDragEnd}
+          >
             <SliderTrack
               userStyle={style.track}
               {...styleProps}
               ref={ref => {
                 this._track = ref;
-              }} >
+              }}
+            >
               {children}
               <SliderTrackFill {...styleProps} userStyle={style.trackFill} />
               <SliderKnob {...styleProps} userStyle={style.knob} />
@@ -182,7 +198,6 @@ class Slider extends PureComponent {
       </SliderWrapper>
     );
   }
-
 }
 
 export default withTheme(Slider);

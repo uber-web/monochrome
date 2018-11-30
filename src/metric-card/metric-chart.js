@@ -1,7 +1,7 @@
-import React, { PureComponent } from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import { findNearestValue } from './utils';
+import {findNearestValue} from './utils';
 import Chart from './chart';
 
 /**
@@ -39,7 +39,7 @@ export default class MetricChart extends PureComponent {
   }
 
   // Find the closest data point in each series to the current time
-  _getCurrentValues({ highlightX, data, getX }) {
+  _getCurrentValues({highlightX, data, getX}) {
     if (!Number.isFinite(highlightX) || !data) {
       return null;
     }
@@ -53,30 +53,30 @@ export default class MetricChart extends PureComponent {
     return result;
   }
 
-  _onClick = (evt) => {
+  _onClick = evt => {
     this.props.onClick(this.state.hoveredX, evt);
   };
 
   _onNearestX = (key, value, evt) => {
-    const { hoveredValues } = this.state;
+    const {hoveredValues} = this.state;
     hoveredValues[key] = value;
 
     this.setState({
       isHovered: true,
       hoveredX: this.props.getX(value),
-      hoveredValues: { ...hoveredValues }
+      hoveredValues: {...hoveredValues}
     });
 
     this.props.onNearestX(key, value, evt);
   };
 
-  _onMouseLeave = (evt) => {
-    this.setState({ isHovered: false, hoveredX: null });
+  _onMouseLeave = evt => {
+    this.setState({isHovered: false, hoveredX: null});
     this.props.onMouseLeave(evt);
   };
 
   render() {
-    const { isHovered, hoveredValues, currentValues } = this.state;
+    const {isHovered, hoveredValues, currentValues} = this.state;
 
     return (
       <Chart

@@ -8,7 +8,6 @@ import {STYLES} from './table-row';
  * A stateless component that renders a data row in the TreeTable component
  */
 export default class TreeTableRow extends PureComponent {
-
   static propTypes = {
     id: PropTypes.string,
     data: PropTypes.shape({
@@ -28,7 +27,6 @@ export default class TreeTableRow extends PureComponent {
   }
 
   _renderItem = ({id, depth = 0, key, data, style}) => {
-
     const {indentSize, columns, renderCell, getIsExpanded} = this.props;
 
     const isExpanded = getIsExpanded(id);
@@ -43,12 +41,15 @@ export default class TreeTableRow extends PureComponent {
 
     return (
       <div key={key} className="mc-table--item" style={style}>
-
         <div className="mc-table--row" style={STYLES.row}>
-          {hasChildren && (<div key="toggle"
-            className={classnames('mc-table--row-expander', {expanded: isExpanded})}
-            style={expanderStyle}
-            onClick={() => this._toggleExpansion(id)} />)}
+          {hasChildren && (
+            <div
+              key="toggle"
+              className={classnames('mc-table--row-expander', {expanded: isExpanded})}
+              style={expanderStyle}
+              onClick={() => this._toggleExpansion(id)}
+            />
+          )}
 
           <div style={{flexShrink: 0, width: indent}} />
 
@@ -61,9 +62,12 @@ export default class TreeTableRow extends PureComponent {
             };
 
             return (
-              <div className="mc-table--cell" key={colIndex}
+              <div
+                className="mc-table--cell"
+                key={colIndex}
                 style={cellStyle}
-                title={`${column.name}: ${colValue}`}>
+                title={`${column.name}: ${colValue}`}
+              >
                 {renderCell({
                   value: colValue,
                   column: column.srcObject,
@@ -76,13 +80,16 @@ export default class TreeTableRow extends PureComponent {
           })}
         </div>
 
-        {hasChildren && isExpanded && 
-          data.children.map((row, rowIndex) => this._renderItem({
-            depth: depth + 1,
-            id: `${id}.${rowIndex}`,
-            key: rowIndex,
-            data: row
-          }))}
+        {hasChildren &&
+          isExpanded &&
+          data.children.map((row, rowIndex) =>
+            this._renderItem({
+              depth: depth + 1,
+              id: `${id}.${rowIndex}`,
+              key: rowIndex,
+              data: row
+            })
+          )}
       </div>
     );
   };

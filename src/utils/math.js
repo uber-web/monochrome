@@ -6,5 +6,5 @@
  * @returns {number} - clamped value
  */
 export function clamp(value, min, max) {
-  return value < min ? min : (value > max ? max : value);
+  return value < min ? min : value > max ? max : value;
 }
