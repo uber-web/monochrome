@@ -7,7 +7,6 @@ import {CheckBox, Dropdown, RadioBox, Slider, TextBox, Toggle} from '../shared';
 const CLASS_NAME = 'mc-form--input';
 
 export default class Input extends PureComponent {
-
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
@@ -35,21 +34,21 @@ export default class Input extends PureComponent {
     };
   }
 
-  _onChange = (value) => {
+  _onChange = value => {
     this.props.onChange(this.props.name, value);
-  }
+  };
 
   _renderTitle = () => {
     return <div className="mc-form--title">{this.props.label}</div>;
-  }
+  };
 
   _renderHeading = () => {
     return <div className="mc-form--heading">{this.props.label}</div>;
-  }
+  };
 
   _renderSeparator = () => {
     return <hr className="mc-form--separator" />;
-  }
+  };
 
   _renderToggle = () => {
     const {label, value, className} = this.props;
@@ -57,56 +56,68 @@ export default class Input extends PureComponent {
     const offTitle = this.props.offTitle || label;
 
     return (
-      <Toggle {...this.props}
+      <Toggle
+        {...this.props}
         className={classnames(className, CLASS_NAME)}
         label={value ? onTitle : offTitle}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderSlider = () => {
     return (
-      <Slider {...this.props}
+      <Slider
+        {...this.props}
         className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderDropdown = () => {
     return (
-      <Dropdown {...this.props}
+      <Dropdown
+        {...this.props}
         className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderRadio = () => {
     return (
-      <RadioBox {...this.props}
+      <RadioBox
+        {...this.props}
         className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderTextBox = () => {
     return (
-      <TextBox {...this.props}
+      <TextBox
+        {...this.props}
         className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderCheckbox = () => {
     return (
-      <CheckBox {...this.props}
+      <CheckBox
+        {...this.props}
         className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+      />
     );
-  }
+  };
 
   _renderCustom = () => {
     return this.props.render(this.props);
-  }
+  };
 
   render() {
     const {type} = this.props;

@@ -1,4 +1,3 @@
-
 // Calculate the overlap between two DOMRects.
 // Returns a number in square pixels
 export function overlap(rect1, rect2) {

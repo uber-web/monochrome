@@ -11,12 +11,11 @@ import debounce from 'debounce';
 const noop = () => null;
 
 export default class SizeSensor extends Component {
-
   static propTypes = {
     debounceTime: PropTypes.number
   };
 
-  _onResize = (size) => {
+  _onResize = size => {
     if (this.resize) {
       this.resize(size);
     } else if (this.props.onResize) {
@@ -26,14 +25,9 @@ export default class SizeSensor extends Component {
       // set up debounce for subsequent resize events
       this.resize = debounceTime > 0 ? debounce(onResize, debounceTime) : onResize;
     }
-  }
+  };
 
   render() {
-    return (
-      <AutoSizer onResize={this._onResize} >
-        {this.props.children || noop}
-      </AutoSizer>
-    );
+    return <AutoSizer onResize={this._onResize}>{this.props.children || noop}</AutoSizer>;
   }
-
 }

@@ -2,20 +2,34 @@
  * Tooltip is just a Popover with some style overrides
  */
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import {evaluateStyle} from '../theme';
+
 import Popover from './popover';
 
 class Tooltip extends React.Component {
-
   static propTypes = Popover.propTypes;
 
   static defaultProps = {
-    className: 'mc-tooltip',
+    style: {},
     position: Popover.TOP
   };
 
   render() {
-    return <Popover {...this.props} trigger={Popover.HOVER} />;
+    const {style} = this.props;
+    const tooltipStyle = {
+      ...style,
+      body: props => ({
+        maxWidth: 300,
+        paddingTop: props.theme.spacingSmall,
+        paddingBottom: props.theme.spacingSmall,
+        paddingLeft: props.theme.spacingNormal,
+        paddingRight: props.theme.spacingNormal,
+        ...evaluateStyle(style.body, props)
+      })
+    };
+
+    return <Popover {...this.props} style={tooltipStyle} trigger={Popover.HOVER} />;
   }
 }
 

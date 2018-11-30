@@ -1,17 +1,12 @@
-/* global document */
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import {getCSSVendorPrefix} from '../../utils/dom';
-
-const vendorPrefix = getCSSVendorPrefix();
 
 const STYLES = {
   enabled: {
-    cursor: `${vendorPrefix}grab`
+    cursor: 'grab'
   },
   active: {
-    cursor: `${vendorPrefix}grabbing`
+    cursor: 'grabbing'
   },
   backdrop: {
     position: 'fixed',
@@ -23,20 +18,18 @@ const STYLES = {
   }
 };
 
-function noop() {};
+function noop() {}
 
 /**
  * @class
  */
 export default class Draggable extends PureComponent {
-
   static propTypes = {
     // container
     className: PropTypes.string,
-    style: PropTypes.object,
     // config
+    tolerance: PropTypes.number,
     isEnabled: PropTypes.bool,
-    threshold: PropTypes.number,
     // callbacks
     onStart: PropTypes.func,
     onDrag: PropTypes.func,
@@ -46,7 +39,7 @@ export default class Draggable extends PureComponent {
   static defaultProps = {
     className: '',
     isEnabled: true,
-    threshold: 0,
+    tolerance: 0,
     onStart: noop,
     onDrag: noop,
     onEnd: noop
@@ -79,9 +72,9 @@ export default class Draggable extends PureComponent {
       result.deltaY = 0;
     }
     return result;
-  }
+  };
 
-  _onMouseDown = (evt) => {
+  _onMouseDown = evt => {
     if (!this.props.isEnabled) {
       return;
     }
@@ -99,7 +92,7 @@ export default class Draggable extends PureComponent {
     this.props.onStart(eventData);
   };
 
-  _onMouseMove = (evt) => {
+  _onMouseMove = evt => {
     if (!this.props.isEnabled) {
       return;
     }
@@ -110,7 +103,7 @@ export default class Draggable extends PureComponent {
       const {deltaX, deltaY} = eventData;
 
       if (!this.state.hasDragged) {
-        if (Math.sqrt(deltaX * deltaX + deltaY * deltaY) >= this.props.threshold) {
+        if (deltaX || deltaY) {
           this.setState({hasDragged: true});
         } else {
           return;
@@ -120,7 +113,7 @@ export default class Draggable extends PureComponent {
     }
   };
 
-  _onMouseUp = (evt) => {
+  _onMouseUp = evt => {
     if (this.state.isMouseDown) {
       this.setState({
         isMouseDown: false,
@@ -131,23 +124,21 @@ export default class Draggable extends PureComponent {
   };
 
   render() {
-    const {isEnabled, style} = this.props;
+    const {isEnabled, className, tolerance} = this.props;
     const {isMouseDown} = this.state;
 
-    const containerStyle = Object.assign({},
+    const containerStyle = Object.assign(
+      {
+        margin: -tolerance,
+        padding: tolerance
+      },
       isEnabled ? STYLES.enabled : null,
-      isMouseDown ? STYLES.active : null,
-      style,
-    );
-
-    const className = classnames(
-      'mc-draggable',
-      this.props.className,
-      {disabled: !isEnabled}
+      isMouseDown ? STYLES.active : null
     );
 
     return (
-      <div className={className}
+      <div
+        className={className}
         ref={ref => {
           this._element = ref;
         }}
@@ -155,12 +146,11 @@ export default class Draggable extends PureComponent {
         onMouseDown={this._onMouseDown}
         onMouseMove={this._onMouseMove}
         onMouseLeave={this._onMouseUp}
-        onMouseUp={this._onMouseUp}>
-
+        onMouseUp={this._onMouseUp}
+      >
         {isMouseDown && <div style={STYLES.backdrop} />}
 
         {this.props.children}
-
       </div>
     );
   }

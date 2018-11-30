@@ -1,1 +1,1 @@
-export {default as default} from './drag-drop-list';
+export {default} from './drag-drop-list';

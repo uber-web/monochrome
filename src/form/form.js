@@ -15,7 +15,6 @@ const STYLES = {
 };
 
 export default class Form extends PureComponent {
-
   static propTypes = {
     data: PropTypes.object.isRequired,
     values: PropTypes.object.isRequired,
@@ -32,7 +31,7 @@ export default class Form extends PureComponent {
     this.props.onChange({
       [settingName]: newValue
     });
-  }
+  };
 
   toggleCollapsed({settingName, collapsed}) {
     const newCollapsedState = {...this.state.collapsed, [settingName]: !collapsed};
@@ -40,7 +39,6 @@ export default class Form extends PureComponent {
   }
 
   _renderSetting({settingName, setting, value, isEnabled = true}) {
-
     const {enabled = true, visible = true, children} = setting;
     let isVisible;
 
@@ -56,30 +54,37 @@ export default class Form extends PureComponent {
       isVisible = Boolean(visible);
     }
 
-    const collapsed = (typeof this.state.collapsed[settingName] !== 'undefined') ? this.state.collapsed[settingName] : false;
+    const collapsed =
+      typeof this.state.collapsed[settingName] !== 'undefined'
+        ? this.state.collapsed[settingName]
+        : false;
 
-    return isVisible && (
-      <div key={settingName} style={STYLES.setting}>
-        {setting.collapsible && (<div
-          style={STYLES.expander}
-          onClick={() => this.toggleCollapsed({settingName, collapsed})}
-          className={classnames('mc-form--group-expander', {collapsed})} />)}
+    return (
+      isVisible && (
+        <div key={settingName} style={STYLES.setting}>
+          {setting.collapsible && (
+            <div
+              style={STYLES.expander}
+              onClick={() => this.toggleCollapsed({settingName, collapsed})}
+              className={classnames('mc-form--group-expander', {collapsed})}
+            />
+          )}
 
-        <Input
-          {...setting}
-          label={setting.title || settingName}
-          name={settingName}
-          value={value}
-          isEnabled={isEnabled}
-          onChange={this._onChange} />
-        {
-          children && !collapsed && (
+          <Input
+            {...setting}
+            label={setting.title || settingName}
+            name={settingName}
+            value={value}
+            isEnabled={isEnabled}
+            onChange={this._onChange}
+          />
+          {children && !collapsed && (
             <div className="mc-form--group">
               {this._renderSettings(children, value, {isEnabled})}
             </div>
-          )
-        }
-      </div>
+          )}
+        </div>
+      )
     );
   }
 
@@ -100,9 +105,7 @@ export default class Form extends PureComponent {
     const {data} = this.props;
     return (
       <div className="mc-form">
-        <div className="mc-form--group">
-          {this._renderSettings(data)}
-        </div>
+        <div className="mc-form--group">{this._renderSettings(data)}</div>
       </div>
     );
   }

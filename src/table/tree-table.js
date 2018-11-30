@@ -5,7 +5,6 @@ import Table from './table';
 import TreeTableRow from './tree-table-row';
 
 export default class TreeTable extends Table {
-
   static propTypes = {
     ...Table.propTypes,
     indentSize: PropTypes.number
@@ -22,7 +21,7 @@ export default class TreeTable extends Table {
     this.state.expanded = {};
   }
 
-  _isRowExpanded = (id) => {
+  _isRowExpanded = id => {
     return this.state.expanded[id];
   };
 
@@ -37,7 +36,7 @@ export default class TreeTable extends Table {
     this._list.recomputeRowHeights(rootRowIndex);
   };
 
-  _renderRow = ({key, index, style}) => {
+  _renderRow({key, index, style}) {
     const {indentSize, renderCell} = this.props;
     const row = this.state.rows[index];
 
@@ -51,8 +50,8 @@ export default class TreeTable extends Table {
         renderCell={renderCell}
         getIsExpanded={this._isRowExpanded}
         toggleExpansion={this._toggleRowExpansion}
-        columns={this.state.columns} />
+        columns={this.state.columns}
+      />
     );
-  };
-
+  }
 }

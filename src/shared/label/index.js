@@ -1,56 +1,76 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+
+import styled from '@emotion/styled';
+import {withTheme, evaluateStyle} from '../theme';
+
 import {Tooltip} from '../popover';
 
-const STYLES = {
-  label: {
-    cursor: 'inherit'
+const LabelComponent = styled.label(props => ({
+  cursor: 'inherit',
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const LabelInfo = styled.div(props => ({
+  display: 'inline-block',
+  marginLeft: props.theme.spacingNormal,
+  marginRight: props.theme.spacingNormal,
+  background: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
+  color: props.theme.textColorInvert,
+  cursor: 'default',
+  borderRadius: '50%',
+  fontSize: '0.8em',
+  width: props.theme.fontSize,
+  lineHeight: `${props.theme.fontSize}px`,
+  textAlign: 'center',
+
+  '&:before': {
+    content: '"?"'
   },
-  info: {
-    cursor: 'default',
-    borderRadius: '50%',
-    fontSize: '10px',
-    lineHeight: '12px',
-    width: '12px',
-    textAlign: 'center'
-  }
-};
+  ...evaluateStyle(props.userStyle, props)
+}));
 
 // Input component that can be toggled on and off
-export default class Label extends PureComponent {
-
+class Label extends PureComponent {
   static propTypes = {
     for: PropTypes.string,
+    style: PropTypes.object,
     tooltip: PropTypes.string,
-    badge: PropTypes.element
+    badge: PropTypes.element,
+    isEnabled: PropTypes.bool
   };
 
-  _renderTooltip() {
-    const {tooltip} = this.props;
-
-    if (!tooltip) {
-      return null;
-    }
-
-    return (<Tooltip content={tooltip} >
-      <span className="mc-label--info" style={STYLES.info} >?</span>
-    </Tooltip>);
-  }
+  static defaultProps = {
+    style: {},
+    isEnabled: true
+  };
 
   render() {
-    const {for: htmlFor, children, badge} = this.props;
+    const {theme, isEnabled, for: htmlFor, style, children, tooltip, badge} = this.props;
     const labelProps = {};
 
     if (htmlFor) {
       labelProps.htmlFor = htmlFor;
     }
 
+    const styleProps = {
+      theme,
+      isEnabled
+    };
+
     return (
-      <label className="mc-label" style={STYLES.label} {...labelProps}>
+      <LabelComponent {...styleProps} userStyle={style.label}>
         {children}
-        {this._renderTooltip()}
+        {tooltip && (
+          <Tooltip style={style.tooltip} content={tooltip}>
+            <LabelInfo {...styleProps} userStyle={style.tooltipTarget} />
+          </Tooltip>
+        )}
         {badge}
-      </label>
+      </LabelComponent>
     );
   }
 }
+
+export default withTheme(Label);

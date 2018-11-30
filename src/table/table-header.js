@@ -21,7 +21,6 @@ const STYLES = {
 };
 
 export default class TableHeader extends PureComponent {
-
   static propTypes = {
     columns: PropTypes.arrayOf(PropTypes.object),
     renderHeader: PropTypes.func,
@@ -38,8 +37,8 @@ export default class TableHeader extends PureComponent {
 
     this._cells = [];
   }
-  
-  componentWillReceiveProps(nextProps) {
+
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.columns !== nextProps.columns) {
       this.setState({
         columns: this._formatColumns(nextProps.columns)
@@ -68,7 +67,7 @@ export default class TableHeader extends PureComponent {
       name: col.name,
       type: col.type,
       sort: SORT.NONE,
-      defaultWidth: `${100 / totalWeight * weights[colIndex]}%`
+      defaultWidth: `${(100 / totalWeight) * weights[colIndex]}%`
     }));
   }
 
@@ -83,9 +82,9 @@ export default class TableHeader extends PureComponent {
     });
 
     this.props.onResize(columns);
-  }
+  };
 
-  _sortColumn = (index) => {
+  _sortColumn = index => {
     const {columns} = this.state;
     const sortType = columns[index].sort === SORT.ASCEND ? SORT.DESCEND : SORT.ASCEND;
 
@@ -102,7 +101,7 @@ export default class TableHeader extends PureComponent {
 
     // Trigger rerender
     this.forceUpdate();
-  }
+  };
 
   _renderColumn = (column, colIndex) => {
     const {renderHeader} = this.props;
@@ -120,13 +119,15 @@ export default class TableHeader extends PureComponent {
     };
 
     return (
-      <div className={className}
+      <div
+        className={className}
         key={colIndex}
         style={style}
         ref={cell => {
           this._cells[colIndex] = cell;
         }}
-        onClick={() => this._sortColumn(colIndex)} >
+        onClick={() => this._sortColumn(colIndex)}
+      >
         {renderHeader({column: column.srcObject, columnIndex: colIndex})}
         {column.sort !== SORT.NONE && <div className="mc-table--sort-icon" style={STYLES.icon} />}
       </div>
@@ -141,7 +142,6 @@ export default class TableHeader extends PureComponent {
         {columns.map(this._renderColumn)}
         <AutoSizer onResize={this._onResize} debounceTime={200} />
       </div>
-    )
+    );
   }
-
 }

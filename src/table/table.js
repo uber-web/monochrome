@@ -15,7 +15,6 @@ const STYLES = {
 };
 
 export default class Table extends PureComponent {
-
   static propTypes = {
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -30,7 +29,7 @@ export default class Table extends PureComponent {
     height: 400,
     rows: [],
     renderHeader: ({column}) => column.name,
-    renderCell: ({value}) => value === null ? null : String(value)
+    renderCell: ({value}) => (value === null ? null : String(value))
   };
 
   constructor(props) {
@@ -45,7 +44,7 @@ export default class Table extends PureComponent {
     this._cache = new CellMeasurerCache({fixedWidth: true});
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.rows !== nextProps.rows) {
       this.setState({
         rows: this._formatRows(nextProps.rows, this.state.sortFunc)
@@ -69,11 +68,11 @@ export default class Table extends PureComponent {
     return rows;
   }
 
-  _onHeaderResize = (columns) => {
+  _onHeaderResize = columns => {
     this.setState({columns}, this._forceUpdate);
   };
 
-  _onSort = (sortFunc) => {
+  _onSort = sortFunc => {
     const {rows} = this.state;
 
     if (sortFunc) {
@@ -89,9 +88,9 @@ export default class Table extends PureComponent {
       this._cache.clearAll();
       this._list.recomputeRowHeights();
     }
-  }
+  };
 
-  _renderRow = ({key, index, style}) => {
+  _renderRow({key, index, style}) {
     const {renderCell} = this.props;
     const row = this.state.rows[index];
 
@@ -102,19 +101,15 @@ export default class Table extends PureComponent {
         data={row}
         style={style}
         renderCell={renderCell}
-        columns={this.state.columns} />
+        columns={this.state.columns}
+      />
     );
-  };
+  }
 
   _renderRowMeasurer = ({key, parent, index, style}) => {
     return (
-      <CellMeasurer
-        cache={this._cache}
-        parent={parent}
-        key={key}
-        rowIndex={index}
-        collumnIndex={0} >
-        { () => this._renderRow({key, index, style}) }
+      <CellMeasurer cache={this._cache} parent={parent} key={key} rowIndex={index} collumnIndex={0}>
+        {() => this._renderRow({key, index, style})}
       </CellMeasurer>
     );
   };
@@ -142,12 +137,13 @@ export default class Table extends PureComponent {
         rowCount={rows.length}
         rowHeight={this._cache.rowHeight}
         rowRenderer={this._renderRowMeasurer}
-        width={width} />
+        width={width}
+      />
     );
   }
 
   render() {
-    const {width, height, columns, renderHeader, style} = this.props;
+    const {width, height, columns, renderHeader} = this.props;
 
     const tableStyle = {
       width,
@@ -162,12 +158,11 @@ export default class Table extends PureComponent {
           columns={columns}
           renderHeader={renderHeader}
           onSort={this._onSort}
-          onResize={this._onHeaderResize} />
+          onResize={this._onHeaderResize}
+        />
 
         <div className="mc-table--body" style={STYLES.body}>
-          <AutoSizer>
-            {this._renderBody.bind(this)}
-          </AutoSizer>
+          <AutoSizer>{this._renderBody.bind(this)}</AutoSizer>
         </div>
       </div>
     );

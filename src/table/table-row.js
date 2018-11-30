@@ -19,7 +19,6 @@ export const STYLES = {
  * A stateless component that renders a data row in the Table component
  */
 export default class TableRow extends PureComponent {
-
   static propTypes = {
     id: PropTypes.string,
     data: PropTypes.shape({
@@ -35,7 +34,6 @@ export default class TableRow extends PureComponent {
 
     return (
       <div className="mc-table--item" style={style}>
-
         <div className="mc-table--row" style={STYLES.row}>
           {data.data.map((colValue, colIndex) => {
             const column = columns[colIndex];
@@ -45,9 +43,12 @@ export default class TableRow extends PureComponent {
             };
 
             return (
-              <div className="mc-table--cell" key={colIndex}
+              <div
+                className="mc-table--cell"
+                key={colIndex}
                 style={cellStyle}
-                title={`${column.name}: ${colValue}`}>
+                title={`${column.name}: ${colValue}`}
+              >
                 {renderCell({
                   value: colValue,
                   column: column.srcObject,
