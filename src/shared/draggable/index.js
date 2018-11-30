@@ -30,7 +30,6 @@ export default class Draggable extends PureComponent {
     // config
     tolerance: PropTypes.number,
     isEnabled: PropTypes.bool,
-    threshold: PropTypes.number,
     // callbacks
     onStart: PropTypes.func,
     onDrag: PropTypes.func,
@@ -41,7 +40,6 @@ export default class Draggable extends PureComponent {
     className: '',
     isEnabled: true,
     tolerance: 0,
-    threshold: 0,
     onStart: noop,
     onDrag: noop,
     onEnd: noop
@@ -105,7 +103,7 @@ export default class Draggable extends PureComponent {
       const {deltaX, deltaY} = eventData;
 
       if (!this.state.hasDragged) {
-        if (Math.sqrt(deltaX * deltaX + deltaY * deltaY) >= this.props.threshold) {
+        if (deltaX || deltaY) {
           this.setState({hasDragged: true});
         } else {
           return;

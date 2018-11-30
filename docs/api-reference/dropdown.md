@@ -23,7 +23,7 @@ A stateless dropdown control component.
 * `className` **(string, optional)** - custom class name for the control.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.
-* `style` **(string, optional)** - custom style. See "styling" section below.
+* `style` **(object, optional)** - custom style. See "styling" section below.
 
 
 ### Styling
