@@ -251,6 +251,7 @@ class Popover extends React.Component {
   };
 
   _showPopover() {
+    console.log('showing popover');
     this.setState({isVisible: true});
   }
 
