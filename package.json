@@ -29,6 +29,8 @@
     "test": "NODE_ENV=test tape -r @babel/register test/node.js"
   },
   "dependencies": {
+    "@emotion/core": "^10.0.0",
+    "@emotion/styled": "^10.0.0",
     "classnames": "^2.2.5",
     "debounce": "^1.1.0",
     "popper.js": "^1.11.1",

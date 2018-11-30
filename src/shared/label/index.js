@@ -1,44 +1,51 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+
+import styled from '@emotion/styled';
+import {withTheme, evaluateStyle} from '../theme';
+
 import {Tooltip} from '../popover';
 
-const STYLES = {
-  label: {
-    cursor: 'inherit'
+const LabelComponent = styled.label(props => ({
+  cursor: 'inherit',
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const LabelInfo = styled.div(props => ({
+  display: 'inline-block',
+  marginLeft: props.theme.spacingNormal,
+  marginRight: props.theme.spacingNormal,
+  background: props.theme.controlColorPrimary,
+  color: props.theme.textColorInvert,
+  cursor: 'default',
+  borderRadius: '50%',
+  fontSize: '10px',
+  lineHeight: '12px',
+  width: '12px',
+  textAlign: 'center',
+
+  '&:before': {
+    content: '"?"'
   },
-  info: {
-    cursor: 'default',
-    borderRadius: '50%',
-    fontSize: '10px',
-    lineHeight: '12px',
-    width: '12px',
-    textAlign: 'center'
-  }
-};
+  ...evaluateStyle(props.userStyle, props)
+}));
 
 // Input component that can be toggled on and off
-export default class Label extends PureComponent {
+class Label extends PureComponent {
 
   static propTypes = {
     for: PropTypes.string,
+    style: PropTypes.object,
     tooltip: PropTypes.string,
     badge: PropTypes.element
   };
 
-  _renderTooltip() {
-    const {tooltip} = this.props;
-
-    if (!tooltip) {
-      return null;
-    }
-
-    return (<Tooltip content={tooltip} >
-      <span className="mc-label--info" style={STYLES.info} >?</span>
-    </Tooltip>);
-  }
+  static defaultProps = {
+    style: {}
+  };
 
   render() {
-    const {for: htmlFor, children, badge} = this.props;
+    const {theme, for: htmlFor, style, children, tooltip, badge} = this.props;
     const labelProps = {};
 
     if (htmlFor) {
@@ -46,11 +53,15 @@ export default class Label extends PureComponent {
     }
 
     return (
-      <label className="mc-label" style={STYLES.label} {...labelProps}>
+      <LabelComponent theme={theme} userStyle={style.label}>
         {children}
-        {this._renderTooltip()}
+        {tooltip && (<Tooltip style={style.tooltip} content={tooltip} >
+          <LabelInfo theme={theme} userStyle={style.tooltipTarget} />
+        </Tooltip>)}
         {badge}
-      </label>
+      </LabelComponent>
     );
   }
 }
+
+export default withTheme(Label);

@@ -33,8 +33,8 @@ export default class Draggable extends PureComponent {
   static propTypes = {
     // container
     className: PropTypes.string,
-    style: PropTypes.object,
     // config
+    tolerance: PropTypes.number,
     isEnabled: PropTypes.bool,
     threshold: PropTypes.number,
     // callbacks
@@ -46,6 +46,7 @@ export default class Draggable extends PureComponent {
   static defaultProps = {
     className: '',
     isEnabled: true,
+    tolerance: 0,
     threshold: 0,
     onStart: noop,
     onDrag: noop,
@@ -131,13 +132,15 @@ export default class Draggable extends PureComponent {
   };
 
   render() {
-    const {isEnabled, style} = this.props;
+    const {isEnabled, style, tolerance} = this.props;
     const {isMouseDown} = this.state;
 
-    const containerStyle = Object.assign({},
+    const containerStyle = Object.assign({
+      margin: -tolerance,
+      padding: tolerance
+    },
       isEnabled ? STYLES.enabled : null,
-      isMouseDown ? STYLES.active : null,
-      style,
+      isMouseDown ? STYLES.active : null
     );
 
     const className = classnames(

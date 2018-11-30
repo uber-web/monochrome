@@ -26,6 +26,7 @@ All styles are inlined as html style attributes, so there are no stylesheets to 
 * `showArrow` **(boolean, optional)** - Whether or not to show the arrow pointing from the popover to the target. Default is `true`.
 * `arrowSize` **(number, optional)** - How big the arrow should be in pixels. Default is `6`.
 * `trigger` **(enum)** - Whether to show the popover on hover or click of the target. See constants:triggers below. Default is `Popover.CLICK`. The `Tooltip` class is a convenient component that renders a popover that triggers on hover.
+* `style` **(string, optional)** - custom style. See "styling" section below.
 
 
 ### Constants
@@ -46,10 +47,37 @@ Triggers:
 
 ### CSS Classes
 
-The following classes are available:
-
-- `mc-popover`: We add a wrapper element around both the target element and the tooltip. You might use this class to change the `display` property or other related css rules.
-- `mc-popover--target`: Wrapper element around the target element.
-- `mc-popover--body`: Element for the popover/tooltip.
 - `mc-popover--arrow-border`: The border of the arrow that points from the popover/tooltip to the target.
 - `mc-popover--arrow`: The body of the arrow that points from the popover/tooltip to the target.
+
+
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - Wrapper element around both the target element and the tooltip.
+* `target` - Wrapper element around the target element.
+* `content` - Wrapper element around the content element.
+* `body` - Element for the popover/tooltip.
+* `arrowBorder`: The border of the arrow that points from the popover/tooltip to the target.
+* `arrow`: The body of the arrow that points from the popover/tooltip to the target.
+
+
+The values define the styling overrides for the respective child components. Each value can be an object, or a callback function.
+
+```jsx
+const popoverStyle = {
+  body: {
+    maxWidth: 400
+  }
+};
+```
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `arrowSize` **(number)** - the arrow size
+  - `position` **(boolean)** - position of the popover relative to the target
+  - `arrowPosition` **(boolean)** - position of the arrow
+  - `isActive` **(boolean)** - if the popover is activated

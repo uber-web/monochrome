@@ -2,6 +2,9 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+import styled from '@emotion/styled';
+import {withTheme, evaluateStyle} from '../theme';
+
 import Label from '../label';
 import Draggable from '../draggable';
 import {clamp} from '../../utils/math';
@@ -13,24 +16,67 @@ function snap(x, min, max, step) {
   return clamp(x, min, max);
 }
 
-const STYLES = {
-  default: {
-    cursor: 'pointer',
-    pointerEvents: 'all'
+const SliderComponent = styled.div(props => ({
+  cursor: 'pointer',
+  pointerEvents: props.isEnabled ? 'all' : 'none',
+  paddingTop: props.knobSize / 2,
+  paddingBottom: props.knobSize / 2,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const SliderWrapper = styled.div(props => ({
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const SliderTrack = styled.div(props => ({
+  position: 'relative',
+  width: '100%',
+  background: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
+  height: 2,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const SliderTrackFill = styled.div(props => ({
+  position: 'absolute',
+  transitionProperty: 'width',
+  transitionDuration: props.isDragging ? '0s' : props.theme.transitionDuration,
+  transitionTimingFunction: props.theme.transitionTimingFunction,
+  width: `${props.filled * 100}%`,
+  height: '100%',
+  background: props.isEnabled ? props.theme.controlColorActive : props.theme.controlColorDisabled,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const SliderKnob = styled.div(props => ({
+  position: 'absolute',
+  borderStyle: 'solid',
+  borderWidth: 2,
+  borderColor: props.isEnabled
+    ? (props.isActive ? props.theme.controlColorActive : props.theme.controlColorPrimary)
+    : props.theme.controlColorDisabled,
+  background: props.theme.background,
+  boxSizing: 'border-box',
+  position: 'absolute',
+  width: props.knobSize,
+  height: props.knobSize,
+  borderRadius: '50%',
+  margin: -props.knobSize / 2,
+  left: `${props.filled * 100}%`,
+  top: '50%',
+  transitionProperty: 'left',
+  transitionDuration: props.isDragging ? '0s' : props.theme.transitionDuration,
+
+  '&:hover': {
+    borderColor: props.theme.controlColorHovered
   },
-  disabled: {
-    pointerEvents: 'none'
-  },
-  track: {
-    position: 'relative',
-    width: '100%'
-  }
-};
+  ...evaluateStyle(props.userStyle, props)
+}));
 
 /*
 * @class
 */
-export default class Slider extends PureComponent {
+class Slider extends PureComponent {
 
   static propTypes = {
     value: PropTypes.number.isRequired,
@@ -38,8 +84,9 @@ export default class Slider extends PureComponent {
     max: PropTypes.number.isRequired,
     onChange: PropTypes.func,
     className: PropTypes.string,
+    style: PropTypes.object,
     step: PropTypes.number,
-    size: PropTypes.number,
+    knobSize: PropTypes.number,
     tolerance: PropTypes.number,
     label: PropTypes.string,
     tooltip: PropTypes.string,
@@ -49,8 +96,9 @@ export default class Slider extends PureComponent {
 
   static defaultProps = {
     className: '',
-    size: 18,
+    knobSize: 18,
     tolerance: 10,
+    style: {},
     step: 0,
     isEnabled: true,
     onChange: () => {}
@@ -91,67 +139,50 @@ export default class Slider extends PureComponent {
 
   render() {
     const {
-      tolerance, size, label, tooltip, badge,
-      value, min, max, step, isEnabled, children
+      tolerance, knobSize, label, tooltip, badge,
+      value, min, max, step, isEnabled, children,
+      className, style, theme
     } = this.props;
     const {isDragging, hasDragged} = this.state;
-    const className = classnames(
-      {disabled: !isEnabled, active: isDragging},
-      this.props.className,
-      'mc-slider-wrapper'
-    );
 
     const ratio = (snap(value, min, max, step) - min) / (max - min);
 
-    const eventCanvasStyle = {
-      margin: `${size / 2 - tolerance}px ${-tolerance}px`,
-      padding: tolerance
+    const styleProps = {
+      theme,
+      knobSize,
+      isEnabled,
+      isActive: isDragging,
+      isDragging: hasDragged,
+      filled: ratio
     };
-
-    const fillStyle = {
-      position: 'absolute',
-      transitionProperty: 'width',
-      transitionDuration: hasDragged ? '0s' : undefined,
-      width: `${ratio * 100}%`,
-      height: '100%'
-    };
-
-    const knobStyle = {
-      boxSizing: 'border-box',
-      position: 'absolute',
-      width: size,
-      height: size,
-      borderRadius: '50%',
-      margin: -size / 2,
-      left: `${ratio * 100}%`,
-      top: '50%',
-      transitionProperty: 'left',
-      transitionDuration: hasDragged ? '0s' : undefined
-    };
-
     return (
-      <div className={className}>
-        {label && <Label tooltip={tooltip} badge={badge}>
+      <SliderWrapper {...styleProps} userStyle={style.wrapper} className={className}>
+        {label && <Label style={style.label} tooltip={tooltip} badge={badge}>
           {label}
         </Label>}
 
-        <div className="mc-slider" style={isEnabled ? STYLES.default : STYLES.disabled}>
-          <Draggable style={eventCanvasStyle}
+        <SliderComponent {...styleProps} userStyle={style.slider}>
+          <Draggable
+            tolerance={tolerance}
             onStart={this._onDragStart}
             onDrag={this._onDrag}
             onEnd={this._onDragEnd} >
-            <div className="mc-slider--track" style={STYLES.track}
+            <SliderTrack
+              userStyle={style.track}
+              {...styleProps}
               ref={ref => {
                 this._track = ref;
               }} >
               {children}
-              <div className="mc-slider--track-fill" style={fillStyle} />
-              <div className="mc-slider--knob" style={knobStyle} />
-            </div>
+              <SliderTrackFill {...styleProps} userStyle={style.trackFill} />
+              <SliderKnob {...styleProps} userStyle={style.knob} />
+            </SliderTrack>
           </Draggable>
-        </div>
-      </div>
+        </SliderComponent>
+      </SliderWrapper>
     );
   }
 
 }
+
+export default withTheme(Slider);

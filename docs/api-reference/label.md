@@ -14,9 +14,20 @@ A label component.
 
 * `tooltip` **(string, optional)** - if supplied, render a "?" icon next to the label to offer more information.
 * `badge` **(element, optional)** - if supplied, will be rendered next to the label text.
+* `style` **(string, optional)** - custom style. See "styling" section below.
 
 
-### CSS Classes
+### Styling
 
-* `mc-label` - wrapper element around the label.
-* `mc-label--info` - the info element.
+The `style` prop expects an object that may contain the following keys:
+
+* `label` - the label.
+* `tooltip` - the tooltip. This value will be passed to the [Tooltip](/docs/api-reference/popover.md) component.
+* `tooltipTarget` - the "?" icon.
+
+The values define the styling overrides for the respective child components. Each value can be an object, or a callback function.
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
