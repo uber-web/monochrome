@@ -45,7 +45,9 @@ class MetricCard extends PureComponent {
       <CardContainer className={className} {...styleProps} userStyle={style.wrapper}>
         {title && (
           <CardTitle {...styleProps} userStyle={style.title}>
-            <Tooltip content={description}>{title}</Tooltip>
+            <Tooltip style={style.tooltip} content={description}>
+              {title}
+            </Tooltip>
           </CardTitle>
         )}
 

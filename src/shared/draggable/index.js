@@ -1,21 +1,24 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-const STYLES = {
-  enabled: {
-    cursor: 'grab'
-  },
-  active: {
-    cursor: 'grabbing'
-  },
-  backdrop: {
-    position: 'fixed',
-    zIndex: 999,
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%'
-  }
+import styled from '@emotion/styled';
+import {evaluateStyle} from '../theme';
+
+const ContainerComponent = styled.div(props => ({
+  margin: -props.tolerance,
+  padding: props.tolerance,
+  cursor: props.isActive ? 'grabbing' : props.isEnabled ? 'grab' : 'inherit',
+
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+const BACKDROP_STYLES = {
+  position: 'fixed',
+  zIndex: 999,
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%'
 };
 
 function noop() {}
@@ -28,21 +31,22 @@ export default class Draggable extends PureComponent {
     // container
     className: PropTypes.string,
     // config
+    style: PropTypes.object,
     tolerance: PropTypes.number,
     isEnabled: PropTypes.bool,
     // callbacks
-    onStart: PropTypes.func,
+    onDragStart: PropTypes.func,
     onDrag: PropTypes.func,
-    onEnd: PropTypes.func
+    onDragEnd: PropTypes.func
   };
 
   static defaultProps = {
     className: '',
     isEnabled: true,
     tolerance: 0,
-    onStart: noop,
+    onDragStart: noop,
     onDrag: noop,
-    onEnd: noop
+    onDragEnd: noop
   };
 
   constructor(props) {
@@ -89,7 +93,7 @@ export default class Draggable extends PureComponent {
       offset,
       dragStartPos: {x: eventData.x, y: eventData.y}
     });
-    this.props.onStart(eventData);
+    this.props.onDragStart(eventData);
   };
 
   _onMouseMove = evt => {
@@ -119,39 +123,33 @@ export default class Draggable extends PureComponent {
         isMouseDown: false,
         dragStartPos: null
       });
-      this.props.onEnd(this._getEventData(evt));
+      this.props.onDragEnd(this._getEventData(evt));
     }
   };
 
   render() {
-    const {isEnabled, className, tolerance} = this.props;
+    const {style, isEnabled, className, tolerance} = this.props;
     const {isMouseDown} = this.state;
 
-    const containerStyle = Object.assign(
-      {
-        margin: -tolerance,
-        padding: tolerance
-      },
-      isEnabled ? STYLES.enabled : null,
-      isMouseDown ? STYLES.active : null
-    );
-
     return (
-      <div
+      <ContainerComponent
         className={className}
         ref={ref => {
           this._element = ref;
         }}
-        style={containerStyle}
+        tolerance={tolerance}
+        isEnabled={isEnabled}
+        isActive={isMouseDown}
+        userStyle={style}
         onMouseDown={this._onMouseDown}
         onMouseMove={this._onMouseMove}
         onMouseLeave={this._onMouseUp}
         onMouseUp={this._onMouseUp}
       >
-        {isMouseDown && <div style={STYLES.backdrop} />}
+        {isMouseDown && <div style={BACKDROP_STYLES} />}
 
         {this.props.children}
-      </div>
+      </ContainerComponent>
     );
   }
 }

@@ -32,10 +32,37 @@ A stateless component that renders a floating panel.
 * `resizable` **(boolean, optional)** - whether the panel can be resized, default false
 * `minimizable` **(boolean, optional)** - whether the panel can be minimized, default true
 * `onUpdate` **(function, optional)** - callback when user move/resize/minimize the panel
+* `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
-### CSS Classes
 
-* `mc-float-panel` - wrapper around the whole control
-* `mc-float-panel--title` - title of the float panel
-* `mc-float-panel--content` - content of the float panel
-* `mc-float-panel--resizer` - hit area of the resize button
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - wrapper around the whole control
+* `title` - title bar of the float panel
+* `content` - content of the float panel
+* `resizer` - hit area of the resize button
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+```jsx
+const floatPanelStyle = {
+  resizer: {
+    width: 20,
+    height: 20
+  },
+  title: props => ({
+    background: props.isActive ? 'red' : 'black'
+  })
+};
+```
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `isMoving` **(boolean)** - if the float panel is being moved
+  - `isResizing` **(boolean)** - if the float panel is being resized
+  - `width` **(number)**
+  - `height` **(number)**

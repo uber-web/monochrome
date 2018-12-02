@@ -15,11 +15,12 @@ A React component that handles drag & drop events
 ### Props
 
 * `className` **(string, optional)** - custom class name(s)
+* `style` **(object|function, optional)** - custom CSS overrides. See "styling" section below.
 * `tolerance` **(object, optional)** - allow the user to start dragging without hitting the exact target. Default `0`.
 * `isEnabled` **(boolean, optional)** - is component interactive. Default `true`.
-* `onStart` **(function, optional)** - callback when mouse is down. Called with a single argument that is an *event object*.
+* `onDragStart` **(function, optional)** - callback when mouse is down. Called with a single argument that is an *event object*.
 * `onDrag` **(function, optional)** - callback when component is dragged (controlled by `threshold`). Called with a single argument that is an *event object*.
-* `onEnd` **(function, optional)** - callback when mouse is released. Called with a single argument that is an *event object*.
+* `onDragEnd` **(function, optional)** - callback when mouse is released. Called with a single argument that is an *event object*.
 
 ### Event Object
 
@@ -31,3 +32,18 @@ A React component that handles drag & drop events
 * `deltaX` - pointer x relative to the pick up position
 * `deltaY` - pointer y relative to the pick up position
 * `hasDragged` - if the component has been dragged before this event (controlled by `threshold`)
+
+### Styling
+
+```js
+const draggableStyle = props => ({
+  cursor: props.isActive ? 'grabbing' : 'grab'
+});
+```
+
+The `style` prop supplies CSS overrides for the components. If a callback function is supplied, it will receive the following arguments:
+
+* `props` **(object)**
+  - `tolerance` **(number)**
+  - `isEnabled` **(boolean)**
+  - `isActive` **(boolean)** - if the user is interacting with the control.

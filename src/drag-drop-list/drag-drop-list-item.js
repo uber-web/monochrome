@@ -122,7 +122,11 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
 
   renderMover(children) {
     return (
-      <Draggable onStart={this._onDragStart} onDrag={this._onDragMove} onEnd={this._onDragEnd}>
+      <Draggable
+        onDragStart={this._onDragStart}
+        onDrag={this._onDragMove}
+        onDragEnd={this._onDragEnd}
+      >
         {children}
       </Draggable>
     );

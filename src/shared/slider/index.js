@@ -179,9 +179,9 @@ class Slider extends PureComponent {
         >
           <Draggable
             tolerance={knobSize / 2 + tolerance}
-            onStart={this._onDragStart}
+            onDragStart={this._onDragStart}
             onDrag={this._onDrag}
-            onEnd={this._onDragEnd}
+            onDragEnd={this._onDragEnd}
           >
             <SliderTrack
               userStyle={style.track}

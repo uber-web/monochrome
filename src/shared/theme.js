@@ -44,6 +44,7 @@ export function createTheme(theme) {
     fontSize: theme.fontSize,
     lineHeight: theme.lineHeight,
     color: theme.textColorPrimary,
+    textAlign: 'start'
   };
 
   return {...theme, __reset__};

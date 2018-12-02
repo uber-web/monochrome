@@ -2,28 +2,63 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 import Draggable from '../shared/draggable';
 
-const STYLES = {
-  content: {
-    overflow: 'hidden',
-    lineHeight: 0,
-    boxSizing: 'content-box',
-    position: 'relative'
-  },
-  resizer: {
-    position: 'absolute',
-    right: 0,
-    bottom: 0,
-    zIndex: 1,
-    cursor: 'nwse-resize'
-  }
-};
+import styled from '@emotion/styled';
+import {withTheme, evaluateStyle} from '../shared/theme';
+
+export const Container = styled.div(props => ({
+  ...props.theme.__reset__,
+  position: 'absolute',
+  boxSizing: 'content-box',
+  boxShadow: props.theme.shadow,
+  left: props.left,
+  top: props.top,
+  width: props.width,
+  borderStyle: 'solid',
+  borderWidth: 1,
+  borderColor:
+    props.isMoving || props.isResizing
+      ? props.theme.controlColorActive
+      : props.theme.backgroundInvert,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+export const ContentComponent = styled.div(props => ({
+  overflow: 'hidden',
+  lineHeight: 0,
+  boxSizing: 'content-box',
+  position: 'relative',
+  height: props.height,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+export const TitleComponent = styled.div(props => ({
+  background:
+    props.isMoving || props.isResizing
+      ? props.theme.controlColorActive
+      : props.theme.backgroundInvert,
+  color: props.theme.textColorInvert,
+  textAlign: 'center',
+  fontWeight: 'bold',
+  lineHeight: 2,
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+export const Resizer = styled.div(props => ({
+  position: 'absolute',
+  width: 12,
+  height: 12,
+  right: 0,
+  bottom: 0,
+  zIndex: 1
+}));
 
 /**
  * @class
  */
-export default class FloatPanel extends PureComponent {
+class FloatPanel extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
+    style: PropTypes.object,
     // container
     parentWidth: PropTypes.number,
     parentHeight: PropTypes.number,
@@ -43,6 +78,7 @@ export default class FloatPanel extends PureComponent {
   };
 
   static defaultProps = {
+    style: {},
     parentWidth: Infinity,
     parentHeight: Infinity,
     className: '',
@@ -76,6 +112,8 @@ export default class FloatPanel extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      isMoving: false,
+      isResizing: false,
       startProps: null
     };
   }
@@ -83,6 +121,7 @@ export default class FloatPanel extends PureComponent {
   _onMoveStart = () => {
     const {x, y, width, height, minimized} = this.props;
     this.setState({
+      isMoving: true,
       startProps: {x, y, width, height, minimized}
     });
   };
@@ -97,18 +136,20 @@ export default class FloatPanel extends PureComponent {
   };
 
   _onMoveEnd = ({hasDragged}) => {
-    if (this.props.minimizable && !hasDragged) {
+    if (this.props.minimizable && this.props.title && !hasDragged) {
       const {startProps} = this.state;
       this.props.onUpdate({
         ...startProps,
         minimized: !startProps.minimized
       });
     }
+    this.setState({isMoving: false});
   };
 
   _onResizeStart = () => {
     const {x, y, width, height, minimized} = this.props;
     this.setState({
+      isResizing: true,
       startProps: {x, y, width, height, minimized}
     });
   };
@@ -122,12 +163,20 @@ export default class FloatPanel extends PureComponent {
     });
   };
 
+  _onResizeEnd = () => {
+    this.setState({isResizing: false});
+  };
+
   renderMover(children) {
     const {movable} = this.props;
 
     if (movable) {
       return (
-        <Draggable onStart={this._onMoveStart} onDrag={this._onMoveDrag} onEnd={this._onMoveEnd}>
+        <Draggable
+          onDragStart={this._onMoveStart}
+          onDrag={this._onMoveDrag}
+          onDragEnd={this._onMoveEnd}
+        >
           {children}
         </Draggable>
       );
@@ -135,53 +184,70 @@ export default class FloatPanel extends PureComponent {
     return children;
   }
 
-  renderContent() {
-    const {height, minimized, minimizable, resizable} = this.props;
+  renderContent(styleProps) {
+    const {style, minimized, minimizable, resizable} = this.props;
 
     if (minimizable && minimized) {
       return null;
     }
 
-    const contentStyle = {
-      ...STYLES.content,
-      height
-    };
-
     return (
-      <div className="mc-float-panel--content" style={contentStyle}>
+      <ContentComponent {...styleProps} userStyle={style.content}>
         {this.props.children}
 
         {resizable && (
           <Draggable
-            className="mc-float-panel--resizer"
-            style={STYLES.resizer}
-            onStart={this._onResizeStart}
+            onDragStart={this._onResizeStart}
             onDrag={this._onResizeDrag}
-          />
+            onDragEnd={this._onResizeEnd}
+            style={{cursor: 'nwse-resize'}}
+          >
+            <Resizer {...styleProps} userStyle={style.resizer} />
+          </Draggable>
         )}
-      </div>
+      </ContentComponent>
     );
   }
 
   render() {
-    const {title, x, y, width, height, className, parentWidth, parentHeight} = this.props;
+    const {
+      theme,
+      style,
+      title,
+      x,
+      y,
+      width,
+      height,
+      className,
+      parentWidth,
+      parentHeight
+    } = this.props;
+    const {isMoving, isResizing} = this.state;
 
-    const containerStyle = {
-      position: 'absolute',
+    const styleProps = {
+      theme,
+      isMoving,
+      isResizing,
+      width,
+      height,
       left: Math.min(x, Math.max(0, parentWidth - width)),
-      top: Math.min(y, Math.max(0, parentHeight - height)),
-      width
+      top: Math.min(y, Math.max(0, parentHeight - height))
     };
-    const containerClassName = `mc-float-panel shadow ${className}`;
 
     // Only title bar is draggable
     return (
-      <div style={containerStyle} className={containerClassName}>
+      <Container className={className} {...styleProps} userStyle={style.wrapper}>
         {title
-          ? this.renderMover(<div className="mc-float-panel--title">{title}</div>)
-          : this.renderMover(this.renderContent())}
-        {title && this.renderContent()}
-      </div>
+          ? this.renderMover(
+              <TitleComponent {...styleProps} userStyle={style.title}>
+                {title}
+              </TitleComponent>
+            )
+          : this.renderMover(this.renderContent(styleProps))}
+        {title && this.renderContent(styleProps)}
+      </Container>
     );
   }
 }
+
+export default withTheme(FloatPanel);

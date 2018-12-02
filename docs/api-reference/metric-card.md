@@ -49,6 +49,7 @@ The `style` prop expects an object that may contain the following keys:
 * `title` - the title of the card.
 * `spinner` - the spinner that is shown when the card is loading.
 * `error` - the error message.
+* `tooltip` - the title tooltip. This value will be passed to the [Tooltip](/docs/api-reference/popover.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

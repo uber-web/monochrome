@@ -19,7 +19,7 @@ A stateless slider control component.
 * `step` **(number, optional)** - step to snap the value to. Default is `0` (no snapping).
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
-* `style` **(object, optional)** - custom style. See "styling" section below.
+* `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 * `label` **(string, optional)** - label for the control.
 * `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 
