@@ -1,5 +1,6 @@
 import {primitives} from './light-theme-primitives';
-export const theme = {
+
+export const LIGHT_THEME = {
   ...primitives,
   /* Colors */
   background: primitives.mono100,

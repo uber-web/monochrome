@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {evaluateStyle} from '../shared/theme';
 
 export const ListContainer = styled.div(props => ({
+  ...props.theme.__reset__,
   userSelect: 'none',
   ...evaluateStyle(props.userStyle, props)
 }));

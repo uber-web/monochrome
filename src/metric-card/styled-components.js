@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import {evaluateStyle} from '../shared/theme';
 
 export const CardContainer = styled.div(props => ({
+  ...props.theme.__reset__,
   position: 'relative',
   fontSize: props.theme.fontSize,
   ...evaluateStyle(props.userStyle, props)
@@ -29,6 +30,7 @@ export const ErrorMessage = styled.div(props => ({
 // react-vis styles
 /* Adpated from react-vis/dist/styles/plot.scss */
 export const ChartContainer = styled.div(props => ({
+  ...props.theme.__reset__,
   width: props.width,
   height: props.height,
   cursor: 'pointer',
@@ -185,6 +187,7 @@ export const FilterLegend = styled.div(props => ({
   display: 'inline-block',
   width: 16,
   height: 16,
+  lineHeight: '16px',
   borderRadius: '50%',
   marginRight: props.theme.spacingSmall,
   textAlign: 'center',

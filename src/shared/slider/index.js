@@ -16,6 +16,7 @@ function snap(x, min, max, step) {
 }
 
 const SliderComponent = styled.div(props => ({
+  ...props.theme.__reset__,
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
   paddingTop: props.knobSize / 2,

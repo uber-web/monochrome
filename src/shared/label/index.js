@@ -7,6 +7,7 @@ import {withTheme, evaluateStyle} from '../theme';
 import {Tooltip} from '../popover';
 
 const LabelComponent = styled.label(props => ({
+  ...props.theme.__reset__,
   cursor: 'inherit',
   color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   ...evaluateStyle(props.userStyle, props)

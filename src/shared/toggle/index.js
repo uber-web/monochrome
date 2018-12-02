@@ -20,6 +20,7 @@ function getControlColor(props) {
 }
 
 const WrapperComponent = styled.div(props => ({
+  ...props.theme.__reset__,
   display: 'flex',
   alignItems: 'center',
   cursor: 'pointer',

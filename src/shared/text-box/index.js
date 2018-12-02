@@ -18,6 +18,7 @@ function getControlColor(props) {
 }
 
 const WrapperComponent = styled.div(props => ({
+  ...props.theme.__reset__,
   pointerEvents: props.isEnabled ? 'all' : 'none',
   ...evaluateStyle(props.userStyle, props)
 }));

@@ -57,6 +57,7 @@ const PopoverBody = styled.div(props => {
   }
 
   return {
+    ...props.theme.__reset__,
     ...style,
 
     position: 'absolute',

@@ -8,6 +8,7 @@ import RadioBoxItem from './radio-box-item';
 import Label from '../label';
 
 const WrapperComponent = styled.div(props => ({
+  ...props.theme.__reset__,
   ...evaluateStyle(props.userStyle, props)
 }));
 

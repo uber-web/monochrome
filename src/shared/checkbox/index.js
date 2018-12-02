@@ -13,6 +13,7 @@ const CHECKBOX_STATE = {
 };
 
 const CheckBoxComponent = styled.div(props => ({
+  ...props.theme.__reset__,
   display: 'flex',
   alignItems: 'center',
 
