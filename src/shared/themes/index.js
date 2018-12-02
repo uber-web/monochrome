@@ -2,22 +2,24 @@ import {primitives} from './light-theme-primitives';
 export const theme = {
   ...primitives,
   /* Colors */
-  background: '#FFF',
-  backgroundAlt: '#F8F8F9',
-  backgroundInvert: '#000',
+  background: primitives.mono100,
+  backgroundAlt: primitives.mono200,
+  backgroundInvert: primitives.mono1000,
 
-  controlColorPrimary: '#A6A6A5',
-  controlColorHovered: '#1C1B1B',
-  controlColorActive: '#11939A',
-  controlColorDisabled: '#D6D6D5',
+  controlColorPrimary: primitives.mono600,
+  controlColorHovered: primitives.mono900,
+  controlColorActive: primitives.primary400,
+  controlColorDisabled: primitives.mono400,
 
-  textColorPrimary: '#1C1B1B',
-  textColorSubtle: '#A6A5A5',
-  textColorInvert: '#F8F8F9',
-  textColorDisabled: '#D6D6D5',
+  textColorPrimary: primitives.mono900,
+  textColorSecondary: primitives.mono600,
+  textColorInvert: primitives.mono200,
+  textColorDisabled: primitives.mono500,
+  textColorWarning: primitives.warning400,
+  textColorError: primitives.negative400,
 
   /* Typography */
-  fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+  fontFamily: primitives.primaryFontFamily,
   fontSize: 12,
   lineHeight: 1.5,
 

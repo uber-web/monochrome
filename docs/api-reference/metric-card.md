@@ -34,10 +34,31 @@ Components that render a plot of multiple data series.
 ### Props
 
 * `className` **(string, optional)** - additional class name for the container
+* `style` **(object, optional)** - custom CSS styles. See "styling" section below.
 * `title` **(string|Element)** - title of the chart. If empty, the title bar will be hidden.
 * `description` **(string|Element)** - description of the chart. It is shown when the title is hovered.
 * `isLoading` **(bool)** - show a loading spinner
-* `error` **(Error)** - show a message if loading the chart encounters an error.
+* `error` **(string)** - show a message if loading the chart encounters an error.
+
+
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - the container of the card.
+* `title` - the title of the card.
+* `spinner` - the spinner that is shown when the card is loading.
+* `error` - the error message.
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `hasError` **(boolean)**
+  - `isLoading` **(boolean)**
+
 
 ## MetricChart
 
@@ -54,9 +75,7 @@ Components that render a plot of multiple data series.
 
 ### Styling Props
 
-* `width` **(number|string, optional)** - width of the chart. Default `100%`.
-* `height` **(number|string, optional)** - height of the chart. Default `300`.
-* `margin` **(object, optional)** - margin of the plot. Default `{left: 20, top: 20, right: 20, bottom: 20}`.
+* `style` **(object, optional)** - custom CSS styles. See "styling" section below.
 * `xDomain` **([number, number], optional)** - [min, max] of the x axis.
 * `yDomain` **([number, number], optional)** - [min, max] of the y axis.
 * `xTicks` **(number, optional)** - number of ticks to show on the x axis. Default `4`.
@@ -87,6 +106,38 @@ Components that render a plot of multiple data series.
 * `onSeriesMouseOut` **(function, optional)** - Called when the pointer leaves a line series. Parameters:
   + `key` (string) - name of the series.
 
+
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `width` **(number|string)** - width of the chart. Default `100%`.
+* `height` **(number|string)** - height of the chart. Default `300`.
+* `margin` **(object)** - margin of the plot. Default `{left: 20, top: 20, right: 20, bottom: 20}`.
+* `chart` - the chart component
+* `tooltip` - the hover tooltip
+* `tooltipTitle` - the series names in the tooltip
+* `tooltipValue` - the value texts in the tooltip
+* `tooltipLegend` - the color legends in the tooltip
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+
+The `tooltipTitle`, `tooltipValue` and `tooltipLegend` callbacks will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `name` **(string)** - key of the series
+  - `displayName` **(string)** - dispay name of the series
+  - `color` **(string)** - color of the series
+  - `isFirst` **(boolean)** - if this is the first item in the list
+  - `isLast` **(boolean)** - if this is the last item in the list
+
+
 ## RichMetricChart
 
 `RichMetricChart` renders a collection of line charts into a single x-y plot, and a list of legends to filter the data.
@@ -98,13 +149,26 @@ Every prop supported by `MetricChart`, plus the following:
 * `topSeriesCount` **(number)** - Number of series to display by default. The data series are sorted by their peak value.
 
 
-### CSS Classes
+### Styling
 
-* `mc-metric-card` - wrapper around the whole control
-* `mc-metric-card--title` - the card title
-* `mc-metric-card--preloader` - the loading spinner
-* `mc-metric-card--error` - the error message
-* `mc-metric-chart` - container of the chart
-* `mc-metric-chart--legend` - legend of a data series
-* `mc-metric-chart--legend-icon` - the icon of a legend
-* `mc-metric-chart--show-all` - the "show all" toggle of the legends
+The `style` prop expects an object that may contain any of the stylable components of the `MetricChart`, plus the following:
+
+* `filter` - the filter container
+* `filterToggle` - the "show all" toggle of the filters
+* `filterItem` - the name of a series in the filters
+* `filterLegend` - the color legend of a series in the filters
+
+The `filter` callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+
+The `filterItem` and `filterLegend` callbacks will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `name` **(string)** - key of the series
+  - `displayName` **(string)** - dispay name of the series
+  - `color` **(string)** - color of the series
+  - `isActive` **(boolean)** - if the series is turned on
+  - `isHovered` **(boolean)** - if the pointer is hovering over this series

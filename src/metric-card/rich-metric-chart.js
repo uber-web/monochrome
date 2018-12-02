@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
+import {withTheme} from '../shared/theme';
 import MetricChart from './metric-chart';
+import {FilterContainer, FilterToggle, FilterItem, FilterLegend} from './styled-components';
 
 import {scaleOrdinal} from 'd3-scale';
 import {extent} from 'd3-array';
@@ -30,12 +31,6 @@ const DEFAULT_COLORS = scaleOrdinal().range([
   '#B3AD9E'
 ]);
 
-const STYLES = {
-  clickable: {
-    cursor: 'pointer'
-  }
-};
-
 /**
  * A component that visualizes the multiple data series. Features:
  * Each data series is shown as a line series
@@ -43,7 +38,7 @@ const STYLES = {
  * Legends are sorted by prominence (maximum value in the look ahead window)
  * A show all/show less button to toggle only showing the top 5 data series by value
  */
-export default class MetricChartWithLegends extends PureComponent {
+class MetricChartWithLegends extends PureComponent {
   static propTypes = Object.assign({}, MetricChart.propTypes, {
     topSeriesCount: PropTypes.number
   });
@@ -143,45 +138,48 @@ export default class MetricChartWithLegends extends PureComponent {
   };
 
   // Legends (also as visibility toggle) of the data streams
-  _renderDataLegends() {
+  _renderDataFilters() {
     const {dataSeries, showTopSeriesOnly, hoveredSeriesName} = this.state;
-    const {topSeriesCount} = this.props;
+    const {theme, style, topSeriesCount} = this.props;
 
     const series = showTopSeriesOnly ? dataSeries.slice(0, topSeriesCount) : dataSeries;
 
     return (
-      <div className="mc-metric-chart--legends-container">
+      <FilterContainer theme={theme} userStyle={style.filter} isExpanded={!showTopSeriesOnly}>
         {dataSeries.length > topSeriesCount && (
-          <div
-            className={`mc-metric-chart--show-all ${showTopSeriesOnly ? '' : 'expanded'}`}
-            style={STYLES.clickable}
+          <FilterToggle
+            theme={theme}
+            userStyle={style.filterToggle}
+            isExpanded={!showTopSeriesOnly}
             onClick={() => this.setState({showTopSeriesOnly: !showTopSeriesOnly})}
-          >
-            {showTopSeriesOnly ? 'Show all' : 'Show less'}
-          </div>
+          />
         )}
 
         {series.map(s => {
-          const className = classnames('mc-metric-chart--legend', {
-            hovered: hoveredSeriesName === s.key,
-            off: !this._isDataVisible(s.key)
-          });
+          const styleProps = {
+            theme,
+            name: s.key,
+            displayName: s.displayName,
+            color: s.color,
+            isHovered: hoveredSeriesName === s.key,
+            isActive: this._isDataVisible(s.key)
+          };
 
           return (
-            <div
-              className={className}
-              style={STYLES.clickable}
+            <FilterItem
+              userStyle={style.filterItem}
+              {...styleProps}
               key={`multiplot-${s.key}`}
               onMouseOver={() => this._setHoveredDataName(s.key)}
               onMouseOut={() => this._setHoveredDataName(null)}
               onClick={() => this._toggleDataVisibility(s.key)}
             >
-              <div className="mc-metric-chart--legend-icon" style={{background: s.color}} />
+              <FilterLegend {...styleProps} userStyle={style.filterLegend} />
               <span>{s.displayName}</span>
-            </div>
+            </FilterItem>
           );
         })}
-      </div>
+      </FilterContainer>
     );
   }
 
@@ -195,8 +193,10 @@ export default class MetricChartWithLegends extends PureComponent {
           onMouseLeave={() => this._setHoveredDataName(null)}
           dataFilter={this._isDataVisible}
         />
-        {this._renderDataLegends()}
+        {this._renderDataFilters()}
       </div>
     );
   }
 }
+
+export default withTheme(MetricChartWithLegends);

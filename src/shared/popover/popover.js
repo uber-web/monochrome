@@ -69,6 +69,10 @@ const PopoverBody = styled.div(props => {
     borderColor: props.borderColor || props.theme.controlColorPrimary,
     boxShadow: props.theme.shadow,
 
+    fontFamily: props.theme.fontFamily,
+    fontSize: props.theme.fontSize,
+    fontWeight: 'normal',
+
     ...props.popperStyles,
     ...evaluateStyle(props.userStyle, props)
   };

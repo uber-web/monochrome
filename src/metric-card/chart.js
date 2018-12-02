@@ -14,16 +14,26 @@ import Crosshair from 'react-vis/dist/plot/crosshair';
 
 import {scaleLinear} from 'd3-scale';
 
+import {withTheme} from '../shared/theme';
+import {
+  ChartContainer,
+  CrosshairItemTitle,
+  CrosshairItemLegend,
+  CrosshairItemValue
+} from './styled-components';
+
 const noop = () => {};
+
+const DEFAULT_WIDTH = '100%';
+const DEFAULT_HEIGHT = 300;
+const DEFAULT_MARGIN = {left: 32, right: 20, top: 20, bottom: 32};
 
 /**
  * A metric chart draws a chart with optional percentiles and lags
  */
-export default class Chart extends PureComponent {
+class Chart extends PureComponent {
   static propTypes = {
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    margin: PropTypes.object,
+    style: PropTypes.object,
     unit: PropTypes.string,
 
     data: PropTypes.object,
@@ -60,9 +70,7 @@ export default class Chart extends PureComponent {
   };
 
   static defaultProps = {
-    width: '100%',
-    height: 300,
-    margin: {left: 20, right: 20, top: 20, bottom: 20},
+    style: {},
     data: {},
     dataFilter: key => true,
     unit: '',
@@ -223,39 +231,58 @@ export default class Chart extends PureComponent {
       return null;
     }
 
-    const {unit, dataFilter, formatTitle, formatValue, getX, getY, getY0, xDomain} = this.props;
+    const {
+      theme,
+      style,
+      unit,
+      dataFilter,
+      formatTitle,
+      formatValue,
+      getX,
+      getY,
+      getY0,
+      xDomain
+    } = this.props;
+    const keys = Object.keys(highlightValues).filter(key => {
+      const value = highlightValues[key];
+      const x = getX(value);
+      return dataFilter(key) && (!xDomain || (x >= xDomain[0] && x <= xDomain[1]));
+    });
 
-    const crosshairItems = Object.keys(highlightValues)
-      .filter(key => {
-        const value = highlightValues[key];
-        const x = getX(value);
-        return dataFilter(key) && (!xDomain || (x >= xDomain[0] && x <= xDomain[1]));
-      })
-      .map(key => {
-        const value = highlightValues[key];
-        const color = this._getColor(key);
-        const x = getX(value);
-        const y = getY(value);
-        const y0 = getY0(value);
-        return {
-          x,
-          y,
-          title: (
-            <span>
-              <div className="rv-crosshair__item__legend" style={{background: color}} />
-              {formatTitle(key)}
-            </span>
-          ),
-          value: (
-            <span>
-              {Number.isFinite(y0) && `${formatValue(y0)}, `}
-              {formatValue(y)}
-              {unit && <span className="rv-crosshair__item__unit">{unit}</span>}
-            </span>
-          ),
-          color
-        };
-      });
+    const crosshairItems = keys.map((key, i) => {
+      const value = highlightValues[key];
+      const color = this._getColor(key);
+      const x = getX(value);
+      const y = getY(value);
+      const y0 = getY0(value);
+      const styleProps = {
+        theme,
+        name: key,
+        displayName: formatTitle(key),
+        color,
+        isFirst: i === 0,
+        isLast: i === keys.length - 1
+      };
+
+      return {
+        x,
+        y,
+        title: (
+          <CrosshairItemTitle {...styleProps} userStyle={style.tooltipTitle}>
+            <CrosshairItemLegend {...styleProps} userStyle={style.tooltipLegend} />
+            {styleProps.displayName}
+          </CrosshairItemTitle>
+        ),
+        value: (
+          <CrosshairItemValue {...styleProps} userStyle={style.tooltipValue}>
+            {Number.isFinite(y0) && `${formatValue(y0)}, `}
+            {formatValue(y)}
+            {unit && <span>{unit}</span>}
+          </CrosshairItemValue>
+        ),
+        color
+      };
+    });
 
     return [
       <Crosshair
@@ -267,6 +294,8 @@ export default class Chart extends PureComponent {
       <MarkSeries
         key="hovered-values"
         data={crosshairItems}
+        stroke="#fff"
+        strokeWidth={2}
         getFill={d => d.color}
         fillType="literal"
       />
@@ -275,9 +304,8 @@ export default class Chart extends PureComponent {
 
   render() {
     const {
-      width,
-      height,
-      margin,
+      theme,
+      style,
       formatYTick,
       formatXTick,
       xTicks,
@@ -292,13 +320,19 @@ export default class Chart extends PureComponent {
     } = this.props;
 
     return (
-      <div className="mc-metric-chart" style={{width, height}}>
+      <ChartContainer
+        theme={theme}
+        userStyle={style.chart}
+        tooltipStyle={style.tooltip}
+        width={style.width || DEFAULT_WIDTH}
+        height={style.height || DEFAULT_HEIGHT}
+      >
         <AutoSizer>
           {({width: chartWidth, height: chartHeight}) => (
             <XYPlot
               width={chartWidth}
               height={chartHeight}
-              margin={margin}
+              margin={style.margin || DEFAULT_MARGIN}
               {...this._getScaleSettings()}
               onClick={onClick}
               onMouseEnter={onMouseEnter}
@@ -317,7 +351,9 @@ export default class Chart extends PureComponent {
             </XYPlot>
           )}
         </AutoSizer>
-      </div>
+      </ChartContainer>
     );
   }
 }
+
+export default withTheme(Chart);

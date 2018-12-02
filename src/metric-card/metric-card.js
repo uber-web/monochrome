@@ -1,24 +1,23 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
+import Spinner from '../shared/spinner';
 import {Tooltip} from '../shared/popover';
 
-const STYLES = {
-  container: {
-    position: 'relative'
-  }
-};
+import {withTheme} from '../shared/theme';
+import {CardContainer, CardTitle, ErrorMessage} from './styled-components';
 
 /**
  * MetricCard places a chart in a container with padding, title,
  * selection marker etc
  */
-export default class MetricCard extends PureComponent {
+class MetricCard extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     description: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
 
-    error: PropTypes.instanceOf(Error),
+    style: PropTypes.object,
+    error: PropTypes.string,
     isLoading: PropTypes.bool,
 
     children: PropTypes.element
@@ -29,30 +28,37 @@ export default class MetricCard extends PureComponent {
     title: '',
     description: '',
 
+    style: {},
     error: null,
     isLoading: false
   };
 
   render() {
-    const {error, isLoading, className, title, description} = this.props;
+    const {theme, style, error, isLoading, className, title, description} = this.props;
+    const styleProps = {
+      theme,
+      hasError: Boolean(error),
+      isLoading
+    };
 
     return (
-      <div className={`mc-metric-card ${className}`} style={STYLES.container}>
+      <CardContainer className={className} {...styleProps} userStyle={style.wrapper}>
         {title && (
-          <div key="header" className="mc-metric-card--title">
+          <CardTitle {...styleProps} userStyle={style.title}>
             <Tooltip content={description}>{title}</Tooltip>
-          </div>
+          </CardTitle>
         )}
 
         {!isLoading && !error && this.props.children}
-        {isLoading && <div className="mc-metric-card--preloader" />}
-
+        {isLoading && <Spinner style={style.spinner} />}
         {error && (
-          <div key="error">
-            <span className="mc-metric-card--error">{error}</span>
-          </div>
+          <ErrorMessage {...styleProps} userStyle={style.error}>
+            {error}
+          </ErrorMessage>
         )}
-      </div>
+      </CardContainer>
     );
   }
 }
+
+export default withTheme(MetricCard);

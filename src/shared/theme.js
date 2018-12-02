@@ -26,5 +26,8 @@ export function withTheme(Component) {
     }
   }
 
+  ThemedComponent.propTypes = Component.propTypes;
+  ThemedComponent.defaultProps = Component.defaultProps;
+
   return ThemedComponent;
 }
