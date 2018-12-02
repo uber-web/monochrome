@@ -2,9 +2,9 @@
 /* global window */
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import Draggable from '../shared/draggable';
+import {ListItemContainer, ListItemTitle, ListItemPlaceholder} from './styled-components';
 
 const noop = () => {};
 
@@ -36,6 +36,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
     className: PropTypes.string,
     title: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
     removed: PropTypes.bool,
+    style: PropTypes.object.isRequired,
     onDragStart: PropTypes.func,
     onDragMove: PropTypes.func,
     onDragEnd: PropTypes.func
@@ -50,6 +51,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
   };
 
   state: State = {
+    isHovered: false,
     isDragging: false,
     isActive: false,
     width: 0,
@@ -69,6 +71,10 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
   getBoundingBox() {
     return this._container.getBoundingClientRect();
   }
+
+  _onMouseEnter = () => this.setState({isHovered: true});
+
+  _onMouseLeave = () => this.setState({isHovered: false});
 
   _onDragStart = (evt: DragPos) => {
     const container = this._container;
@@ -123,68 +129,73 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
   }
 
   renderContent() {
-    const {className} = this.props;
-    const {isDragging, isActive, width, height, dragPos, dragStartOffset} = this.state;
+    const {className, removed, theme, style} = this.props;
+    const {isHovered, isDragging, isActive, width, height, dragPos, dragStartOffset} = this.state;
 
-    const contentStyle = isActive
-      ? {
-          boxSizing: 'border-box',
-          position: 'fixed',
-          zIndex: 999,
-          left: dragStartOffset.left + dragPos.deltaX,
-          top: dragStartOffset.top + dragPos.deltaY,
-          width,
-          height,
-          transition: isDragging ? undefined : `all ${TRANSITION}ms`
-        }
-      : {};
-
-    const contentClassName = classnames('mc-drag-drop-list--item-content', className);
+    const styleProps = {
+      theme,
+      isRemoved: removed,
+      isHovered,
+      isDragging,
+      isActive,
+      width,
+      height,
+      dragPos,
+      dragStartOffset
+    };
 
     const title = this.renderTitle();
 
     return title ? (
-      <div className={contentClassName} style={contentStyle}>
-        {this.renderMover(<div className="mc-drag-drop-list--item-title">{title}</div>)}
+      <ListItemContainer className={className} {...styleProps} userStyle={style.item}>
+        {this.renderMover(
+          <ListItemTitle
+            {...styleProps}
+            userStyle={style.title}
+            onMouseEnter={this._onMouseEnter}
+            onMouseLeave={this._onMouseLeave}
+          >
+            {title}
+          </ListItemTitle>
+        )}
         {this.props.children}
-      </div>
+      </ListItemContainer>
     ) : (
       this.renderMover(
-        <div className={contentClassName} style={contentStyle}>
+        <ListItemContainer
+          onMouseEnter={this._onMouseEnter}
+          onMouseLeave={this._onMouseLeave}
+          className={className}
+          {...styleProps}
+        >
           {this.props.children}
-        </div>
+        </ListItemContainer>
       )
     );
   }
 
   render() {
-    const {removed} = this.props;
-    const {isDragging, isActive, width, height} = this.state;
+    const {theme, removed, style} = this.props;
+    const {isHovered, isDragging, isActive, width, height} = this.state;
 
-    const containerClassName = classnames(
-      'mc-drag-drop-list--item',
-      {active: isActive},
-      {dragging: isDragging}
-    );
-
-    const placeholderClassName = classnames('mc-drag-drop-list--placeholder', {removed});
-
-    const placeholderStyle = {
-      boxSizing: 'border-box',
-      transition: `height ${TRANSITION}ms`,
+    const styleProps = {
+      theme,
+      isRemoved: removed,
+      isHovered,
+      isDragging,
+      isActive,
       width,
-      height: removed ? 0 : height
+      height
     };
 
     return (
       <div
-        className={containerClassName}
         ref={ref => {
           this._container = ref;
         }}
       >
         {this.renderContent()}
-        {isActive && <div className={placeholderClassName} style={placeholderStyle} />}
+        {isActive && <ListItemPlaceholder {...styleProps} userStyle={style.placeholder} />}
       </div>
     );
   }

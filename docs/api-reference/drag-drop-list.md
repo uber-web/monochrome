@@ -28,11 +28,48 @@ Parameters:
   + `event.items` **(array)** - rearranged items list
   + `event.removedItems` **(array)** - removed items
   + `event.targetRect` **(object)** - the bounding box of where the item is dropped
+* `style` **(object, optional)** - custom CSS styles. See "styling" section below.
 
-### CSS Classes
 
-* `mc-drag-drop-list` - wrapper around the whole control
-* `mc-drag-drop-list--item` - container of each item in the list
-* `mc-drag-drop-list--item-title` - title of an item in the list
-* `mc-drag-drop-list--item-content` - content of an item in the list
-* `mc-drag-drop-list--placeholder` - the placeholder shown during dragging
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - wrapper element around the whole control.
+* `item` - container of one list item.
+* `title` - the title element of each list item.
+* `placeholder` - the placeholder element when reordering.
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+```jsx
+const sliderStyle = {
+  placeholder: {
+    borderStyle: 'solid'
+  },
+  title: props => ({
+    '&:before': {
+      content: '"☰"'
+    },
+    background: props.isDragging ? 'red' : 'transparent'
+  })
+};
+```
+
+The `wrapper` callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `isDragging` **(boolean)** - if the user is dragging an item
+  - `isRemoving` **(boolean)** - if the user is removing an item
+
+Other style callback functions will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `width` **(number)** - the measured width of the current item
+  - `height` **(number)** - the measured height of the current item
+  - `isHovered` **(boolean)** - if the pointer is hovering over the header (if `item.title` is specified) or the item
+  - `isDragging` **(boolean)** - if the item is being dragged
+  - `isActive` **(boolean)** - if the item is being dragged or animating after being dropped
+  - `isRemoved`  **(boolean)** - if the item is being removed

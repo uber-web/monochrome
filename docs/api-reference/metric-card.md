@@ -113,7 +113,7 @@ The `style` prop expects an object that may contain the following keys:
 
 * `width` **(number|string)** - width of the chart. Default `100%`.
 * `height` **(number|string)** - height of the chart. Default `300`.
-* `margin` **(object)** - margin of the plot. Default `{left: 20, top: 20, right: 20, bottom: 20}`.
+* `margin` **(object)** - margin of the plot. Default `{left: 32, top: 20, right: 20, bottom: 32}`.
 * `chart` - the chart component
 * `tooltip` - the hover tooltip
 * `tooltipTitle` - the series names in the tooltip

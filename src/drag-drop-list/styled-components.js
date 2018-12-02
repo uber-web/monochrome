@@ -1,0 +1,53 @@
+import styled from '@emotion/styled';
+
+import {evaluateStyle} from '../shared/theme';
+
+export const ListContainer = styled.div(props => ({
+  userSelect: 'none',
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+export const ListItemContainer = styled.div(props => {
+  const style = props.isActive
+    ? {
+        boxSizing: 'border-box',
+        position: 'fixed',
+        zIndex: 999,
+        left: props.dragStartOffset.left + props.dragPos.deltaX,
+        top: props.dragStartOffset.top + props.dragPos.deltaY,
+        width: props.width,
+        height: props.height,
+        transitionProperty: 'all',
+        transitionTimingFunction: props.theme.transitionTimingFunction,
+        transitionDuration: props.isDragging ? 0 : props.theme.transitionDuration,
+        boxShadow: props.theme.shadow
+      }
+    : {};
+
+  return Object.assign(style, evaluateStyle(props.userStyle, props));
+});
+
+export const ListItemTitle = styled.div(props => ({
+  '&:before': {
+    content: '"☰"',
+    marginRight: props.theme.spacingTiny,
+    opacity: props.isHovered ? 1 : 0.3
+  },
+
+  ...evaluateStyle(props.userStyle, props)
+}));
+
+export const ListItemPlaceholder = styled.div(props => ({
+  boxSizing: 'border-box',
+  transitionProperty: 'height',
+  transitionTimingFunction: props.theme.transitionTimingFunction,
+  transitionDuration: props.theme.transitionDuration,
+  width: props.width,
+  height: props.isRemoved ? 0 : props.height,
+
+  borderStyle: 'dotted',
+  borderColor: props.theme.controlColorPrimary,
+  borderWidth: 2,
+
+  ...evaluateStyle(props.userStyle, props)
+}));

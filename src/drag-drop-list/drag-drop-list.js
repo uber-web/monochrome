@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import DragDropListItem from './drag-drop-list-item';
 import {overlap, offsetRect} from './utils';
 
+import {withTheme} from '../shared/theme';
+import {ListContainer} from './styled-components';
+
 const noop = () => {};
 
-export default class DragDropList extends PureComponent {
+class DragDropList extends PureComponent {
   static propTypes = {
     items: PropTypes.arrayOf(
       PropTypes.shape({
@@ -16,11 +19,13 @@ export default class DragDropList extends PureComponent {
         title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.func])
       })
     ),
+    style: PropTypes.object,
     canRemoveItem: PropTypes.bool,
     onListChange: PropTypes.func
   };
 
   static defaultProps = {
+    style: {},
     canRemoveItem: false,
     onListChange: noop
   };
@@ -94,17 +99,25 @@ export default class DragDropList extends PureComponent {
   }
 
   render() {
+    const {theme, style} = this.props;
     const items = this.state.items || this.props.items;
 
     return (
-      <div className="mc-drag-drop-list" style={{userSelect: 'none'}}>
+      <ListContainer
+        theme={theme}
+        isDragging={Boolean(this.state.items)}
+        isRemoving={this.state.removedIndex >= 0}
+        userStyle={style.wrapper}
+      >
         {items &&
           items.map((item, i) => (
             <DragDropListItem
+              theme={theme}
               key={item.key}
               ref={instance => {
                 item.instance = instance;
               }}
+              style={style}
               title={item.title}
               removed={i === this.state.removedIndex}
               className={item.className}
@@ -115,7 +128,9 @@ export default class DragDropList extends PureComponent {
               {this.renderContent(item)}
             </DragDropListItem>
           ))}
-      </div>
+      </ListContainer>
     );
   }
 }
+
+export default withTheme(DragDropList);
