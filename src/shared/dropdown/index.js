@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
+import {DropdownIcon as DefaultDropdownIcon} from '../icons';
 
 function getControlColor(props) {
   if (!props.isEnabled) {
@@ -58,10 +59,12 @@ const DropdownIcon = styled.div(props => ({
 
   color: getControlColor(props),
   padding: props.theme.spacingSmall,
+  width: 16,
+  height: 16,
+  textAlign: 'center',
+  lineHeight: '16px',
+  path: {fill: 'currentColor'},
 
-  '&:before': {
-    content: '"▾"'
-  },
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -135,7 +138,9 @@ class Dropdown extends PureComponent {
               </option>
             ))}
           </DropdownInput>
-          <DropdownIcon userStyle={style.icon} {...styleProps} />
+          <DropdownIcon userStyle={style.icon} {...styleProps}>
+            {style.iconArrow || <DefaultDropdownIcon />}
+          </DropdownIcon>
         </DropdownBorder>
       </WrapperComponent>
     );

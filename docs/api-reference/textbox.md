@@ -29,6 +29,7 @@ The `style` prop expects an object that may contain the following keys:
 * `border` - the border around the text box.
 * `input` - the <input> element.
 * `clear` - the clear button.
+* `iconClear` **(element)**  - the icon for the clear button.
 * `height` **(number)** - height of the check box. Default is `26`.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.

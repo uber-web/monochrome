@@ -1,9 +1,18 @@
 import React from 'react';
-import {LIGHT_THEME} from './themes';
+import {LIGHT_THEME, DARK_THEME} from './themes';
 
-const ThemeContext = React.createContext(createTheme(LIGHT_THEME));
+const ThemeContext = React.createContext(createTheme({}));
+const themeCache = new Map();
 
-export const ThemeProvider = ThemeContext.Provider;
+export function ThemeProvider({theme, children}) {
+  let resolvedTheme = themeCache.get(theme);
+  if (!resolvedTheme) {
+    resolvedTheme = createTheme(theme);
+    themeCache.set(theme, resolvedTheme);
+  }
+
+  return <ThemeContext.Provider value={resolvedTheme}>{children}</ThemeContext.Provider>;
+}
 
 export function evaluateStyle(userStyle, props) {
   if (!userStyle) {
@@ -32,9 +41,23 @@ export function withTheme(Component) {
   return ThemedComponent;
 }
 
-export function createTheme(theme) {
+function createTheme(theme) {
+  let base = null;
+
+  switch (theme.extends) {
+    case 'dark':
+      base = DARK_THEME;
+      break;
+
+    default:
+      base = LIGHT_THEME;
+      break;
+  }
+
+  theme = {...base, ...theme};
+
   // Reset inherited styles
-  const __reset__ = {
+  theme.__reset__ = {
     font: 'initial',
     cursor: 'initial',
     pointerEvents: 'initial',
@@ -47,5 +70,5 @@ export function createTheme(theme) {
     textAlign: 'start'
   };
 
-  return {...theme, __reset__};
+  return theme;
 }

@@ -18,3 +18,5 @@ export {default as PlaybackControl} from './playback-control';
 export {default as Form} from './form';
 export {Table, TreeTable} from './table';
 export {MetricCard, MetricChart, RichMetricChart} from './metric-card';
+
+export {ThemeProvider} from './shared/theme';

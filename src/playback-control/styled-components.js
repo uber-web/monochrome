@@ -30,6 +30,15 @@ export const PlayPauseButton = styled.div(props => ({
   marginLeft: props.layout === 1 ? -8 : 0,
   marginRight: props.theme.spacingSmall,
   cursor: 'pointer',
+
+  color: props.theme.controlColorPrimary,
+  '&:hover': {
+    color: props.theme.controlColorHovered
+  },
+  path: {
+    fill: 'currentColor'
+  },
+
   ...evaluateStyle(props.userStyle, props)
 }));
 

@@ -87,11 +87,7 @@ const STYLES = {
   label: {
     tooltip: {
       arrowSize: 0,
-      borderWidth: 0,
-      body: {
-        background: 'rgba(0, 0, 0, 0.9)',
-        color: '#fff'
-      }
+      borderWidth: 0
     }
   }
 };

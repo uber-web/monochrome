@@ -23,7 +23,8 @@ The `style` prop expects an object that may contain the following keys:
 
 * `label` - the label.
 * `tooltip` - the tooltip. This value will be passed to the [Tooltip](/docs/api-reference/popover.md) component.
-* `tooltipTarget` - the "?" icon.
+* `tooltipTarget` - the container around the info icon.
+* `iconInfo` **(element)** - the info icon
 
 The values define the styling overrides for the respective child components. Each value can be an object, or a callback function.
 

@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import {withTheme} from '../shared/theme';
+import {ExpandedIcon, CollapsedIcon, CheckAltIcon} from '../shared/icons';
 import MetricChart from './metric-chart';
 import {FilterContainer, FilterToggle, FilterItem, FilterLegend} from './styled-components';
 
@@ -152,7 +153,11 @@ class MetricChartWithLegends extends PureComponent {
             userStyle={style.filterToggle}
             isExpanded={!showTopSeriesOnly}
             onClick={() => this.setState({showTopSeriesOnly: !showTopSeriesOnly})}
-          />
+          >
+            {showTopSeriesOnly
+              ? style.iconCollapsed || <CollapsedIcon />
+              : style.iconExpanded || <ExpandedIcon />}
+          </FilterToggle>
         )}
 
         {series.map(s => {
@@ -174,7 +179,9 @@ class MetricChartWithLegends extends PureComponent {
               onMouseOut={() => this._setHoveredDataName(null)}
               onClick={() => this._toggleDataVisibility(s.key)}
             >
-              <FilterLegend {...styleProps} userStyle={style.filterLegend} />
+              <FilterLegend {...styleProps} userStyle={style.filterLegend}>
+                {styleProps.isActive ? style.iconOn || <CheckAltIcon /> : style.iconOff}
+              </FilterLegend>
               <span>{s.displayName}</span>
             </FilterItem>
           );

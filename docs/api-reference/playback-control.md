@@ -77,8 +77,8 @@ The `style` prop expects an object that may contain the following keys:
 * `slider` **(object)** - the slider. The value will be passed to the [Slider](docs/api-reference/slider.md) component.
 * `controls` - the container of the controls.
 * `playPauseButton` - the play/pause button.
-* `playIcon` **(element)**  - the play icon.
-* `pauseIcon` **(element)**  - the pause icon.
+* `iconPlay` **(element)**  - the play icon.
+* `iconPause` **(element)**  - the pause icon.
 * `timestamp` - the timestamp.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.

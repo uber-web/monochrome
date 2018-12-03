@@ -25,12 +25,6 @@ export const ListItemContainer = styled.div(props => {
 });
 
 export const ListItemTitle = styled.div(props => ({
-  '&:before': {
-    content: '"☰"',
-    marginRight: props.theme.spacingTiny,
-    opacity: props.isHovered ? 1 : 0.3
-  },
-
   ...evaluateStyle(props.userStyle, props)
 }));
 

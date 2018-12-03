@@ -20,7 +20,7 @@ import {
   MarkerComponent,
   BufferComponent
 } from './styled-components.js';
-import {PlayIcon, PauseIcon} from './icons';
+import {PlayIcon, PauseIcon} from '../shared/icons';
 
 const LAYOUT = {
   COMPACT: 0,
@@ -225,7 +225,7 @@ class PlaybackControl extends PureComponent {
         userStyle={style.playPauseButton}
         onClick={isPlaying ? this._pause : this._play}
       >
-        {isPlaying ? style.pauseIcon || <PauseIcon /> : style.playIcon || <PlayIcon />}
+        {isPlaying ? style.iconPause || <PauseIcon /> : style.iconPlay || <PlayIcon />}
       </PlayPauseButton>
     );
   }

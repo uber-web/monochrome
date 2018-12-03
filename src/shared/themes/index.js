@@ -1,27 +1,69 @@
-import {primitives} from './light-theme-primitives';
+import lightPrimitives from './light-theme-primitives';
+import darkPrimitives from './dark-theme-primitives';
 
 export const LIGHT_THEME = {
-  ...primitives,
+  ...lightPrimitives,
   /* Colors */
-  background: primitives.mono100,
-  backgroundAlt: primitives.mono200,
-  backgroundInvert: primitives.mono1000,
+  background: lightPrimitives.mono100,
+  backgroundAlt: lightPrimitives.mono200,
+  backgroundInvert: lightPrimitives.mono1000,
 
-  controlColorPrimary: primitives.mono600,
-  controlColorSecondary: primitives.mono500,
-  controlColorHovered: primitives.mono900,
-  controlColorActive: primitives.primary400,
-  controlColorDisabled: primitives.mono400,
+  controlColorPrimary: lightPrimitives.mono600,
+  controlColorSecondary: lightPrimitives.mono500,
+  controlColorHovered: lightPrimitives.mono900,
+  controlColorActive: lightPrimitives.primary400,
+  controlColorDisabled: lightPrimitives.mono400,
 
-  textColorPrimary: primitives.mono900,
-  textColorSecondary: primitives.mono600,
-  textColorInvert: primitives.mono200,
-  textColorDisabled: primitives.mono500,
-  textColorWarning: primitives.warning400,
-  textColorError: primitives.negative400,
+  textColorPrimary: lightPrimitives.mono900,
+  textColorSecondary: lightPrimitives.mono600,
+  textColorInvert: lightPrimitives.mono200,
+  textColorDisabled: lightPrimitives.mono500,
+  textColorWarning: lightPrimitives.warning400,
+  textColorError: lightPrimitives.negative400,
 
   /* Typography */
-  fontFamily: primitives.primaryFontFamily,
+  fontFamily: lightPrimitives.primaryFontFamily,
+  fontSize: 12,
+  lineHeight: 1.5,
+
+  /* Effects */
+  transitionDuration: '300ms',
+  transitionTimingFunction: 'ease',
+
+  shadow: '0 2px 4px 0 rgba(0, 0, 0, 0.15)',
+
+  /* Layout */
+  controlSize: 18,
+
+  spacingTiny: 4,
+  spacingSmall: 8,
+  spacingNormal: 12,
+  spacingLarge: 24,
+  spacingHuge: 48
+};
+
+export const DARK_THEME = {
+  ...darkPrimitives,
+  /* Colors */
+  background: darkPrimitives.mono1000,
+  backgroundAlt: darkPrimitives.mono800,
+  backgroundInvert: darkPrimitives.mono100,
+
+  controlColorPrimary: darkPrimitives.mono400,
+  controlColorSecondary: darkPrimitives.mono500,
+  controlColorHovered: darkPrimitives.mono100,
+  controlColorActive: darkPrimitives.primary300,
+  controlColorDisabled: darkPrimitives.mono600,
+
+  textColorPrimary: darkPrimitives.mono100,
+  textColorSecondary: darkPrimitives.mono300,
+  textColorInvert: darkPrimitives.mono800,
+  textColorDisabled: darkPrimitives.mono500,
+  textColorWarning: darkPrimitives.warning300,
+  textColorError: darkPrimitives.negative300,
+
+  /* Typography */
+  fontFamily: darkPrimitives.primaryFontFamily,
   fontSize: 12,
   lineHeight: 1.5,
 

@@ -51,10 +51,11 @@ const RadioIcon = styled.div(props => ({
   left: '50%',
   top: '50%',
   transform: 'translate(-50%,-50%)',
-
-  '&:before': {
-    content: props.isSelected ? '"●"' : '""'
-  },
+  width: 16,
+  height: 16,
+  textAlign: 'center',
+  lineHeight: '16px',
+  path: {fill: 'currentColor'},
 
   ...evaluateStyle(props.userStyle, props)
 }));
@@ -106,7 +107,9 @@ export default class RadioBoxItem extends PureComponent {
         {label}
 
         <RadioButton {...styleProps} userStyle={style.button}>
-          <RadioIcon {...styleProps} userStyle={style.icon} />
+          <RadioIcon {...styleProps} userStyle={style.icon}>
+            {isSelected ? style.iconSelected || '●' : null}
+          </RadioIcon>
         </RadioButton>
       </RadioItem>
     );

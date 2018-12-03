@@ -31,7 +31,8 @@ The `style` prop expects an object that may contain the following keys:
 * `wrapper` - the top level container.
 * `border` - the border around the dropdown.
 * `select` - the <select> element.
-* `icon` - the arrow element on the right of the dropdown.
+* `icon` - the container around the arrow element on the right of the dropdown.
+* `iconArrow` **(element)**  - the arrow icon.
 * `height` **(number)** - height of the check box. Default is `26`.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.

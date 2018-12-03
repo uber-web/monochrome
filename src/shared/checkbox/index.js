@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
+import {CheckIcon, IndeterminateIcon} from '../icons';
 
 const CHECKBOX_STATE = {
   OFF: 'off',
@@ -48,11 +49,11 @@ const CheckBoxIcon = styled.div(props => ({
   left: '50%',
   top: '50%',
   transform: 'translate(-50%,-50%)',
-
-  '&:before': {
-    content:
-      props.value === CHECKBOX_STATE.ON ? '"✓"' : props.value === CHECKBOX_STATE.OFF ? '""' : '"-"'
-  },
+  width: 16,
+  height: 16,
+  textAlign: 'center',
+  lineHeight: '16px',
+  path: {fill: 'currentColor'},
 
   ...evaluateStyle(props.userStyle, props)
 }));
@@ -114,7 +115,12 @@ class CheckBox extends PureComponent {
         onClick={this._onClick}
       >
         <CheckBoxBorder userStyle={style.border} {...styleProps}>
-          <CheckBoxIcon userStyle={style.icon} {...styleProps} />
+          <CheckBoxIcon userStyle={style.icon} {...styleProps}>
+            {value === CHECKBOX_STATE.ON && (style.iconOn || <CheckIcon />)}
+            {value === CHECKBOX_STATE.OFF && style.iconOff}
+            {value === CHECKBOX_STATE.INDETERMINATE &&
+              (style.iconIndeterminate || <IndeterminateIcon />)}
+          </CheckBoxIcon>
         </CheckBoxBorder>
         {label}
       </CheckBoxComponent>

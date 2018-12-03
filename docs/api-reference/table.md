@@ -64,7 +64,7 @@ The `style` prop expects an object that may contain the following keys:
 - `wrapper` - the wrapper component for the entire table
 - `header` - the header
 - `headerCell` - a cell in the header
-- `sort` - the indicator for the sorting order of a column
+- `sort` - the container around the icon that shows the sorting order of a column
 - `iconAscending` **(element)** - the icon for sorting a-z
 - `iconDescending` **(element)** - the icon for sorting z-a
 - `body` - the body

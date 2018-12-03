@@ -33,7 +33,10 @@ The `style` prop expects an object that may contain the following keys:
 
 * `wrapper` - wrapper element around both the label and the checkbox.
 * `border` - the border around the checkbox.
-* `icon` - the icon in the checkbox.
+* `icon` - the container around the icon in the checkbox.
+* `iconOn` **(element)**  - the icon for `ON` state.
+* `iconOff` **(element)**  - the icon for `OFF` state.
+* `iconIndeterminate` **(element)**  - the icon for `INDETERMINATE` state.
 * `size` **(number)** - size of the check box. Default is `18`.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
@@ -45,9 +48,7 @@ const checkboxStyle = {
     height: 20
   },
   icon: props => ({
-    '&:before': {
-      content: props.value === CheckBox.ON ? '"Y"' : '"N"'
-    }
+    color: props.value === CheckBox.ON ? 'red' : '#000'
   })
 };
 ```

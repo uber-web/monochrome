@@ -155,7 +155,11 @@ Every prop supported by `MetricChart`, plus the following:
 The `style` prop expects an object that may contain any of the stylable components of the `MetricChart`, plus the following:
 
 * `filter` - the filter container
-* `filterToggle` - the "show all" toggle of the filters
+* `filterToggle` - the toggle to show/hide additional filters
+* `iconExpanded` **(element)**  - the icon when filters are expanded.
+* `iconCollapsed` **(element)**  - the icon when filters are collapsed.
+* `iconOn` **(element)**  - the icon for a filter that is on.
+* `iconOff` **(element)**  - the icon for a filter that is off.
 * `filterItem` - the name of a series in the filters
 * `filterLegend` - the color legend of a series in the filters
 

@@ -33,7 +33,8 @@ The `style` prop expects an object that may contain the following keys:
 * `items` - wrapper element around all radio controls.
 * `item` - wrapper element around each label and radio button.
 * `button` - the border element of the radio button.
-* `icon` - the icon element of the radio bottom.
+* `icon` - the container around the icon in the radio bottun.
+* `iconSelected` **(element)**  - the icon for the selected state.
 * `size` **(number)** - size of the check box. Default is `18`.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.

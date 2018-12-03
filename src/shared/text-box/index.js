@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
+import {ClearIcon} from '../icons';
 
 function getControlColor(props) {
   if (!props.isEnabled) {
@@ -37,6 +38,7 @@ const TextBoxInput = styled.input(props => ({
   height: '100%',
   lineHeight: `${props.height}px`,
 
+  background: props.theme.background,
   outline: 'none',
   paddingLeft: props.theme.spacingSmall,
   paddingRight: props.theme.spacingSmall,
@@ -54,10 +56,11 @@ const TextBoxClearButton = styled.div(props => ({
   color: props.theme.controlColorPrimary,
 
   padding: props.theme.spacingSmall,
-
-  '&:before': {
-    content: '"✕"'
-  },
+  width: 16,
+  height: 16,
+  textAlign: 'center',
+  lineHeight: '16px',
+  path: {fill: 'currentColor'},
   '&:hover': {
     color: props.theme.controlColorHovered
   },
@@ -137,7 +140,9 @@ class TextBox extends PureComponent {
             value={value}
           />
           {Boolean(value && showClearButton && isEnabled) && (
-            <TextBoxClearButton userStyle={style.clear} {...styleProps} onClick={this._onClear} />
+            <TextBoxClearButton userStyle={style.clear} {...styleProps} onClick={this._onClear}>
+              {style.iconClear || <ClearIcon />}
+            </TextBoxClearButton>
           )}
         </TextBoxBorder>
       </WrapperComponent>

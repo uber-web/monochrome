@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
+import {InfoIcon} from '../icons';
 
 import {Tooltip} from '../popover';
 
@@ -20,18 +21,15 @@ const LabelComponent = styled.label(props => ({
 
 const LabelInfo = styled.div(props => ({
   display: 'inline-block',
-  background: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
-  color: props.theme.textColorInvert,
+  color: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
   cursor: 'default',
-  borderRadius: '50%',
-  fontSize: '0.8em',
-  width: props.theme.fontSize,
-  lineHeight: `${props.theme.fontSize}px`,
+  verticalAlign: 'middle',
+  width: 16,
+  height: 16,
+  lineHeight: '16px',
   textAlign: 'center',
+  path: {fill: 'currentColor'},
 
-  '&:before': {
-    content: '"?"'
-  },
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -68,7 +66,9 @@ class Label extends PureComponent {
         {children}
         {tooltip && (
           <Tooltip style={style.tooltip} content={tooltip}>
-            <LabelInfo {...styleProps} userStyle={style.tooltipTarget} />
+            <LabelInfo {...styleProps} userStyle={style.tooltipTarget}>
+              {style.iconInfo || <InfoIcon />}
+            </LabelInfo>
           </Tooltip>
         )}
         {badge}

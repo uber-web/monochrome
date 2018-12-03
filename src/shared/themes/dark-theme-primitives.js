@@ -1,4 +1,4 @@
-// From https://raw.githubusercontent.com/uber-web/baseui/4506128834ce67610fbb73d46634799d95f9c920/src/themes/light-theme-primitives.js
+// From https://raw.githubusercontent.com/uber-web/baseui/4506128834ce67610fbb73d46634799d95f9c920/src/themes/dark-theme-primitives.js
 // This is from Fusion
 // color constants
 export default {
@@ -38,15 +38,15 @@ export default {
   positive600: '#046236',
   positive700: '#034124',
 
-  mono100: '#FFFFFF',
-  mono200: '#F7F7F7',
-  mono300: '#F0F0F0',
-  mono400: '#E5E5E5',
-  mono500: '#CCCCCC',
-  mono600: '#B3B3B3',
-  mono700: '#999999',
-  mono800: '#666666',
-  mono900: '#333333',
+  mono100: '#CCCCCC',
+  mono200: '#999999',
+  mono300: '#7A7A7A',
+  mono400: '#5C5C5C',
+  mono500: '#3D3D3D',
+  mono600: '#292929',
+  mono700: '#1F1F1F',
+  mono800: '#141414',
+  mono900: '#111111',
   mono1000: '#000000',
 
   rating200: '#FFE1A5',

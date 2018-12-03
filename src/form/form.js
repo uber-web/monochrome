@@ -1,28 +1,11 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-import styled from '@emotion/styled';
-import {withTheme, evaluateStyle} from '../shared/theme';
+import {withTheme} from '../shared/theme';
+import {ExpandedIcon, CollapsedIcon} from '../shared/icons';
 
 import Input from './input';
-
-const Container = styled.div(props => ({
-  ...props.theme.__reset__,
-  ...evaluateStyle(props.userStyle, props)
-}));
-
-const Expander = styled.div(props => ({
-  position: 'absolute',
-  cursor: 'pointer',
-  left: -20,
-  top: 4,
-
-  '&:before': {
-    content: props.isExpanded ? '"➖"' : '"➕"'
-  },
-
-  ...evaluateStyle(props.userStyle, props)
-}));
+import {Container, Expander} from './styled-components';
 
 const SETTING_STYLES = {
   position: 'relative'
@@ -55,7 +38,9 @@ class Form extends PureComponent {
     this.setState({collapsed: newCollapsedState});
   }
 
+  /* eslint-disable complexity */
   _renderSetting({settingName, setting, value, isEnabled = true, level}) {
+    const {theme, style} = this.props;
     const {enabled = true, visible = true, children} = setting;
     let isVisible;
 
@@ -87,8 +72,8 @@ class Form extends PureComponent {
         label={setting.title || settingName}
         name={settingName}
         value={value}
-        theme={this.props.theme}
-        style={this.props.style}
+        theme={theme}
+        style={style}
         level={level}
         isEnabled={isEnabled}
         onChange={this._onChange}
@@ -103,17 +88,22 @@ class Form extends PureComponent {
       <div key={settingName} style={SETTING_STYLES}>
         {setting.collapsible && (
           <Expander
-            theme={this.props.theme}
-            userStyle={this.props.style.expander}
+            theme={theme}
+            userStyle={style.expander}
             onClick={() => this.toggleCollapsed({settingName, collapsed})}
             isExpanded={!collapsed}
-          />
+          >
+            {collapsed
+              ? style.iconCollapsed || <CollapsedIcon />
+              : style.iconExpanded || <ExpandedIcon />}
+          </Expander>
         )}
         {input}
         {!collapsed && this._renderSettings(children, {isEnabled, level: level + 1})}
       </div>
     );
   }
+  /* eslint-enable complexity */
 
   _renderSettings(settings, opts = {}) {
     const {values} = this.props;

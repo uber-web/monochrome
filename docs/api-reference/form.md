@@ -127,6 +127,8 @@ The `style` prop expects an object that may contain the following keys:
 
 * `wrapper` - wrapper element around the whole form.
 * `expander` - the expand/collapse button for input groups.
+* `iconExpanded` **(element)**  - the icon for expanded groups.
+* `iconCollapsed` **(element)**  - the icon for collapsed groups.
 * `item` - the container of each input item.
 * `[type]` - **(object)** style to be passed to each type of input component.
 * `label` - **(object)** the labels. The value will be passed to the [Label](docs/api-reference/label.md) component.

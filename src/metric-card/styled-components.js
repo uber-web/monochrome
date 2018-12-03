@@ -151,20 +151,21 @@ export const CrosshairItemLegend = styled.div(props => {
 });
 
 export const FilterContainer = styled.div(props => ({
+  ...props.theme.__reset__,
+  position: 'relative',
+  paddingLeft: props.theme.spacingLarge,
   fontSize: props.theme.fontSize,
 
   ...evaluateStyle(props.userStyle, props)
 }));
 
 export const FilterToggle = styled.div(props => ({
+  position: 'absolute',
+  left: 0,
   cursor: 'pointer',
   fontWeight: 'bold',
-  marginTop: props.theme.spacingNormal,
-  marginBottom: props.theme.spacingNormal,
-
-  '&:before': {
-    content: props.isExpanded ? '"➖ Show Less"' : '"➕ Show All"'
-  },
+  width: 16,
+  height: 16,
 
   ...evaluateStyle(props.userStyle, props)
 }));
@@ -185,17 +186,11 @@ export const FilterLegend = styled.div(props => ({
   display: 'inline-block',
   width: 16,
   height: 16,
-  lineHeight: '16px',
-  borderRadius: '50%',
-  marginRight: props.theme.spacingSmall,
   textAlign: 'center',
-  background: props.isActive ? props.color : props.theme.controlColorDisabled,
-  color: props.theme.textColorInvert,
-
-  '&:before': {
-    fontWeight: 'normal',
-    content: props.isActive ? '"✓"' : '""'
-  },
+  lineHeight: '16px',
+  marginRight: props.theme.spacingSmall,
+  color: props.isActive ? props.color : props.theme.textColorDisabled,
+  path: {fill: 'currentColor'},
 
   ...evaluateStyle(props.userStyle, props)
 }));
