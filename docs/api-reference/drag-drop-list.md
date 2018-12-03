@@ -67,8 +67,6 @@ Other style callback functions will receive the following arguments:
 
 * `props` **(object)**
   - `theme` **(object)** - the current theme
-  - `width` **(number)** - the measured width of the current item
-  - `height` **(number)** - the measured height of the current item
   - `isHovered` **(boolean)** - if the pointer is hovering over the header (if `item.title` is specified) or the item
   - `isDragging` **(boolean)** - if the item is being dragged
   - `isActive` **(boolean)** - if the item is being dragged or animating after being dropped

@@ -141,17 +141,27 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
       isRemoved: removed,
       isHovered,
       isDragging,
-      isActive,
-      width,
-      height,
-      dragPos,
-      dragStartOffset
+      isActive
     };
 
     const title = this.renderTitle();
 
+    const itemStyle = isActive
+      ? {
+          left: dragStartOffset.left + dragPos.deltaX,
+          top: dragStartOffset.top + dragPos.deltaY,
+          width,
+          height
+        }
+      : null;
+
     return title ? (
-      <ListItemContainer className={className} {...styleProps} userStyle={style.item}>
+      <ListItemContainer
+        className={className}
+        {...styleProps}
+        userStyle={style.item}
+        style={itemStyle}
+      >
         {this.renderMover(
           <ListItemTitle
             {...styleProps}
@@ -171,6 +181,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
           onMouseLeave={this._onMouseLeave}
           className={className}
           {...styleProps}
+          style={itemStyle}
         >
           {this.props.children}
         </ListItemContainer>
@@ -187,9 +198,12 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
       isRemoved: removed,
       isHovered,
       isDragging,
-      isActive,
+      isActive
+    };
+
+    const placeholderStyle = {
       width,
-      height
+      height: removed ? 0 : height
     };
 
     return (
@@ -199,7 +213,13 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
         }}
       >
         {this.renderContent()}
-        {isActive && <ListItemPlaceholder {...styleProps} userStyle={style.placeholder} />}
+        {isActive && (
+          <ListItemPlaceholder
+            {...styleProps}
+            userStyle={style.placeholder}
+            style={placeholderStyle}
+          />
+        )}
       </div>
     );
   }

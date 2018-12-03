@@ -6,7 +6,7 @@ A stateless text box component.
 
     import {TextBox} from 'monochrome';
 
-    <TextBox label="Your name" value="John Smith" onChange={...} />
+    <TextBox value="John Smith" onChange={...} />
 
 ## API Reference
 

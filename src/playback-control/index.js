@@ -1,43 +1,45 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import AutoSizer from '../shared/autosizer';
 import Slider from '../shared/slider';
 import {getTimelineTicks, formatTimeCode} from './utils';
 import {scaleLinear} from 'd3-scale';
 
-function noop() {}
+import {withTheme} from '../shared/theme';
 
-const STYLES = {
-  controlsContainer: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  markerContainer: {
-    position: 'relative'
-  },
-  button: {
-    cursor: 'pointer'
-  },
-  ticksContainer: {
-    position: 'relative'
-  },
-  buffer: {
-    height: '100%'
-  }
+import {
+  WrapperComponent,
+  ControlsContainer,
+  PlayPauseButton,
+  Timestamp,
+  TicksContainer,
+  Tick,
+  TickLabel,
+  MarkersContainer,
+  MarkerComponent,
+  BufferComponent
+} from './styled-components.js';
+import {PlayIcon, PauseIcon} from './icons';
+
+const LAYOUT = {
+  COMPACT: 0,
+  NORMAL: 1
 };
+
+const DEFAULT_PADDING = 24;
+const COMPACT_CONTAINER_STYLE = {display: 'flex', alignItems: 'flex-end'};
+
+function noop() {}
 
 function normalizePadding(padding) {
   padding = padding || 0;
   if (Number.isFinite(padding)) {
-    return {top: padding, right: padding, bottom: padding, left: padding};
+    return {right: padding, left: padding};
   }
   return Object.assign(
     {
-      top: 0,
       right: 0,
-      bottom: 0,
       left: 0
     },
     padding
@@ -47,9 +49,11 @@ function normalizePadding(padding) {
 /*
  * @class
  */
-export default class PlaybackControl extends PureComponent {
+class PlaybackControl extends PureComponent {
   static propTypes = {
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    style: PropTypes.object,
+    layout: PropTypes.oneOf([LAYOUT.COMPACT, LAYOUT.NORMAL]),
+
     currentTime: PropTypes.number.isRequired,
     startTime: PropTypes.number,
     endTime: PropTypes.number.isRequired,
@@ -72,7 +76,9 @@ export default class PlaybackControl extends PureComponent {
   };
 
   static defaultProps = {
-    width: '100%',
+    style: {},
+    layout: LAYOUT.NORMAL,
+
     className: '',
     startTime: 0,
     step: 0.1,
@@ -84,8 +90,6 @@ export default class PlaybackControl extends PureComponent {
     onPause: noop,
     onSeek: noop
   };
-
-  static formatTimeCode = formatTimeCode;
 
   constructor(props) {
     super(props);
@@ -136,66 +140,68 @@ export default class PlaybackControl extends PureComponent {
     this.setState({width});
   };
 
-  _renderMarker(marker, i, className, extraStyle) {
+  _renderMarker(marker, i, Component, styleProps, userStyle) {
     const {scale} = this;
     const {startTime = marker.time, endTime = marker.time, style, content} = marker;
     const x0 = scale(startTime);
     const x1 = scale(endTime);
 
     const markerStyle = {
-      ...extraStyle,
       ...style,
       position: 'absolute',
       left: x0,
       width: x1 - x0
     };
+
     return (
-      <div key={i} className={className} style={markerStyle}>
+      <Component key={i} {...styleProps} style={markerStyle} userStyle={userStyle}>
         {content}
-      </div>
+      </Component>
     );
   }
 
-  _renderTimeline() {
-    const {tickSpacing, formatTick, markers} = this.props;
+  _renderTimeline(styleProps) {
+    const {style, tickSpacing, formatTick, markers} = this.props;
     const {scale} = this;
     const ticks = getTimelineTicks(scale, tickSpacing, formatTick);
 
     return (
       <div>
-        <div className="mc-playback-control--ticks" style={STYLES.ticksContainer}>
+        <TicksContainer {...styleProps} userStyle={style.ticks}>
           {ticks.map((t, i) => {
             const tickStyle = {
               position: 'absolute',
               left: t.x
             };
             return (
-              <div key={i} className="mc-playback-control--tick" style={tickStyle}>
-                <div className="mc-playback-control--tick-label">{t.label}</div>
-              </div>
+              <Tick key={i} {...styleProps} userStyle={style.tick} style={tickStyle}>
+                <TickLabel {...styleProps} userStyle={style.tickLabel}>
+                  {t.label}
+                </TickLabel>
+              </Tick>
             );
           })}
-        </div>
+        </TicksContainer>
 
         {markers && (
-          <div style={STYLES.markerContainer}>
+          <MarkersContainer {...styleProps} userStyle={style.markers}>
             {markers.map((marker, i) =>
-              this._renderMarker(marker, i, 'mc-playback-control--marker')
+              this._renderMarker(marker, i, MarkerComponent, styleProps, style.marker)
             )}
-          </div>
+          </MarkersContainer>
         )}
       </div>
     );
   }
 
-  _renderSlider() {
-    const {currentTime, startTime, endTime, step, bufferRange = []} = this.props;
+  _renderSlider(styleProps) {
+    const {style, currentTime, startTime, endTime, step, bufferRange = []} = this.props;
 
     const buffers = Array.isArray(bufferRange) ? bufferRange : [bufferRange];
 
     return (
       <Slider
-        className="mc-playback-control--slider"
+        style={style.slider}
         value={currentTime}
         onChange={this._seek}
         knobSize={18}
@@ -204,53 +210,110 @@ export default class PlaybackControl extends PureComponent {
         max={endTime}
       >
         {buffers.map((range, i) =>
-          this._renderMarker(range, i, 'mc-playback-control--buffer', STYLES.buffer)
+          this._renderMarker(range, i, BufferComponent, styleProps, style.buffer)
         )}
       </Slider>
     );
   }
 
-  _renderControls() {
-    const {isPlaying, currentTime, formatTimestamp, children} = this.props;
+  _renderPlayPauseButton(styleProps) {
+    const {isPlaying, style} = this.props;
 
-    return [
-      // Play/pause button
-      <div
-        key="play-pause-button"
-        style={STYLES.button}
-        className="mc-playback-control--play-pause-button"
+    return (
+      <PlayPauseButton
+        {...styleProps}
+        userStyle={style.playPauseButton}
         onClick={isPlaying ? this._pause : this._play}
-      />,
-      // Current time
-      <span key="timestamp" className="mc-playback-control--timestamp">
+      >
+        {isPlaying ? style.pauseIcon || <PauseIcon /> : style.playIcon || <PlayIcon />}
+      </PlayPauseButton>
+    );
+  }
+
+  _renderTimestamp(styleProps) {
+    const {style, currentTime, formatTimestamp} = this.props;
+    return (
+      <Timestamp {...styleProps} userStyle={style.timestamp}>
         {formatTimestamp(currentTime)}
-      </span>,
-      children && React.Children.map(children, child => <div style={STYLES.control}>{child}</div>)
-    ];
+      </Timestamp>
+    );
   }
 
   render() {
-    const {width, isPlaying} = this.props;
-    const padding = normalizePadding(this.props.padding);
-    const className = classnames({playing: isPlaying}, this.props.className, 'mc-playback-control');
+    const {theme, layout, style, className, isPlaying} = this.props;
 
-    const wrapperStyle = {
-      boxSizing: 'border-box',
-      width,
-      paddingTop: padding.top,
-      paddingBottom: padding.bottom,
-      paddingLeft: padding.left,
-      paddingRight: padding.right
+    let {padding = DEFAULT_PADDING} = style;
+    padding = normalizePadding(padding);
+
+    const styleProps = {
+      theme,
+      layout,
+      isPlaying
     };
 
-    return (
-      <div className={className} style={wrapperStyle}>
-        <AutoSizer disableHeight={true} onResize={this._onResize} />
-        {this._renderTimeline()}
-        {this._renderSlider()}
+    const wrapperStyle = {
+      width: style.width || '100%'
+    };
 
-        <div style={STYLES.controlsContainer}>{this._renderControls()}</div>
-      </div>
+    if (layout === LAYOUT.COMPACT) {
+      const sliderStyle = {
+        flexGrow: 1,
+        paddingLeft: padding.left,
+        paddingRight: padding.right
+      };
+
+      return (
+        <WrapperComponent
+          className={className}
+          {...styleProps}
+          userStyle={style.wrapper}
+          style={wrapperStyle}
+        >
+          <div style={COMPACT_CONTAINER_STYLE}>
+            {this._renderPlayPauseButton(styleProps)}
+            <div style={sliderStyle}>
+              <AutoSizer disableHeight={true} onResize={this._onResize} />
+              {this._renderTimeline(styleProps)}
+              {this._renderSlider(styleProps)}
+            </div>
+            {this._renderTimestamp(styleProps)}
+          </div>
+
+          <ControlsContainer {...styleProps} userStyle={style.controls}>
+            {this.props.children}
+          </ControlsContainer>
+        </WrapperComponent>
+      );
+    }
+
+    Object.assign(wrapperStyle, {
+      paddingLeft: padding.left,
+      paddingRight: padding.right
+    });
+
+    return (
+      <WrapperComponent
+        className={className}
+        {...styleProps}
+        userStyle={style.wrapper}
+        style={wrapperStyle}
+      >
+        <AutoSizer disableHeight={true} onResize={this._onResize} />
+        {this._renderTimeline(styleProps)}
+        {this._renderSlider(styleProps)}
+
+        <ControlsContainer {...styleProps} userStyle={style.controls}>
+          {this._renderPlayPauseButton(styleProps)}
+          {this._renderTimestamp(styleProps)}
+          {this.props.children}
+        </ControlsContainer>
+      </WrapperComponent>
     );
   }
 }
+
+const ThemedPlaybackControl = withTheme(PlaybackControl);
+ThemedPlaybackControl.formatTimeCode = formatTimeCode;
+Object.assign(ThemedPlaybackControl, LAYOUT);
+
+export default ThemedPlaybackControl;

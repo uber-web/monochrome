@@ -55,4 +55,3 @@ A custom style callback function will receive the following arguments:
   - `isHovered` **(boolean)** - if the pointer is hovering over the control
   - `isActive` **(boolean)** - if the user is interacting with the control
   - `isDragging` **(boolean)** - if the user is dragging the knob
-  - `filled` **(number)** - a value between `[0, 1]` indicating the current slider value relative to the whole range

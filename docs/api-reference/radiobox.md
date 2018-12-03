@@ -6,7 +6,7 @@ A stateless radio box control component.
 
     import {RadioBox} from 'monochrome';
 
-    <RadioBox label="Pet" value="cat" data={{
+    <RadioBox value="cat" data={{
       cat: 'Cat',
       dog: 'Dog',
     }} onChange={...} />

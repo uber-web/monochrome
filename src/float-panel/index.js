@@ -10,9 +10,6 @@ export const Container = styled.div(props => ({
   position: 'absolute',
   boxSizing: 'content-box',
   boxShadow: props.theme.shadow,
-  left: props.left,
-  top: props.top,
-  width: props.width,
   borderStyle: 'solid',
   borderWidth: 1,
   borderColor:
@@ -27,7 +24,6 @@ export const ContentComponent = styled.div(props => ({
   lineHeight: 0,
   boxSizing: 'content-box',
   position: 'relative',
-  height: props.height,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -185,14 +181,14 @@ class FloatPanel extends PureComponent {
   }
 
   renderContent(styleProps) {
-    const {style, minimized, minimizable, resizable} = this.props;
+    const {style, height, minimized, minimizable, resizable} = this.props;
 
     if (minimizable && minimized) {
       return null;
     }
 
     return (
-      <ContentComponent {...styleProps} userStyle={style.content}>
+      <ContentComponent {...styleProps} userStyle={style.content} style={{height}}>
         {this.props.children}
 
         {resizable && (
@@ -227,16 +223,23 @@ class FloatPanel extends PureComponent {
     const styleProps = {
       theme,
       isMoving,
-      isResizing,
-      width,
-      height,
+      isResizing
+    };
+
+    const wrapperStyle = {
       left: Math.min(x, Math.max(0, parentWidth - width)),
-      top: Math.min(y, Math.max(0, parentHeight - height))
+      top: Math.min(y, Math.max(0, parentHeight - height)),
+      width
     };
 
     // Only title bar is draggable
     return (
-      <Container className={className} {...styleProps} userStyle={style.wrapper}>
+      <Container
+        className={className}
+        {...styleProps}
+        userStyle={style.wrapper}
+        style={wrapperStyle}
+      >
         {title
           ? this.renderMover(
               <TitleComponent {...styleProps} userStyle={style.title}>

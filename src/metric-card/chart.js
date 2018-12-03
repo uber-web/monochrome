@@ -324,8 +324,10 @@ class Chart extends PureComponent {
         theme={theme}
         userStyle={style.chart}
         tooltipStyle={style.tooltip}
-        width={style.width || DEFAULT_WIDTH}
-        height={style.height || DEFAULT_HEIGHT}
+        style={{
+          width: style.width || DEFAULT_WIDTH,
+          height: style.height || DEFAULT_HEIGHT
+        }}
       >
         <AutoSizer>
           {({width: chartWidth, height: chartHeight}) => (

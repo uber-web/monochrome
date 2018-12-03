@@ -37,7 +37,6 @@ const SliderTrackFill = styled.div(props => ({
   transitionProperty: 'width',
   transitionDuration: props.isDragging ? '0s' : props.theme.transitionDuration,
   transitionTimingFunction: props.theme.transitionTimingFunction,
-  width: `${props.filled * 100}%`,
   height: '100%',
   background: props.isEnabled ? props.theme.controlColorActive : props.theme.controlColorDisabled,
   ...evaluateStyle(props.userStyle, props)
@@ -60,7 +59,6 @@ const SliderKnob = styled.div(props => ({
   height: props.knobSize,
   borderRadius: '50%',
   margin: -props.knobSize / 2,
-  left: `${props.filled * 100}%`,
   top: '50%',
   transitionProperty: 'left',
   transitionDuration: props.isDragging ? '0s' : props.theme.transitionDuration,
@@ -142,8 +140,7 @@ class Slider extends PureComponent {
       isEnabled,
       isHovered,
       isActive: isDragging,
-      isDragging: hasDragged,
-      filled: ratio
+      isDragging: hasDragged
     };
     return (
       <SliderWrapper
@@ -167,8 +164,12 @@ class Slider extends PureComponent {
             }}
           >
             {children}
-            <SliderTrackFill {...styleProps} userStyle={style.trackFill} />
-            <SliderKnob {...styleProps} userStyle={style.knob} />
+            <SliderTrackFill
+              {...styleProps}
+              userStyle={style.trackFill}
+              style={{width: `${ratio * 100}%`}}
+            />
+            <SliderKnob {...styleProps} userStyle={style.knob} style={{left: `${ratio * 100}%`}} />
           </SliderTrack>
         </Draggable>
       </SliderWrapper>

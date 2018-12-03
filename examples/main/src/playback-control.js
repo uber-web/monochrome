@@ -18,7 +18,7 @@ const MARKERS = [
   {startTime: 14, endTime: 20, style: {background: '#fa0'}}
 ];
 
-const BUFFER_RANGE = {startTime: 0, endTime: 15};
+const BUFFER_RANGE = [{startTime: 0, endTime: 15}];
 
 export default class PlaybackControlExample extends Component {
   constructor(props) {
@@ -72,6 +72,18 @@ export default class PlaybackControlExample extends Component {
 
     return (
       <div>
+        <h3>Compact</h3>
+        <PlaybackControl
+          layout={PlaybackControl.COMPACT}
+          currentTime={currentTime}
+          startTime={0}
+          endTime={CLIP_LENGTH}
+          isPlaying={isPlaying}
+          onPlay={this._onPlay}
+          onPause={this._onPause}
+          onSeek={this._onSeek}
+        />
+
         <h3>Custom content</h3>
         <PlaybackControl
           currentTime={currentTime}
@@ -82,6 +94,7 @@ export default class PlaybackControlExample extends Component {
           onPause={this._onPause}
           onSeek={this._onSeek}
         >
+          <div style={{flexGrow: 1}} />
           <Dropdown
             key="speed-selector"
             className="speed-selector"

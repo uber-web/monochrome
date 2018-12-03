@@ -64,5 +64,3 @@ A custom style callback function will receive the following arguments:
   - `theme` **(object)** - the current theme
   - `isMoving` **(boolean)** - if the float panel is being moved
   - `isResizing` **(boolean)** - if the float panel is being resized
-  - `width` **(number)**
-  - `height` **(number)**

@@ -14,14 +14,14 @@ A stateless video playback control component.
 
     import {PlaybackControl} from 'monochrome';
 
-    <PlaybackControl width={200} currentTime={8.3} endTime={20} isPlaying={false} onPlay={...} onSeek={...} />
+    <PlaybackControl currentTime={8.3} endTime={20} isPlaying={false} onPlay={...} onSeek={...} />
 
 
 ## API Reference
 
 ### Static Methods
 
-* `formatTimeCode` - 
+* `PlaybackControl.formatTimeCode` - 
   + `value` **(number)** - time in seconds
   + `format` **(string)** - format code, default `{hh}:{mm}:{ss}.{SSS}`.
     - `h` - hours
@@ -31,8 +31,8 @@ A stateless video playback control component.
 
 ### Props
 
-* `width` **(string|number, optional)** -  width of the control. Default `100%`.
-* `padding` **(number|object, optional)** -  padding at the sides in pixels. If provided as object, in the shape of `{top, right, bottom, left}`. Default `24`.
+* `style` **(object, optional)** - custom CSS overrides. See "Styling" section below.
+* `layout` **(enum, optional)** - Layout mode of the control. See constants:layouts below. Defaults to `PlaybackControl.NORMAL`.
 * `currentTime` **(number)** -  current time in seconds
 * `startTime` **(number, optional)** -  start time in seconds, default `0`
 * `endTime` **(number)** -  end time in seconds
@@ -63,3 +63,39 @@ A stateless video playback control component.
 * `mc-playback-control--slider` - the time slider
 * `mc-playback-control--play-pause-button` - the play pause button
 * `mc-playback-control--timestamp` - the current time
+
+### Constants
+
+Layouts:
+
+* `PlaybackControl.COMPACT` - show play/pause button and timestamp at ends of the slider.
+* `PlaybackControl.NORMAL` - show play/pause button and timestamp below the slider.
+
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `width` **(string|number)** -  width of the control. Default `100%`.
+* `padding` **(number|object)** -  padding at the sides of the slider in pixels. If provided as object, in the shape of `{left, right}`. Default `24`.
+* `wrapper` - the top level container.
+* `ticks` - the container of the ticks.
+* `tick` - one of the ticks.
+* `tickLabel` - the label of a tick.
+* `markers` - the container of the markers.
+* `marker` - one of the markers.
+* `buffer` - one of the buffer indicators.
+* `slider` **(object)** - the slider. The value will be passed to the [Slider](docs/api-reference/slider.md) component.
+* `controls` - the container of the controls.
+* `playPauseButton` - the play/pause button.
+* `playIcon` **(element)**  - the play icon.
+* `pauseIcon` **(element)**  - the pause icon.
+* `timestamp` - the timestamp.
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `layout` **(enum)**
+  - `isPlaying` **(boolean)**

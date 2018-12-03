@@ -139,7 +139,7 @@ The `style` prop expects an object that may contain the following keys:
 * `expander` - the expand/collapse button for input groups.
 * `item` - the container of each input item.
 * `[type]` - **(object)** style to be passed to each type of input component.
-* `label` - **(object)** the labels.
+* `label` - **(object)** the labels. The value will be passed to the [Label](docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

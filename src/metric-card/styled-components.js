@@ -31,8 +31,6 @@ export const ErrorMessage = styled.div(props => ({
 /* Adpated from react-vis/dist/styles/plot.scss */
 export const ChartContainer = styled.div(props => ({
   ...props.theme.__reset__,
-  width: props.width,
-  height: props.height,
   cursor: 'pointer',
   background: props.theme.background,
 

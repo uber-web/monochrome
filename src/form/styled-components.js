@@ -20,6 +20,6 @@ export const Heading = styled.div(props => ({
 export const Separator = styled.div(props => ({
   width: '100%',
   height: 1,
-  background: props.theme.controlColorDisabled,
+  background: props.theme.controlColorSecondary,
   ...evaluateStyle(props.userStyle, props)
 }));

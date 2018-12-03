@@ -6,7 +6,7 @@ A stateless dropdown control component.
 
     import {Dropdown} from 'monochrome';
 
-    <Dropdown label="Pet" value="cat" data={{
+    <Dropdown value="cat" data={{
       cat: 'Cat',
       dog: 'Dog',
     }} onChange={...} />

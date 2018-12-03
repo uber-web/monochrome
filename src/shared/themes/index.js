@@ -8,6 +8,7 @@ export const LIGHT_THEME = {
   backgroundInvert: primitives.mono1000,
 
   controlColorPrimary: primitives.mono600,
+  controlColorSecondary: primitives.mono500,
   controlColorHovered: primitives.mono900,
   controlColorActive: primitives.primary400,
   controlColorDisabled: primitives.mono400,
