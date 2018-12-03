@@ -4,7 +4,7 @@ A stateless slider control component.
 
 ## Usage
 
-    import {Slider} from 'monochrome';
+    import {Slider} from '@streetscape.gl/monochrome';
 
     <Slider value={0.5} min={0} max={1} onChange={...} />
 

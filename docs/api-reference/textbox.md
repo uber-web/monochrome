@@ -4,7 +4,7 @@ A stateless text box component.
 
 ## Usage
 
-    import {TextBox} from 'monochrome';
+    import {TextBox} from '@streetscape.gl/monochrome';
 
     <TextBox value="John Smith" onChange={...} />
 

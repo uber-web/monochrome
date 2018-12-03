@@ -4,7 +4,7 @@ A stateless, 3-state check box control component.
 
 ## Usage
 
-    import {CheckBox} from 'monochrome';
+    import {CheckBox} from '@streetscape.gl/monochrome';
 
     <CheckBox label="Include package" value={CheckBox.ON} onChange={...} />
 

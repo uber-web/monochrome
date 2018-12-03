@@ -4,7 +4,7 @@ A React component that handles drag & drop events
 
 ## Usage
 
-    import {Draggable} from 'monochrome';
+    import {Draggable} from '@streetscape.gl/monochrome';
 
     <Draggable onStart={...} onDrag={...} onEnd={...}>
         <div>My content</div>

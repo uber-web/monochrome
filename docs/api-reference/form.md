@@ -4,7 +4,7 @@ This component sets up a list of input controls using JSON descriptors.
 
 ## Usage
 
-    import {Form} from 'monochrome';
+    import {Form} from '@streetscape.gl/monochrome';
 
     <Form
       data={SETTINGS}

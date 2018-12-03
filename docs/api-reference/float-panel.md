@@ -11,7 +11,7 @@ A stateless component that renders a floating panel.
 
 ## Usage
 
-    import {FloatPanel} from 'monochrome';
+    import {FloatPanel} from '@streetscape.gl/monochrome';
 
     <FloatPanel title="My Window" x={0} y={10} width={200} height={200} />
 

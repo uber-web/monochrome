@@ -4,7 +4,7 @@ A stateless toggle control component.
 
 ## Usage
 
-    import {Toggle} from 'monochrome';
+    import {Toggle} from '@streetscape.gl/monochrome';
 
     <Toggle label="Do not disturb" value={true} onChange={...} />
 

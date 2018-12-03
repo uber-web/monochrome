@@ -4,7 +4,7 @@ A stateless radio box control component.
 
 ## Usage
 
-    import {RadioBox} from 'monochrome';
+    import {RadioBox} from '@streetscape.gl/monochrome';
 
     <RadioBox value="cat" data={{
       cat: 'Cat',

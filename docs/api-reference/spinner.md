@@ -4,7 +4,7 @@ A spinner component.
 
 ## Usage
 
-    import {Spinner} from 'monochrome';
+    import {Spinner} from '@streetscape.gl/monochrome';
 
     <Spinner />
 

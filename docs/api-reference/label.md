@@ -4,7 +4,7 @@ A label component.
 
 ## Usage
 
-    import {Label} from 'monochrome';
+    import {Label} from '@streetscape.gl/monochrome';
 
     <Label tooltip="percentage to reduce the color saturation" >Desaturation</Label>
 

@@ -9,7 +9,7 @@ Monochrome uses [emotion](https://emotion.sh) for JavaScript-based styling. Each
 You may override the default theme by rendering the `ThemeProvider` at the root of your app:
 
 ```js
-import {ThemeProvider} from 'monochrome-ui';
+import {ThemeProvider} from '@streetscape.gl/monochrome';
 
 const MY_THEME = {
   base: 'dark',

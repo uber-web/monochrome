@@ -4,7 +4,7 @@ A stateless dropdown control component.
 
 ## Usage
 
-    import {Dropdown} from 'monochrome';
+    import {Dropdown} from '@streetscape.gl/monochrome';
 
     <Dropdown value="cat" data={{
       cat: 'Cat',

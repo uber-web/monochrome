@@ -2,32 +2,22 @@
 
 Monochrome is a React component library that offers highly stylable UI controls.
 
-## Usage
+## Installation
+
+```bash
+npm install @streetscape.gl/monochrome
+```
 
 Import components:
 
 ```js
 // Import component
-import {Form} from 'monochrome';
-// Import CSS stylesheet
-import 'monochrome/dist/main.css';
-```
-
-Import stylesheet in Sass:
-
-```sass
-@import 'node_modules/monochrome/src/main';
-```
-
-## Developing
-
-Run flow type checking
-
-```
-npm run flow
+import {Form} from '@streetscape.gl/monochrome';
 ```
 
 ## Documentation
+
+[Styling Guide](docs/api-reference/styling-guide.md)
 
 ### Basic Building Blocks
 
@@ -53,3 +43,15 @@ npm run flow
 * [MetricsCard](docs/api-reference/metric-card.md)
 * [PlaybackControl](docs/api-reference/playback-control.md)
 * [Table · TreeTable](docs/api-reference/table.md)
+
+
+## Developing
+
+```bash
+# install dependencies
+yarn
+# run tests
+npm run test
+# run flow typecheck
+npm run typecheck
+```

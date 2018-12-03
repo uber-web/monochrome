@@ -4,7 +4,7 @@ A stateless component that renders a list of items that can be reorganized using
 
 ## Usage
 
-    import {DragDropList} from 'monochrome';
+    import {DragDropList} from '@streetscape.gl/monochrome';
 
     <DragDropList items={[
         {key: '0', content: 'Item 0'},

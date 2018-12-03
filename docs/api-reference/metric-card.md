@@ -11,7 +11,7 @@ Components that render a plot of multiple data series.
 
 ## Usage
 
-    import {MetricCard, MetricChart, RichMetricChart} from 'monochrome';
+    import {MetricCard, MetricChart, RichMetricChart} from '@streetscape.gl/monochrome';
 
     <MetricCard
       title="Speed"

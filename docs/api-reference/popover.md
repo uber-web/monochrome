@@ -4,7 +4,7 @@ Popover and tooltip components.
 
 ## Usage
 
-    import {Popover, Tooltip} from 'monochrome';
+    import {Popover, Tooltip} from '@streetscape.gl/monochrome';
 
     <Popover content={() => <span>Bonjour!</span>}>
       Click here

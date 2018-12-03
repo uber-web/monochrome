@@ -4,7 +4,7 @@ A collection of React components that render very large tables.
 
 ## Usage
 
-    import {Table} from 'monochrome';
+    import {Table} from '@streetscape.gl/monochrome';
 
     <Table columns={columns}
       rows={rows}
@@ -16,7 +16,7 @@ A collection of React components that render very large tables.
 Renders a table.
 
 ```js
-import {Table} from 'monochrome';
+import {Table} from '@streetscape.gl/monochrome';
 ```
 
 ### Props
@@ -43,7 +43,7 @@ import {Table} from 'monochrome';
 Renders a table with nested hierarchy.
 
 ```js
-import {TreeTable} from 'monochrome';
+import {TreeTable} from '@streetscape.gl/monochrome';
 ```
 
 ### Props

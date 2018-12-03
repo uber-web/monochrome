@@ -12,7 +12,7 @@ A stateless video playback control component.
 
 ## Usage
 
-    import {PlaybackControl} from 'monochrome';
+    import {PlaybackControl} from '@streetscape.gl/monochrome';
 
     <PlaybackControl currentTime={8.3} endTime={20} isPlaying={false} onPlay={...} onSeek={...} />
 

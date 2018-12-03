@@ -1,7 +1,7 @@
 {
-  "name": "monochrome-ui",
-  "version": "0.0.9",
-  "description": "A toolkit of React components",
+  "name": "@streetscape.gl/monochrome",
+  "version": "1.0.0-alpha.0",
+  "description": "A toolkit of React components for streetscape.gl",
   "license": "MIT",
   "keywords": [
     "react",
@@ -21,7 +21,7 @@
   "scripts": {
     "build": "scripts/build.sh",
     "cover": "nyc npm run test",
-    "flow": "flow check || true",
+    "typecheck": "flow check || true",
     "lint": "scripts/lint.sh",
     "publish-prod": "npm run build && npm run test && npm publish",
     "publish-beta": "npm run build && npm run test && npm publish --tag beta",
