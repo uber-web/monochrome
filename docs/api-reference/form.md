@@ -39,6 +39,7 @@ Config object fields:
 * `visible`: if this control is visible. Can be a boolean, or function that takes the current values object and returns a boolean.
 * `enabled`: if this control is enabled. Can be a boolean, or function that takes the current values object and returns a boolean.
 * `children`: a nested settings object. The nested controls will be indented to align with the parent label.
+* `style`: custom CSS overrides. See `Styling` section below.
 
 #### `values` (Object, required)
 
@@ -129,3 +130,53 @@ This can be used to a add a custom control to the form.
 * `mc-form--title` - title of a section
 * `mc-form--heading` - heading of a subsection
 * `mc-form--separator` - horizontal separator
+
+### Styling
+
+The `style` prop expects an object that may contain the following keys:
+
+* `wrapper` - wrapper element around the whole form.
+* `expander` - the expand/collapse button for input groups.
+* `item` - the container of each input item.
+* `[type]` - **(object)** style to be passed to each type of input component.
+* `label` - **(object)** the labels.
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+```jsx
+const checkboxStyle = {
+  label: {
+    tooltip: {
+      arrowSize: 2
+    }
+  },
+  dropdown: {
+    border: {
+      borderWidth: 2
+    }
+  },
+  item: props => ({
+    display: props.isEnabled ? 'block' : 'none'
+  })
+};
+```
+
+The `wrapper` callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+
+The `expander` callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `isExpanded` **(boolean)** - if the group is expanded
+
+The `item` callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `level` **(number)** - the nested level of the item. Root level settings have `level: 0`.
+  - `isEnabled` **(boolean)** - whether the item is enabled
+  - `type` **(string)** - the type of the input
+  - `value` **(any)** - the value of the input

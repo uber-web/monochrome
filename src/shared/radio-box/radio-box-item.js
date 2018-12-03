@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {evaluateStyle} from '../theme';
 
-import Label from '../label';
-
-const STYLE_STRETCHER = {flexGrow: 1};
-
 const RadioItem = styled.div(props => ({
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
   display: 'flex',
+  width: '100%',
   alignItems: 'center',
+  justifyContent: 'space-between',
   marginTop: props.theme.spacingTiny,
   marginBottom: props.theme.spacingTiny,
   ...evaluateStyle(props.userStyle, props)
@@ -35,6 +33,7 @@ const RadioButton = styled.div(props => {
     borderRadius: '50%',
     width: props.size,
     height: props.size,
+    marginLeft: props.theme.spacingSmall,
 
     background: props.theme.background,
     borderStyle: 'solid',
@@ -104,10 +103,8 @@ export default class RadioBoxItem extends PureComponent {
         onMouseLeave={this._onMouseLeave}
         onClick={this.props.onClick}
       >
-        <Label isEnabled={isEnabled} style={style.label}>
-          {label}
-        </Label>
-        <div style={STYLE_STRETCHER} />
+        {label}
+
         <RadioButton {...styleProps} userStyle={style.button}>
           <RadioIcon {...styleProps} userStyle={style.icon} />
         </RadioButton>

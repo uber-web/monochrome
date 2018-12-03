@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-import Label from '../label';
 import Draggable from '../draggable';
 import {clamp} from '../../utils/math';
 
@@ -15,17 +14,13 @@ function snap(x, min, max, step) {
   return clamp(x, min, max);
 }
 
-const SliderComponent = styled.div(props => ({
+const SliderWrapper = styled.div(props => ({
   ...props.theme.__reset__,
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
   paddingTop: props.knobSize / 2,
   paddingBottom: props.knobSize / 2,
-  ...evaluateStyle(props.userStyle, props)
-}));
-
-const SliderWrapper = styled.div(props => ({
-  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -135,20 +130,7 @@ class Slider extends PureComponent {
   };
 
   render() {
-    const {
-      label,
-      tooltip,
-      badge,
-      value,
-      min,
-      max,
-      step,
-      isEnabled,
-      children,
-      className,
-      style,
-      theme
-    } = this.props;
+    const {value, min, max, step, isEnabled, children, className, style, theme} = this.props;
     const {isHovered, isDragging, hasDragged} = this.state;
 
     const {tolerance = 0, knobSize = theme.controlSize} = style;
@@ -164,38 +146,31 @@ class Slider extends PureComponent {
       filled: ratio
     };
     return (
-      <SliderWrapper {...styleProps} userStyle={style.wrapper} className={className}>
-        {label && (
-          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-            {label}
-          </Label>
-        )}
-
-        <SliderComponent
-          {...styleProps}
-          userStyle={style.slider}
-          onMouseEnter={this._onMouseEnter}
-          onMouseLeave={this._onMouseLeave}
+      <SliderWrapper
+        {...styleProps}
+        userStyle={style.wrapper}
+        className={className}
+        onMouseEnter={this._onMouseEnter}
+        onMouseLeave={this._onMouseLeave}
+      >
+        <Draggable
+          tolerance={knobSize / 2 + tolerance}
+          onDragStart={this._onDragStart}
+          onDrag={this._onDrag}
+          onDragEnd={this._onDragEnd}
         >
-          <Draggable
-            tolerance={knobSize / 2 + tolerance}
-            onDragStart={this._onDragStart}
-            onDrag={this._onDrag}
-            onDragEnd={this._onDragEnd}
+          <SliderTrack
+            userStyle={style.track}
+            {...styleProps}
+            ref={ref => {
+              this._track = ref;
+            }}
           >
-            <SliderTrack
-              userStyle={style.track}
-              {...styleProps}
-              ref={ref => {
-                this._track = ref;
-              }}
-            >
-              {children}
-              <SliderTrackFill {...styleProps} userStyle={style.trackFill} />
-              <SliderKnob {...styleProps} userStyle={style.knob} />
-            </SliderTrack>
-          </Draggable>
-        </SliderComponent>
+            {children}
+            <SliderTrackFill {...styleProps} userStyle={style.trackFill} />
+            <SliderKnob {...styleProps} userStyle={style.knob} />
+          </SliderTrack>
+        </Draggable>
       </SliderWrapper>
     );
   }

@@ -83,6 +83,19 @@ const SETTINGS = {
   }
 };
 
+const STYLES = {
+  label: {
+    tooltip: {
+      arrowSize: 0,
+      borderWidth: 0,
+      body: {
+        background: 'rgba(0, 0, 0, 0.9)',
+        color: '#fff'
+      }
+    }
+  }
+};
+
 export default class FormExample extends Component {
   constructor(props) {
     super(props);
@@ -125,6 +138,7 @@ export default class FormExample extends Component {
     return (
       <Form
         data={SETTINGS}
+        style={STYLES}
         values={this.state.values}
         onChange={this._onSettingsChange.bind(this)}
       />

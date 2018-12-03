@@ -22,8 +22,6 @@ A stateless radio box control component.
 * `size` **(number, optional)** - size of the toggle. Default is `18`.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
-* `label` **(string, optional)** - label for the control.
-* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 * `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
 
@@ -31,12 +29,12 @@ A stateless radio box control component.
 
 The `style` prop expects an object that may contain the following keys:
 
-* `wrapper` - wrapper element around all radio controls.
+* `wrapper` - the top level container.
+* `items` - wrapper element around all radio controls.
 * `item` - wrapper element around each label and radio button.
 * `button` - the border element of the radio button.
 * `icon` - the icon element of the radio bottom.
 * `size` **(number)** - size of the check box. Default is `18`.
-* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

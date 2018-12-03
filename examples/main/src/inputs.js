@@ -42,8 +42,6 @@ export default class BasicInputsExample extends Component {
 
         <h3>TextBox</h3>
         <TextBox
-          label="Your name"
-          tooltip="LAST, First"
           isEnabled={_enabled}
           value={this.state.textbox}
           onChange={this._onSettingsChange.bind(this, 'textbox')}
@@ -52,7 +50,6 @@ export default class BasicInputsExample extends Component {
         <h3>Dropdown</h3>
         <Dropdown
           data={SAMPLE_DATA}
-          label="Pet"
           isEnabled={_enabled}
           value={this.state.dropdown}
           onChange={this._onSettingsChange.bind(this, 'dropdown')}
@@ -60,7 +57,6 @@ export default class BasicInputsExample extends Component {
 
         <h3>RadioBox</h3>
         <RadioBox
-          label="Pet"
           data={SAMPLE_DATA}
           isEnabled={_enabled}
           value={this.state.radio}
@@ -69,7 +65,6 @@ export default class BasicInputsExample extends Component {
 
         <h3>Slider</h3>
         <Slider
-          label="Rating"
           min={0}
           max={1}
           step={0.01}
@@ -81,7 +76,6 @@ export default class BasicInputsExample extends Component {
         <h3>Toggle</h3>
         <Toggle
           label="Do not disturb"
-          tooltip="Disable notifications"
           isEnabled={_enabled}
           value={this.state.toggle}
           onChange={this._onSettingsChange.bind(this, 'toggle')}

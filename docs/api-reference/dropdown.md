@@ -21,8 +21,6 @@ A stateless dropdown control component.
 * `size` **(number, optional)** - size of the dropdown. Default is `18`.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
-* `label` **(string, optional)** - label for the control.
-* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 * `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
 
@@ -30,12 +28,11 @@ A stateless dropdown control component.
 
 The `style` prop expects an object that may contain the following keys:
 
-* `wrapper` -  wrapper element around both the label and dropdown control.
+* `wrapper` - the top level container.
 * `border` - the border around the dropdown.
 * `select` - the <select> element.
 * `icon` - the arrow element on the right of the dropdown.
 * `height` **(number)** - height of the check box. Default is `26`.
-* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

@@ -18,8 +18,6 @@ A stateless text box component.
 * `showClearButton` **(boolean, optional)** - whether to show a "clear all" button when the text box is not empty. Default is `true`.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
-* `label` **(string, optional)** - label for the control.
-* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 * `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
 
@@ -27,12 +25,11 @@ A stateless text box component.
 
 The `style` prop expects an object that may contain the following keys:
 
-* `wrapper` -  wrapper element around both the label and text box.
+* `wrapper` - the top level container.
 * `border` - the border around the text box.
 * `input` - the <input> element.
 * `clear` - the clear button.
 * `height` **(number)** - height of the check box. Default is `26`.
-* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

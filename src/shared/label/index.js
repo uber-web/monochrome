@@ -10,13 +10,16 @@ const LabelComponent = styled.label(props => ({
   ...props.theme.__reset__,
   cursor: 'inherit',
   color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
+
+  '>*': {
+    marginLeft: props.theme.spacingNormal
+  },
+
   ...evaluateStyle(props.userStyle, props)
 }));
 
 const LabelInfo = styled.div(props => ({
   display: 'inline-block',
-  marginLeft: props.theme.spacingNormal,
-  marginRight: props.theme.spacingNormal,
   background: props.isEnabled ? props.theme.controlColorPrimary : props.theme.controlColorDisabled,
   color: props.theme.textColorInvert,
   cursor: 'default',

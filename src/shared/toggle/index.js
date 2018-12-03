@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-import Label from '../label';
-
-const STYLE_STRETCHER = {flexGrow: 1};
-
 function getControlColor(props) {
   if (!props.isEnabled) {
     return props.theme.controlColorDisabled;
@@ -22,9 +18,12 @@ function getControlColor(props) {
 const WrapperComponent = styled.div(props => ({
   ...props.theme.__reset__,
   display: 'flex',
+  width: '100%',
   alignItems: 'center',
+  justifyContent: 'space-between',
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -73,9 +72,7 @@ class Toggle extends PureComponent {
     value: PropTypes.bool.isRequired,
     onChange: PropTypes.func,
     className: PropTypes.string,
-    label: PropTypes.string,
-    tooltip: PropTypes.string,
-    badge: PropTypes.element,
+    label: PropTypes.node,
     style: PropTypes.object,
     isEnabled: PropTypes.bool
   };
@@ -105,7 +102,7 @@ class Toggle extends PureComponent {
   };
 
   render() {
-    const {theme, className, style, value, label, tooltip, badge, isEnabled} = this.props;
+    const {theme, className, style, value, label, isEnabled} = this.props;
     const {knobSize = theme.controlSize} = style;
 
     const styleProps = {
@@ -125,12 +122,8 @@ class Toggle extends PureComponent {
         userStyle={style.wrapper}
         {...styleProps}
       >
-        {label && (
-          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-            {label}
-          </Label>
-        )}
-        <div style={STYLE_STRETCHER} />
+        {label}
+
         <ToggleComponent userStyle={style.toggle} {...styleProps}>
           <ToggleTrack userStyle={style.track} {...styleProps} />
           <ToggleKnob userStyle={style.knob} {...styleProps} />

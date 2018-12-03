@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-import Label from '../label';
-
 function getControlColor(props) {
   if (!props.isEnabled) {
     return props.theme.controlColorDisabled;
@@ -25,6 +23,7 @@ const WrapperComponent = styled.div(props => ({
 
 const TextBoxBorder = styled.div(props => ({
   position: 'relative',
+  width: '100%',
   height: props.height,
   borderStyle: 'solid',
   borderWidth: 1,
@@ -71,9 +70,6 @@ class TextBox extends PureComponent {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func,
     className: PropTypes.string,
-    label: PropTypes.string,
-    tooltip: PropTypes.string,
-    badge: PropTypes.element,
     style: PropTypes.object,
     showClearButton: PropTypes.bool,
     isEnabled: PropTypes.bool
@@ -109,18 +105,8 @@ class TextBox extends PureComponent {
   };
 
   render() {
-    const {
-      value,
-      className,
-      theme,
-      style,
-      label,
-      tooltip,
-      badge,
-      showClearButton,
-      isEnabled
-    } = this.props;
-    const {height = theme.controlSize + 8} = style;
+    const {value, className, theme, style, showClearButton, isEnabled} = this.props;
+    const {height = theme.controlSize + theme.spacingTiny * 2} = style;
 
     const styleProps = {
       theme,
@@ -132,11 +118,6 @@ class TextBox extends PureComponent {
 
     return (
       <WrapperComponent className={className} userStyle={style.wrapper} {...styleProps}>
-        {label && (
-          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-            {label}
-          </Label>
-        )}
         <TextBoxBorder
           userStyle={style.border}
           {...styleProps}

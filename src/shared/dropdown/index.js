@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-import Label from '../label';
-
 function getControlColor(props) {
   if (!props.isEnabled) {
     return props.theme.controlColorDisabled;
@@ -25,6 +23,7 @@ const WrapperComponent = styled.div(props => ({
 
 const DropdownBorder = styled.div(props => ({
   position: 'relative',
+  width: '100%',
   height: props.height,
   borderStyle: 'solid',
   borderWidth: 1,
@@ -73,9 +72,6 @@ class Dropdown extends PureComponent {
     onChange: PropTypes.func,
     data: PropTypes.object.isRequired,
     className: PropTypes.string,
-    label: PropTypes.string,
-    tooltip: PropTypes.string,
-    badge: PropTypes.element,
     style: PropTypes.object,
     isEnabled: PropTypes.bool
   };
@@ -106,8 +102,8 @@ class Dropdown extends PureComponent {
   };
 
   render() {
-    const {theme, style, className, data, label, tooltip, badge, value, isEnabled} = this.props;
-    const {height = theme.controlSize + 8} = style;
+    const {theme, style, className, data, value, isEnabled} = this.props;
+    const {height = theme.controlSize + theme.spacingTiny * 2} = style;
 
     const styleProps = {
       theme,
@@ -119,12 +115,6 @@ class Dropdown extends PureComponent {
 
     return (
       <WrapperComponent className={className} userStyle={style.wrapper} {...styleProps}>
-        {label && (
-          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-            {label}
-          </Label>
-        )}
-
         <DropdownBorder
           userStyle={style.border}
           {...styleProps}

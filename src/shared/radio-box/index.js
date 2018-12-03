@@ -5,10 +5,10 @@ import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
 import RadioBoxItem from './radio-box-item';
-import Label from '../label';
 
 const WrapperComponent = styled.div(props => ({
   ...props.theme.__reset__,
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -20,9 +20,6 @@ class RadioBox extends PureComponent {
     onChange: PropTypes.func,
     data: PropTypes.object.isRequired,
     className: PropTypes.string,
-    label: PropTypes.string,
-    tooltip: PropTypes.string,
-    badge: PropTypes.element,
     style: PropTypes.object,
     isEnabled: PropTypes.bool
   };
@@ -39,7 +36,7 @@ class RadioBox extends PureComponent {
   };
 
   render() {
-    const {theme, className, style, data, value, label, tooltip, badge, isEnabled} = this.props;
+    const {theme, className, style, data, value, isEnabled} = this.props;
 
     const {size = theme.controlSize} = style;
 
@@ -52,12 +49,6 @@ class RadioBox extends PureComponent {
 
     return (
       <WrapperComponent className={className} {...styleProps} userStyle={style.wrapper}>
-        {label && (
-          <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-            {label}
-          </Label>
-        )}
-
         {Object.keys(data).map(key => (
           <RadioBoxItem
             key={key}

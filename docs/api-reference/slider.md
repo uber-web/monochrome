@@ -20,22 +20,18 @@ A stateless slider control component.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
 * `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
-* `label` **(string, optional)** - label for the control.
-* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
 
 
 ### Styling
 
 The `style` prop expects an object that may contain the following keys:
 
-* `wrapper` - wrapper element around both the label and the slider.
-* `slider` - the container of the slider.
+* `wrapper` - the top level container.
 * `track` - the track element.
 * `trackFill` - the part of the track left to the knob.
 * `knob` - the knob element.
 * `knobSize` **(number)** - size of the knob. Default is `18`.
 * `tolerance` **(number)** - number of pixels around the slider that are also interactive. Default is `0`.
-* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

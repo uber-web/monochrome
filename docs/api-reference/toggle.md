@@ -17,8 +17,7 @@ A stateless toggle control component.
 * `size` **(number, optional)** - size of the toggle. Default is `18`.
 * `isEnabled` **(boolean, optional)** - whether the control is enabled. Default is `true`.
 * `className` **(string, optional)** - custom class name for the control.
-* `label` **(string, optional)** - label for the control.
-* `tooltip` **(string, optional)** - forwarded to the Label compoenent.
+* `label` **(string | element, optional)** - label for the control.
 * `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
 
@@ -31,7 +30,6 @@ The `style` prop expects an object that may contain the following keys:
 * `track` - the track element of the toggle.
 * `knob` - the knob element of the toggle.
 * `knobSize` **(number)** - size of the knob. Default is `18`.
-* `label` - the label. This value will be passed to the [Label](/docs/api-reference/label.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 

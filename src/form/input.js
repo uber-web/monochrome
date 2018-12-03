@@ -1,16 +1,40 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import {CheckBox, Dropdown, RadioBox, Slider, TextBox, Toggle} from '../shared';
+import {CheckBox, Dropdown, RadioBox, Slider, TextBox, Toggle, Label} from '../shared';
+import {Title, Heading, Separator} from './styled-components';
 
-const CLASS_NAME = 'mc-form--input';
+import styled from '@emotion/styled';
+import {evaluateStyle} from '../shared/theme';
+
+const InputContainer = styled.div(props => ({
+  display: 'flex',
+  alignItems: 'start',
+  justifyContent: 'space-between',
+  width: '100%',
+  boxSizing: 'border-box',
+  paddingLeft: props.level * props.theme.spacingLarge,
+  marginBottom: props.theme.spacingSmall,
+
+  '>label': {
+    marginTop: props.theme.spacingTiny,
+    marginRight: props.theme.spacingSmall
+  },
+
+  '>label + div': {
+    flexGrow: 1,
+    maxWidth: 320
+  },
+
+  ...evaluateStyle(props.userStyle, props)
+}));
 
 export default class Input extends PureComponent {
   static propTypes = {
     onChange: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired
+    type: PropTypes.string.isRequired,
+    level: PropTypes.number.isRequired
   };
 
   static defaultProps = {
@@ -38,80 +62,73 @@ export default class Input extends PureComponent {
     this.props.onChange(this.props.name, value);
   };
 
-  _renderTitle = () => {
-    return <div className="mc-form--title">{this.props.label}</div>;
+  _renderTitle = (props, userStyle) => {
+    return (
+      <Title {...props} userStyle={userStyle}>
+        {props.title}
+      </Title>
+    );
   };
 
-  _renderHeading = () => {
-    return <div className="mc-form--heading">{this.props.label}</div>;
+  _renderHeading = (props, userStyle) => {
+    return (
+      <Heading {...props} userStyle={userStyle}>
+        {props.title}
+      </Heading>
+    );
   };
 
-  _renderSeparator = () => {
-    return <hr className="mc-form--separator" />;
+  _renderSeparator = (props, userStyle) => {
+    return <Separator {...props} userStyle={userStyle} />;
   };
 
-  _renderToggle = () => {
-    const {label, value, className} = this.props;
-    const onTitle = this.props.onTitle || label;
-    const offTitle = this.props.offTitle || label;
+  _renderToggle = (props, style) => {
+    const {label, onTitle, offTitle, value, className} = this.props;
+
+    const labelText = (value ? onTitle : offTitle) || label;
 
     return (
       <Toggle
-        {...this.props}
-        className={classnames(className, CLASS_NAME)}
-        label={value ? onTitle : offTitle}
+        {...props}
+        style={style}
+        className={className}
+        label={this._renderLabel(labelText)}
         onChange={this._onChange}
       />
     );
   };
 
-  _renderSlider = () => {
-    return (
-      <Slider
-        {...this.props}
-        className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange}
-      />
-    );
+  _renderSlider = (props, style) => {
+    return [
+      this._renderLabel(),
+      <Slider key="slider" {...props} style={style} onChange={this._onChange} />
+    ];
   };
 
-  _renderDropdown = () => {
-    return (
-      <Dropdown
-        {...this.props}
-        className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange}
-      />
-    );
+  _renderDropdown = (props, style) => {
+    return [
+      this._renderLabel(),
+      <Dropdown key="dropdown" {...props} style={style} onChange={this._onChange} />
+    ];
   };
 
-  _renderRadio = () => {
-    return (
-      <RadioBox
-        {...this.props}
-        className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange}
-      />
-    );
+  _renderRadio = (props, style) => {
+    return [
+      this._renderLabel(),
+      <RadioBox key="radio" {...props} style={style} onChange={this._onChange} />
+    ];
   };
 
-  _renderTextBox = () => {
-    return (
-      <TextBox
-        {...this.props}
-        className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange}
-      />
-    );
+  _renderTextBox = (props, style) => {
+    return [
+      this._renderLabel(),
+      <TextBox key="textbox" {...props} style={style} onChange={this._onChange} />
+    ];
   };
 
-  _renderCheckbox = () => {
+  _renderCheckbox = (props, style) => {
     return (
-      <CheckBox
-        {...this.props}
-        className={classnames(this.props.className, CLASS_NAME)}
-        onChange={this._onChange}
-      />
+      <CheckBox {...props} label={this._renderLabel()} style={style} onChange={this._onChange} />
     );
   };
 
@@ -119,14 +136,38 @@ export default class Input extends PureComponent {
     return this.props.render(this.props);
   };
 
+  _renderLabel = (label = this.props.label) => {
+    const {isEnabled, tooltip, badge, style} = this.props;
+    return (
+      label && (
+        <Label
+          key="label"
+          isEnabled={isEnabled}
+          tooltip={tooltip}
+          badge={badge}
+          style={style.label}
+        >
+          {label}
+        </Label>
+      )
+    );
+  };
+
+  /* eslint-disable no-unused-vars */
   render() {
-    const {type} = this.props;
+    const {style, type, onChange, label, tooltip, badge, ...otherProps} = this.props;
 
     const render = this.renders[type];
     if (!render) {
       throw new Error(`Unknown setting type ${type}`);
     }
 
-    return render();
+    const inputStyle = style[type];
+
+    return (
+      <InputContainer {...otherProps} userStyle={style.item}>
+        {render(otherProps, inputStyle)}
+      </InputContainer>
+    );
   }
 }

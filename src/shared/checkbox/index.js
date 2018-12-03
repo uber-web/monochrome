@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-import Label from '../label';
-
 const CHECKBOX_STATE = {
   OFF: 'off',
   INDETERMINATE: 'indeterminate',
@@ -19,6 +17,7 @@ const CheckBoxComponent = styled.div(props => ({
 
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
+  color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
 
   ...evaluateStyle(props.userStyle, props)
 }));
@@ -29,6 +28,7 @@ const CheckBoxBorder = styled.div(props => ({
   width: props.size,
   height: props.size,
 
+  flexGrow: 0,
   flexShrink: 0,
   marginRight: props.theme.spacingSmall,
   borderStyle: 'solid',
@@ -64,9 +64,7 @@ class CheckBox extends PureComponent {
       .isRequired,
     onChange: PropTypes.func,
     className: PropTypes.string,
-    label: PropTypes.string,
-    tooltip: PropTypes.string,
-    badge: PropTypes.element,
+    label: PropTypes.node,
     style: PropTypes.object,
     isEnabled: PropTypes.bool
   };
@@ -95,7 +93,7 @@ class CheckBox extends PureComponent {
   };
 
   render() {
-    const {value, style, className, theme, label, tooltip, badge, isEnabled} = this.props;
+    const {value, style, className, theme, label, isEnabled} = this.props;
     const {size = theme.controlSize} = style;
 
     const styleProps = {
@@ -118,9 +116,7 @@ class CheckBox extends PureComponent {
         <CheckBoxBorder userStyle={style.border} {...styleProps}>
           <CheckBoxIcon userStyle={style.icon} {...styleProps} />
         </CheckBoxBorder>
-        <Label isEnabled={isEnabled} style={style.label} tooltip={tooltip} badge={badge}>
-          {label}
-        </Label>
+        {label}
       </CheckBoxComponent>
     );
   }
