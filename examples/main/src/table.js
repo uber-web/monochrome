@@ -54,10 +54,10 @@ export default class TreeTableExample extends Component {
     return (
       <div>
         <h3>Table</h3>
-        <Table columns={COLUMNS} rows={ROWS} height={400} />
+        <Table columns={COLUMNS} rows={ROWS} />
 
         <h3>TreeTable</h3>
-        <TreeTable columns={COLUMNS} rows={ROWS} height={400} />
+        <TreeTable columns={COLUMNS} rows={ROWS} />
       </div>
     );
   }

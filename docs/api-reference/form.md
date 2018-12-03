@@ -121,16 +121,6 @@ See [Checkbox](./checkbox.md).
 
 This can be used to a add a custom control to the form.
 
-### CSS Classes
-
-* `mc-form` - wrapper around the whole form
-* `mc-form--input` - container of an input item
-* `mc-form--group` - container of a gorup of inputs
-* `mc-form--group-expander` - the expand/collapse button
-* `mc-form--title` - title of a section
-* `mc-form--heading` - heading of a subsection
-* `mc-form--separator` - horizontal separator
-
 ### Styling
 
 The `style` prop expects an object that may contain the following keys:

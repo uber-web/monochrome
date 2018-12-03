@@ -27,20 +27,6 @@ const CONFIG = {
             plugins: ['@babel/proposal-class-properties']
           }
         }
-      },
-      {
-        test: /\.s?css$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
       }
     ]
   },

@@ -33,7 +33,6 @@
   "dependencies": {
     "@emotion/core": "^10.0.0",
     "@emotion/styled": "^10.0.0",
-    "classnames": "^2.2.5",
     "debounce": "^1.1.0",
     "popper.js": "^1.11.1",
     "prop-types": "^15.5.10",
@@ -71,7 +70,6 @@
     "flow-bin": "^0.80.0",
     "jsdom": "^9.11.0",
     "module-alias": "^2.0.0",
-    "node-sass": "^4.9.0",
     "nyc": "^10.2.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.9.2",

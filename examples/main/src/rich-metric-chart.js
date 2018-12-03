@@ -11,17 +11,19 @@ for (let k = 1; k <= 10; k++) {
   });
 }
 
-const margin = {left: 48, right: 20, top: 20, bottom: 48};
+const style = {
+  width: '100%',
+  height: 400,
+  margin: {left: 48, right: 20, top: 20, bottom: 48}
+};
 
 export default class MetricCardExample extends Component {
   render() {
     return (
       <RichMetricChart
-        width="100%"
-        height={400}
+        style={style}
         data={sampleData}
         unit="m/s"
-        margin={margin}
         getX={d => d[0]}
         getY={d => d[1]}
         formatTitle={title => title}

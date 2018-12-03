@@ -1,19 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
-export const STYLES = {
-  row: {
-    position: 'relative',
-    display: 'flex',
-    alignItems: 'stretch'
-  },
-  cell: {
-    flex: '0 0 auto',
-    overflow: 'hidden',
-    boxSizing: 'border-box',
-    position: 'relative'
-  }
-};
+import {TableRowComponent, TableCell} from './styled-components';
 
 /**
  * A stateless component that renders a data row in the Table component
@@ -30,24 +18,22 @@ export default class TableRow extends PureComponent {
   };
 
   render() {
-    const {id, data, columns, style, renderCell} = this.props;
+    const {id, index, data, theme, userStyle, columns, style, renderCell} = this.props;
 
     return (
-      <div className="mc-table--item" style={style}>
-        <div className="mc-table--row" style={STYLES.row}>
+      <div style={style}>
+        <TableRowComponent theme={theme} index={index} userStyle={userStyle.row}>
           {data.data.map((colValue, colIndex) => {
             const column = columns[colIndex];
-            const cellStyle = {
-              ...STYLES.cell,
-              width: column.width
-            };
 
             return (
-              <div
-                className="mc-table--cell"
+              <TableCell
                 key={colIndex}
-                style={cellStyle}
+                index={colIndex}
+                style={{width: column.width}}
                 title={`${column.name}: ${colValue}`}
+                theme={theme}
+                userStyle={userStyle.cell}
               >
                 {renderCell({
                   value: colValue,
@@ -56,10 +42,10 @@ export default class TableRow extends PureComponent {
                   row: data.srcObject,
                   rowId: id
                 })}
-              </div>
+              </TableCell>
             );
           })}
-        </div>
+        </TableRowComponent>
       </div>
     );
   }

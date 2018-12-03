@@ -1,23 +1,14 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
 import AutoSizer from '../shared/autosizer';
+
+import {HeaderContainer, HeaderCell, SortIcon} from './styled-components';
 
 const SORT = {
   NONE: 0,
   ASCEND: 1,
   DESCEND: 2
-};
-
-const STYLES = {
-  container: {
-    display: 'table',
-    flex: '0 0 auto'
-  },
-  icon: {
-    position: 'absolute'
-  }
 };
 
 export default class TableHeader extends PureComponent {
@@ -104,44 +95,52 @@ export default class TableHeader extends PureComponent {
   };
 
   _renderColumn = (column, colIndex) => {
-    const {renderHeader} = this.props;
+    const {renderHeader, theme, userStyle} = this.props;
 
-    const className = classnames('mc-table--header-cell', {
-      ascending: column.sort === SORT.ASCEND,
-      descending: column.sort === SORT.DESCEND
-    });
-
-    const style = {
-      cursor: 'pointer',
-      display: 'table-cell',
-      position: 'relative',
-      width: column.defaultWidth
+    const styleProps = {
+      theme,
+      isAscending: column.sort === SORT.ASCEND,
+      isDescending: column.sort === SORT.DESCEND
     };
 
+    let icon = null;
+    if (styleProps.isAscending) {
+      icon = userStyle.iconAscending || '↑';
+    } else if (styleProps.isDescending) {
+      icon = userStyle.iconDescending || '↓';
+    }
+
     return (
-      <div
-        className={className}
+      <HeaderCell
+        {...styleProps}
+        userStyle={userStyle.headerCell}
+        style={{width: column.defaultWidth}}
         key={colIndex}
-        style={style}
+        index={colIndex}
         ref={cell => {
           this._cells[colIndex] = cell;
         }}
         onClick={() => this._sortColumn(colIndex)}
       >
         {renderHeader({column: column.srcObject, columnIndex: colIndex})}
-        {column.sort !== SORT.NONE && <div className="mc-table--sort-icon" style={STYLES.icon} />}
-      </div>
+        {icon && (
+          <SortIcon {...styleProps} userStyle={userStyle.sort}>
+            {icon}
+          </SortIcon>
+        )}
+      </HeaderCell>
     );
   };
 
   render() {
+    const {theme, userStyle} = this.props;
     const {columns} = this.state;
 
     return (
-      <div className="mc-table--header" style={STYLES.container}>
+      <HeaderContainer theme={theme} userStyle={userStyle.header}>
         {columns.map(this._renderColumn)}
         <AutoSizer onResize={this._onResize} debounceTime={200} />
-      </div>
+      </HeaderContainer>
     );
   }
 }

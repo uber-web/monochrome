@@ -5,19 +5,15 @@ import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
 import CellMeasurer, {CellMeasurerCache} from 'react-virtualized/dist/commonjs/CellMeasurer';
 
+import {withTheme} from '../shared/theme';
+
 import TableHeader from './table-header';
 import TableRow from './table-row';
+import {WrapperComponent, TableBody} from './styled-components';
 
-const STYLES = {
-  body: {
-    flex: '1 1 auto'
-  }
-};
-
-export default class Table extends PureComponent {
+export class Table extends PureComponent {
   static propTypes = {
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    style: PropTypes.object,
     columns: PropTypes.array,
     rows: PropTypes.array,
     renderHeader: PropTypes.func,
@@ -25,8 +21,7 @@ export default class Table extends PureComponent {
   };
 
   static defaultProps = {
-    width: '100%',
-    height: 400,
+    style: {},
     rows: [],
     renderHeader: ({column}) => column.name,
     renderCell: ({value}) => (value === null ? null : String(value))
@@ -91,15 +86,18 @@ export default class Table extends PureComponent {
   };
 
   _renderRow({key, index, style}) {
-    const {renderCell} = this.props;
+    const {renderCell, theme, style: userStyle} = this.props;
     const row = this.state.rows[index];
 
     return (
       <TableRow
         key={key}
         id={row.id}
+        index={index}
         data={row}
         style={style}
+        theme={theme}
+        userStyle={userStyle}
         renderCell={renderCell}
         columns={this.state.columns}
       />
@@ -112,10 +110,6 @@ export default class Table extends PureComponent {
         {() => this._renderRow({key, index, style})}
       </CellMeasurer>
     );
-  };
-
-  _renderHeader = ({width}) => {
-    return <TableHeader width={width} columns={this.state.columns} />;
   };
 
   // AutoSizer is a pure component. By default child function is only called if dimensions change.
@@ -143,28 +137,26 @@ export default class Table extends PureComponent {
   }
 
   render() {
-    const {width, height, columns, renderHeader} = this.props;
-
-    const tableStyle = {
-      width,
-      height,
-      display: 'flex',
-      flexDirection: 'column'
-    };
+    const {theme, style, columns, renderHeader} = this.props;
+    const {width = '100%', height = 400} = style;
 
     return (
-      <div className="mc-table" style={tableStyle}>
+      <WrapperComponent style={{width, height}} theme={theme} userStyle={style.wrapper}>
         <TableHeader
+          theme={theme}
+          userStyle={style}
           columns={columns}
           renderHeader={renderHeader}
           onSort={this._onSort}
           onResize={this._onHeaderResize}
         />
 
-        <div className="mc-table--body" style={STYLES.body}>
+        <TableBody theme={theme} userStyle={style.body}>
           <AutoSizer>{this._renderBody.bind(this)}</AutoSizer>
-        </div>
-      </div>
+        </TableBody>
+      </WrapperComponent>
     );
   }
 }
+
+export default withTheme(Table);

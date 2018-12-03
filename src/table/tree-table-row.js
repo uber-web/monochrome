@@ -1,8 +1,7 @@
 import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import {STYLES} from './table-row';
+import {TableRowComponent, TableCell, Expander} from './styled-components';
 
 /**
  * A stateless component that renders a data row in the TreeTable component
@@ -26,29 +25,27 @@ export default class TreeTableRow extends PureComponent {
     this.props.toggleExpansion(id, this.props.id);
   }
 
-  _renderItem = ({id, depth = 0, key, data, style}) => {
-    const {indentSize, columns, renderCell, getIsExpanded} = this.props;
+  _renderItem = ({id, index, depth = 0, key, data, style}) => {
+    const {indentSize, columns, theme, userStyle, renderCell, getIsExpanded} = this.props;
 
     const isExpanded = getIsExpanded(id);
     const hasChildren = data.children.length > 0;
     const indent = indentSize * (depth + 1);
 
-    const expanderStyle = hasChildren && {
-      position: 'absolute',
-      cursor: 'pointer',
-      marginLeft: indent
-    };
-
     return (
-      <div key={key} className="mc-table--item" style={style}>
-        <div className="mc-table--row" style={STYLES.row}>
+      <div key={key} style={style}>
+        <TableRowComponent theme={theme} index={index} userStyle={userStyle.row}>
           {hasChildren && (
-            <div
+            <Expander
               key="toggle"
-              className={classnames('mc-table--row-expander', {expanded: isExpanded})}
-              style={expanderStyle}
+              isExpanded={isExpanded}
+              theme={theme}
+              userStyle={userStyle.expander}
+              style={{marginLeft: indent}}
               onClick={() => this._toggleExpansion(id)}
-            />
+            >
+              {isExpanded ? userStyle.iconExpanded || '▾' : userStyle.iconCollapsed || '▸'}
+            </Expander>
           )}
 
           <div style={{flexShrink: 0, width: indent}} />
@@ -56,17 +53,15 @@ export default class TreeTableRow extends PureComponent {
           {data.data.map((colValue, colIndex) => {
             const column = columns[colIndex];
             const width = colIndex === 0 ? column.width - indent : column.width;
-            const cellStyle = {
-              ...STYLES.cell,
-              width
-            };
 
             return (
-              <div
-                className="mc-table--cell"
+              <TableCell
                 key={colIndex}
-                style={cellStyle}
+                index={colIndex}
+                style={{width}}
                 title={`${column.name}: ${colValue}`}
+                theme={theme}
+                userStyle={userStyle.cell}
               >
                 {renderCell({
                   value: colValue,
@@ -75,10 +70,10 @@ export default class TreeTableRow extends PureComponent {
                   row: data.srcObject,
                   rowId: id
                 })}
-              </div>
+              </TableCell>
             );
           })}
-        </div>
+        </TableRowComponent>
 
         {hasChildren &&
           isExpanded &&
@@ -86,6 +81,7 @@ export default class TreeTableRow extends PureComponent {
             this._renderItem({
               depth: depth + 1,
               id: `${id}.${rowIndex}`,
+              index: rowIndex,
               key: rowIndex,
               data: row
             })

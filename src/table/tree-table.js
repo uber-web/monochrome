@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Table from './table';
+import {withTheme} from '../shared/theme';
+
+import {Table} from './table';
 import TreeTableRow from './tree-table-row';
 
-export default class TreeTable extends Table {
+class TreeTable extends Table {
   static propTypes = {
     ...Table.propTypes,
     indentSize: PropTypes.number
@@ -37,15 +39,18 @@ export default class TreeTable extends Table {
   };
 
   _renderRow({key, index, style}) {
-    const {indentSize, renderCell} = this.props;
+    const {indentSize, renderCell, theme, style: userStyle} = this.props;
     const row = this.state.rows[index];
 
     return (
       <TreeTableRow
         key={key}
         id={row.id}
+        index={index}
         data={row}
         style={style}
+        theme={theme}
+        userStyle={userStyle}
         indentSize={indentSize}
         renderCell={renderCell}
         getIsExpanded={this._isRowExpanded}
@@ -55,3 +60,5 @@ export default class TreeTable extends Table {
     );
   }
 }
+
+export default withTheme(TreeTable);

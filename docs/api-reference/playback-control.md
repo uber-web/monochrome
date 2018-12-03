@@ -53,16 +53,6 @@ A stateless video playback control component.
 * `onPause` **(function, optional)** -  callback when user pause.
 * `onSeek` **(function, optional)** -  callback when user scrubs.
 
-### CSS Classes
-
-* `mc-playback-control` - wrapper around the whole control
-* `mc-playback-control--ticks` - container of timeline ticks
-* `mc-playback-control--tick` - a tick element
-* `mc-playback-control--tick-label` - the label of a tick
-* `mc-playback-control--marker` - a marker element
-* `mc-playback-control--slider` - the time slider
-* `mc-playback-control--play-pause-button` - the play pause button
-* `mc-playback-control--timestamp` - the current time
 
 ### Constants
 

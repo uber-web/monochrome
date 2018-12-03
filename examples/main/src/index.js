@@ -2,8 +2,6 @@
 import React, {PureComponent} from 'react';
 import {render} from 'react-dom';
 
-import 'monochrome/main.scss';
-
 import PopoverExample from './popover';
 import BasicInputsExample from './inputs';
 import DragDropListExample from './drag-drop-list';

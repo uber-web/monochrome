@@ -21,8 +21,7 @@ import {Table} from 'monochrome';
 
 ### Props
 
-- `width` **(string|number, optional)** - Width of the table. Default `100%`.
-- `height` **(string|number, optional)** - Height of the table. Default `400`.
+- `style` **(object)** - custom CSS overrides. See "Styling" section below.
 - `columns` **(array)** - list of column definitions. Each column definition may contain the following fields:
     + `name` **(string)** - display name of the column.
     + `type` **(string)** - `string`, `boolean`, etc.
@@ -56,13 +55,36 @@ Inherits all `Table`'s props, and the following:
     + `children` **(array)** - child rows
 - `indentSize` **(number, optional)** - Default `12`.
 
-### CSS Classes
+### Styling
 
-* `mc-table` - wrapper around the whole control
-* `mc-table--header` - header of the table
-* `mc-table--header-cell` - a cell in the header
-* `mc-table--sort-icon` - the sorting indicator
-* `mc-table--item` - wrapper around each top level item in the table
-* `mc-table--row` - container of a row
-* `mc-table--cell` - a cell in the table
-* `mc-table--row-expander` - the expand/collapse button in tree table
+The `style` prop expects an object that may contain the following keys:
+
+- `width` **(string|number)** - width of the table. Default `100%`.
+- `height` **(string|number)** - height of the table. Default `400`.
+- `wrapper` - the wrapper component for the entire table
+- `header` - the header
+- `headerCell` - a cell in the header
+- `sort` - the indicator for the sorting order of a column
+- `iconAscending` **(element)** - the icon for sorting a-z
+- `iconDescending` **(element)** - the icon for sorting z-a
+- `body` - the body
+- `row` - a row
+- `cell` - a cell in a row
+- `expander` - (TreeTable only) the expand/collapse button of a row
+- `iconExpanded` **(element)** - (TreeTable only) the icon for expanded rows
+- `iconCollapsed` **(element)** - (TreeTable only) the icon for collapsed rows
+
+The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
+
+A custom style callback function will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+
+The `row`, `cell` and `headerCell` callbacks will receive the following arguments:
+
+* `props` **(object)**
+  - `theme` **(object)** - the current theme
+  - `index` **(number)** - the index of the current element
+
+
