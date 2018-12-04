@@ -12,8 +12,6 @@ for (let k = 1; k <= 10; k++) {
 }
 
 const style = {
-  width: '100%',
-  height: 400,
   margin: {left: 48, right: 20, top: 20, bottom: 48}
 };
 
@@ -21,6 +19,7 @@ export default class MetricCardExample extends Component {
   render() {
     return (
       <RichMetricChart
+        height={400}
         style={style}
         data={sampleData}
         unit="m/s"

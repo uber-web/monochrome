@@ -19,4 +19,4 @@ export {default as Form} from './form';
 export {Table, TreeTable} from './table';
 export {MetricCard, MetricChart, RichMetricChart} from './metric-card';
 
-export {ThemeProvider} from './shared/theme';
+export {ThemeProvider, withTheme, evaluateStyle} from './shared/theme';

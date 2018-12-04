@@ -13,6 +13,8 @@ import {WrapperComponent, TableBody} from './styled-components';
 
 export class Table extends PureComponent {
   static propTypes = {
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
     columns: PropTypes.array,
     rows: PropTypes.array,
@@ -21,6 +23,8 @@ export class Table extends PureComponent {
   };
 
   static defaultProps = {
+    width: '100%',
+    height: 400,
     style: {},
     rows: [],
     renderHeader: ({column}) => column.name,
@@ -137,8 +141,7 @@ export class Table extends PureComponent {
   }
 
   render() {
-    const {theme, style, columns, renderHeader} = this.props;
-    const {width = '100%', height = 400} = style;
+    const {theme, width, height, style, columns, renderHeader} = this.props;
 
     return (
       <WrapperComponent style={{width, height}} theme={theme} userStyle={style.wrapper}>

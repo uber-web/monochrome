@@ -74,7 +74,7 @@ export default class PlaybackControlExample extends Component {
       <div>
         <h3>Compact</h3>
         <PlaybackControl
-          layout={PlaybackControl.COMPACT}
+          compact={true}
           currentTime={currentTime}
           startTime={0}
           endTime={CLIP_LENGTH}

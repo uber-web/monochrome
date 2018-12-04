@@ -22,11 +22,6 @@ import {
 } from './styled-components.js';
 import {PlayIcon, PauseIcon} from '../shared/icons';
 
-const LAYOUT = {
-  COMPACT: 0,
-  NORMAL: 1
-};
-
 const DEFAULT_PADDING = 24;
 const COMPACT_CONTAINER_STYLE = {display: 'flex', alignItems: 'flex-end'};
 
@@ -51,8 +46,9 @@ function normalizePadding(padding) {
  */
 class PlaybackControl extends PureComponent {
   static propTypes = {
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
-    layout: PropTypes.oneOf([LAYOUT.COMPACT, LAYOUT.NORMAL]),
+    compact: PropTypes.bool,
 
     currentTime: PropTypes.number.isRequired,
     startTime: PropTypes.number,
@@ -77,7 +73,7 @@ class PlaybackControl extends PureComponent {
 
   static defaultProps = {
     style: {},
-    layout: LAYOUT.NORMAL,
+    compact: false,
 
     className: '',
     startTime: 0,
@@ -240,22 +236,20 @@ class PlaybackControl extends PureComponent {
   }
 
   render() {
-    const {theme, layout, style, className, isPlaying} = this.props;
+    const {theme, compact, width, style, className, isPlaying} = this.props;
 
     let {padding = DEFAULT_PADDING} = style;
     padding = normalizePadding(padding);
 
     const styleProps = {
       theme,
-      layout,
+      compact,
       isPlaying
     };
 
-    const wrapperStyle = {
-      width: style.width || '100%'
-    };
+    const wrapperStyle = {width};
 
-    if (layout === LAYOUT.COMPACT) {
+    if (compact) {
       const sliderStyle = {
         flexGrow: 1,
         paddingLeft: padding.left,
@@ -314,6 +308,5 @@ class PlaybackControl extends PureComponent {
 
 const ThemedPlaybackControl = withTheme(PlaybackControl);
 ThemedPlaybackControl.formatTimeCode = formatTimeCode;
-Object.assign(ThemedPlaybackControl, LAYOUT);
 
 export default ThemedPlaybackControl;

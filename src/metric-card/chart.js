@@ -24,8 +24,6 @@ import {
 
 const noop = () => {};
 
-const DEFAULT_WIDTH = '100%';
-const DEFAULT_HEIGHT = 300;
 const DEFAULT_MARGIN = {left: 32, right: 20, top: 20, bottom: 32};
 
 /**
@@ -33,6 +31,8 @@ const DEFAULT_MARGIN = {left: 32, right: 20, top: 20, bottom: 32};
  */
 class Chart extends PureComponent {
   static propTypes = {
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     style: PropTypes.object,
     unit: PropTypes.string,
 
@@ -70,6 +70,8 @@ class Chart extends PureComponent {
   };
 
   static defaultProps = {
+    width: '100%',
+    height: 300,
     style: {},
     data: {},
     dataFilter: key => true,
@@ -268,13 +270,13 @@ class Chart extends PureComponent {
         x,
         y,
         title: (
-          <CrosshairItemTitle {...styleProps} userStyle={style.tooltipTitle}>
-            <CrosshairItemLegend {...styleProps} userStyle={style.tooltipLegend} />
+          <CrosshairItemTitle {...styleProps} userStyle={style.crosshairTitle}>
+            <CrosshairItemLegend {...styleProps} userStyle={style.crosshairLegend} />
             {styleProps.displayName}
           </CrosshairItemTitle>
         ),
         value: (
-          <CrosshairItemValue {...styleProps} userStyle={style.tooltipValue}>
+          <CrosshairItemValue {...styleProps} userStyle={style.crosshairValue}>
             {Number.isFinite(y0) && `${formatValue(y0)}, `}
             {formatValue(y)}
             {unit && <span>{unit}</span>}
@@ -305,6 +307,8 @@ class Chart extends PureComponent {
   render() {
     const {
       theme,
+      width,
+      height,
       style,
       formatYTick,
       formatXTick,
@@ -323,11 +327,8 @@ class Chart extends PureComponent {
       <ChartContainer
         theme={theme}
         userStyle={style.chart}
-        tooltipStyle={style.tooltip}
-        style={{
-          width: style.width || DEFAULT_WIDTH,
-          height: style.height || DEFAULT_HEIGHT
-        }}
+        tooltipStyle={style.crosshair}
+        style={{width, height}}
       >
         <AutoSizer>
           {({width: chartWidth, height: chartHeight}) => (

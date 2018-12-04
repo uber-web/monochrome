@@ -31,8 +31,9 @@ A stateless video playback control component.
 
 ### Props
 
+* `width` **(string|number)** -  width of the control. Default `100%`.
 * `style` **(object, optional)** - custom CSS overrides. See "Styling" section below.
-* `layout` **(enum, optional)** - Layout mode of the control. See constants:layouts below. Defaults to `PlaybackControl.NORMAL`.
+* `compact` **(boolean, optional)** - use compact layout mode of the control. Defaults to `false`.
 * `currentTime` **(number)** -  current time in seconds
 * `startTime` **(number, optional)** -  start time in seconds, default `0`
 * `endTime` **(number)** -  end time in seconds
@@ -54,18 +55,10 @@ A stateless video playback control component.
 * `onSeek` **(function, optional)** -  callback when user scrubs.
 
 
-### Constants
-
-Layouts:
-
-* `PlaybackControl.COMPACT` - show play/pause button and timestamp at ends of the slider.
-* `PlaybackControl.NORMAL` - show play/pause button and timestamp below the slider.
-
 ### Styling
 
 The `style` prop expects an object that may contain the following keys:
 
-* `width` **(string|number)** -  width of the control. Default `100%`.
 * `padding` **(number|object)** -  padding at the sides of the slider in pixels. If provided as object, in the shape of `{left, right}`. Default `24`.
 * `wrapper` - the top level container.
 * `ticks` - the container of the ticks.
@@ -87,5 +80,5 @@ A custom style callback function will receive the following arguments:
 
 * `props` **(object)**
   - `theme` **(object)** - the current theme
-  - `layout` **(enum)**
+  - `compact` **(boolean)**
   - `isPlaying` **(boolean)**

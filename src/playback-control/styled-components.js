@@ -27,7 +27,7 @@ export const ControlsContainer = styled.div(props => ({
 export const PlayPauseButton = styled.div(props => ({
   width: 16,
   height: 16,
-  marginLeft: props.layout === 1 ? -8 : 0,
+  marginLeft: props.compact ? 0 : -8,
   marginRight: props.theme.spacingSmall,
   cursor: 'pointer',
 

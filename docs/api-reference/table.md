@@ -21,6 +21,8 @@ import {Table} from '@streetscape.gl/monochrome';
 
 ### Props
 
+- `width` **(string|number)** - width of the table. Default `100%`.
+- `height` **(string|number)** - height of the table. Default `400`.
 - `style` **(object)** - custom CSS overrides. See "Styling" section below.
 - `columns` **(array)** - list of column definitions. Each column definition may contain the following fields:
     + `name` **(string)** - display name of the column.
@@ -59,8 +61,6 @@ Inherits all `Table`'s props, and the following:
 
 The `style` prop expects an object that may contain the following keys:
 
-- `width` **(string|number)** - width of the table. Default `100%`.
-- `height` **(string|number)** - height of the table. Default `400`.
 - `wrapper` - the wrapper component for the entire table
 - `header` - the header
 - `headerCell` - a cell in the header

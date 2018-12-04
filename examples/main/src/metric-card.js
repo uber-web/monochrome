@@ -24,8 +24,6 @@ const lineColors = {
 };
 
 const style = {
-  width: '100%',
-  height: 200,
   margin: {left: 48, right: 20, top: 20, bottom: 48},
   tooltip: {
     background: 'rgba(0, 0, 0, 0.8)'
@@ -46,6 +44,7 @@ export default class MetricCardExample extends Component {
         <div style={BORDER_STYLE}>
           <MetricCard title="Example Metric Card" description="This is an example metric card">
             <MetricChart
+              height={200}
               style={style}
               data={sampleData}
               unit="m/s"

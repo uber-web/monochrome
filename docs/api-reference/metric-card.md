@@ -76,6 +76,8 @@ A custom style callback function will receive the following arguments:
 
 ### Styling Props
 
+* `width` **(number|string, optional)** - width of the chart. Default `100%`.
+* `height` **(number|string, optional)** - height of the chart. Default `300`.
 * `style` **(object, optional)** - custom CSS styles. See "styling" section below.
 * `xDomain` **([number, number], optional)** - [min, max] of the x axis.
 * `yDomain` **([number, number], optional)** - [min, max] of the y axis.
@@ -112,14 +114,12 @@ A custom style callback function will receive the following arguments:
 
 The `style` prop expects an object that may contain the following keys:
 
-* `width` **(number|string)** - width of the chart. Default `100%`.
-* `height` **(number|string)** - height of the chart. Default `300`.
 * `margin` **(object)** - margin of the plot. Default `{left: 32, top: 20, right: 20, bottom: 32}`.
 * `chart` - the chart component
-* `tooltip` - the hover tooltip
-* `tooltipTitle` - the series names in the tooltip
-* `tooltipValue` - the value texts in the tooltip
-* `tooltipLegend` - the color legends in the tooltip
+* `crosshair` - the info box shown on hover
+* `crosshairTitle` - the series names in the tooltip
+* `crosshairValue` - the value texts in the tooltip
+* `crosshairLegend` - the color legends in the tooltip
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 
