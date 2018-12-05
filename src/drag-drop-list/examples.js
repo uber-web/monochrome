@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {boolean, button} from '@storybook/addon-knobs';
 import DragDropList from './index';
 
 const SAMPLE_ITEMS = new Array(10).fill(0).map((d, i) => ({
@@ -22,47 +23,35 @@ const EXAMPLE_STYLE = `
  * Drag Drop List Example
  */
 class DragDropListExample extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: SAMPLE_ITEMS,
-      canRemoveItem: true
-    };
-  }
+  state = {
+    items: SAMPLE_ITEMS
+  };
 
   _onListChange({items}) {
     this.setState({items});
   }
 
+  useWithHeaders = () => {
+    this.setState({items: SAMPLE_ITEMS_WITH_HEADER});
+  };
+
+  useWithoutHeaders = () => {
+    this.setState({items: SAMPLE_ITEMS});
+  };
+
   render() {
-    const {items, canRemoveItem} = this.state;
+    button('withHeaders', this.useWithHeaders);
+    button('withoutHeaders', this.useWithoutHeaders);
+    const {items} = this.state;
 
     return (
       <div>
         <style>{EXAMPLE_STYLE}</style>
-        <div style={{marginBottom: 24}}>
-          <input
-            type="checkbox"
-            id="canRemoveItem"
-            checked={canRemoveItem}
-            onChange={e => this.setState({canRemoveItem: e.target.checked})}
-          />
-          <label htmlFor="canRemoveItem">Can Remove Items</label>
-          <button
-            style={{marginLeft: 12}}
-            onClick={() => this.setState({items: SAMPLE_ITEMS_WITH_HEADER})}
-          >
-            With Header
-          </button>
-          <button style={{marginLeft: 12}} onClick={() => this.setState({items: SAMPLE_ITEMS})}>
-            Without Header
-          </button>
-        </div>
         <div style={{width: 200}}>
           <DragDropList
             items={items}
             transition={300}
-            canRemoveItem={canRemoveItem}
+            canRemoveItem={boolean('Can remove items', true)}
             onListChange={this._onListChange.bind(this)}
           />
         </div>
