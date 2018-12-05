@@ -2,17 +2,10 @@
 
 Monochrome is a React component library that offers highly stylable UI controls.
 
-## Install
+## Installation
 
 ```bash
 npm install @streetscape.gl/monochrome
-```
-
-Import components:
-
-```js
-// Import component
-import {Form} from '@streetscape.gl/monochrome';
 ```
 
 ## Examples & Documentation
@@ -21,7 +14,7 @@ import {Form} from '@streetscape.gl/monochrome';
 
 [Storybook](https://uber-web.github.io/monochrome/)
 
-## Develope
+## Development
 
 ```bash
 # install dependencies
