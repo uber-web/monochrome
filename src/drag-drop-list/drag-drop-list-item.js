@@ -181,6 +181,7 @@ export default class DragDropListItem extends React.PureComponent<Prop, State> {
           onMouseLeave={this._onMouseLeave}
           className={className}
           {...styleProps}
+          userStyle={style.item}
           style={itemStyle}
         >
           {this.props.children}

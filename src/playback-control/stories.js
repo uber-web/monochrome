@@ -1,7 +1,13 @@
 /* Playback control example */
 /* global window */
 import React, {Component} from 'react';
-import {PlaybackControl, Dropdown} from 'monochrome';
+import {boolean} from '@storybook/addon-knobs';
+import {storiesOf} from '@storybook/react';
+import {withReadme} from 'storybook-readme';
+
+import README from './README.md';
+import PlaybackControl from './index';
+import {Dropdown} from '../shared';
 
 const PLAYBACK_SPEEDS = {
   '-1': 'Reverse',
@@ -20,18 +26,14 @@ const MARKERS = [
 
 const BUFFER_RANGE = [{startTime: 0, endTime: 15}];
 
-export default class PlaybackControlExample extends Component {
-  constructor(props) {
-    super(props);
+class PlaybackControlExample extends Component {
+  state = {
+    isPlaying: false,
+    currentTime: 0,
+    speed: 1
+  };
 
-    this.state = {
-      isPlaying: false,
-      currentTime: 0,
-      speed: 1
-    };
-
-    this._timer = null;
-  }
+  _timer = null;
 
   // A simple timer that simulates video playback
   _onUpdateTimer(lastUpdateTimestamp) {
@@ -68,33 +70,24 @@ export default class PlaybackControlExample extends Component {
   };
 
   render() {
+    const {compact = false, showSpeedOptions = false, showMarkers = false} = this.props;
     const {isPlaying, currentTime, speed} = this.state;
 
     return (
-      <div>
-        <h3>Compact</h3>
-        <PlaybackControl
-          compact={true}
-          currentTime={currentTime}
-          startTime={0}
-          endTime={CLIP_LENGTH}
-          isPlaying={isPlaying}
-          onPlay={this._onPlay}
-          onPause={this._onPause}
-          onSeek={this._onSeek}
-        />
-
-        <h3>Custom content</h3>
-        <PlaybackControl
-          currentTime={currentTime}
-          startTime={0}
-          endTime={CLIP_LENGTH}
-          isPlaying={isPlaying}
-          onPlay={this._onPlay}
-          onPause={this._onPause}
-          onSeek={this._onSeek}
-        >
-          <div style={{flexGrow: 1}} />
+      <PlaybackControl
+        compact={compact}
+        currentTime={currentTime}
+        startTime={0}
+        endTime={CLIP_LENGTH}
+        isPlaying={isPlaying}
+        markers={showMarkers ? MARKERS : []}
+        bufferRange={showMarkers ? BUFFER_RANGE : []}
+        onPlay={this._onPlay}
+        onPause={this._onPause}
+        onSeek={this._onSeek}
+      >
+        {showSpeedOptions && <div style={{flexGrow: 1}} />}
+        {showSpeedOptions && (
           <Dropdown
             key="speed-selector"
             className="speed-selector"
@@ -102,22 +95,16 @@ export default class PlaybackControlExample extends Component {
             value={String(speed)}
             onChange={this._updateSpeed}
           />
-        </PlaybackControl>
-
-        <h3>Markers</h3>
-        <PlaybackControl
-          className="dark"
-          currentTime={currentTime}
-          startTime={0}
-          endTime={CLIP_LENGTH}
-          isPlaying={isPlaying}
-          markers={MARKERS}
-          bufferRange={BUFFER_RANGE}
-          onPlay={this._onPlay}
-          onPause={this._onPause}
-          onSeek={this._onSeek}
-        />
-      </div>
+        )}
+      </PlaybackControl>
     );
   }
 }
+
+storiesOf('PlaybackControl', module)
+  .addDecorator(withReadme(README))
+  .add('Basic example', () => <PlaybackControlExample compact={boolean('compact', false)} />)
+  .add('Markers', () => (
+    <PlaybackControlExample showMarkers={true} compact={boolean('compact', false)} />
+  ))
+  .add('Custom controls', () => <PlaybackControlExample showSpeedOptions={true} />);

@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import {CheckBox, Form} from 'monochrome';
+import {storiesOf} from '@storybook/react';
+import {withReadme} from 'storybook-readme';
+
+import README from './README.md';
+import Form from './index';
+import {CheckBox} from '../shared';
 
 const SETTINGS = {
   title: {type: 'title', title: 'My App Settings'},
@@ -84,6 +89,9 @@ const SETTINGS = {
 };
 
 const STYLES = {
+  wrapper: {
+    padding: 24
+  },
   label: {
     tooltip: {
       arrowSize: 0,
@@ -92,7 +100,7 @@ const STYLES = {
   }
 };
 
-export default class FormExample extends Component {
+class FormExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -141,3 +149,7 @@ export default class FormExample extends Component {
     );
   }
 }
+
+storiesOf('Form', module)
+  .addDecorator(withReadme(README))
+  .add('Basic example', () => <FormExample />);

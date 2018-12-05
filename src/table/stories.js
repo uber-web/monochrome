@@ -1,5 +1,9 @@
-import React, {Component} from 'react';
-import {Table, TreeTable} from 'monochrome';
+import React from 'react';
+import {storiesOf} from '@storybook/react';
+import {withReadme} from 'storybook-readme';
+
+import README from './README.md';
+import {Table, TreeTable} from './index';
 
 /* Generate random data */
 const COLUMNS = [
@@ -45,20 +49,7 @@ const makeRandomData = depth => {
 
 const ROWS = Array.from({length: 200}, () => makeRandomData(0));
 
-export default class TreeTableExample extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <div>
-        <h3>Table</h3>
-        <Table columns={COLUMNS} rows={ROWS} />
-
-        <h3>TreeTable</h3>
-        <TreeTable columns={COLUMNS} rows={ROWS} />
-      </div>
-    );
-  }
-}
+storiesOf('Table', module)
+  .addDecorator(withReadme(README))
+  .add('Table', () => <Table columns={COLUMNS} rows={ROWS} />)
+  .add('TreeTable', () => <TreeTable columns={COLUMNS} rows={ROWS} />);
