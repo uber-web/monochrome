@@ -10,9 +10,8 @@ npm install @streetscape.gl/monochrome
 
 ## Examples & Documentation
 
-[Styling Guide](docs/api-reference/styling-guide.md)
-
-[Storybook](https://uber-web.github.io/monochrome/)
+- [Styling Guide](docs/api-reference/styling-guide.md)
+- [Storybook](https://uber-web.github.io/monochrome/)
 
 ## Development
 
