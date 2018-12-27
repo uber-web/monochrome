@@ -48,4 +48,5 @@ A custom style callback function will receive the following arguments:
   - `value` **(boolean)** - the current value of the toggle
   - `knobSize` **(number)** - the size of the knob
   - `isEnabled` **(boolean)** - if the control is enabled
+  - `hasFocus` **(boolean)** - if the control has keyboard focus
   - `isHovered` **(boolean)** - if the pointer is hovering over the control

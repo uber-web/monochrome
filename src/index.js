@@ -3,6 +3,7 @@ export {
   Draggable,
   Popover,
   Tooltip,
+  Button,
   CheckBox,
   Dropdown,
   Label,

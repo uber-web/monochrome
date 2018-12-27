@@ -4,17 +4,6 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import {withTheme, evaluateStyle} from '../theme';
 
-function getControlColor(props) {
-  if (!props.isEnabled) {
-    return props.theme.controlColorDisabled;
-  } else if (props.value) {
-    return props.theme.controlColorActive;
-  } else if (props.isHovered) {
-    return props.theme.controlColorHovered;
-  }
-  return props.theme.controlColorPrimary;
-}
-
 const WrapperComponent = styled.div(props => ({
   ...props.theme.__reset__,
   display: 'flex',
@@ -28,6 +17,7 @@ const WrapperComponent = styled.div(props => ({
 }));
 
 const ToggleComponent = styled.div(props => ({
+  outline: 'none',
   position: 'relative',
   height: props.knobSize,
   width: props.knobSize * 2,
@@ -40,7 +30,11 @@ const ToggleTrack = styled.div(props => ({
   position: 'absolute',
   width: '100%',
   height: 2,
-  background: getControlColor(props),
+  background: props.isEnabled
+    ? props.value
+      ? props.theme.controlColorActive
+      : props.theme.controlColorPrimary
+    : props.theme.controlColorDisabled,
   top: '50%',
   transform: 'translateY(-50%)',
   ...evaluateStyle(props.userStyle, props)
@@ -55,7 +49,13 @@ const ToggleKnob = styled.div(props => ({
   background: props.theme.background,
   borderStyle: 'solid',
   borderWidth: 2,
-  borderColor: getControlColor(props),
+  borderColor: props.isEnabled
+    ? props.isHovered
+      ? props.theme.controlColorHovered
+      : props.hasFocus
+      ? props.theme.controlColorActive
+      : props.theme.controlColorPrimary
+    : props.theme.controlColorDisabled,
   borderRadius: '50%',
   left: props.value ? `calc(100% - ${props.knobSize}px)` : 0,
 
@@ -86,16 +86,21 @@ class Toggle extends PureComponent {
   };
 
   state = {
+    hasFocus: false,
     isHovered: false
   };
 
-  _onMouseEnter = () => {
-    this.setState({isHovered: true});
-  };
-
   _onMouseEnter = () => this.setState({isHovered: true});
-
   _onMouseLeave = () => this.setState({isHovered: false});
+  _onFocus = () => this.setState({hasFocus: true});
+  _onBlur = () => this.setState({hasFocus: false});
+
+  _onKeyDown = evt => {
+    if (evt.keyCode === 32) {
+      // space
+      this.props.onChange(!this.props.value);
+    }
+  };
 
   _onClick = () => {
     this.props.onChange(!this.props.value);
@@ -110,6 +115,7 @@ class Toggle extends PureComponent {
       knobSize,
       value,
       isHovered: this.state.isHovered,
+      hasFocus: this.state.hasFocus,
       isEnabled
     };
 
@@ -124,7 +130,14 @@ class Toggle extends PureComponent {
       >
         {label}
 
-        <ToggleComponent userStyle={style.toggle} {...styleProps}>
+        <ToggleComponent
+          userStyle={style.toggle}
+          {...styleProps}
+          tabIndex={isEnabled ? 0 : -1}
+          onKeyDown={this._onKeyDown}
+          onFocus={this._onFocus}
+          onBlur={this._onBlur}
+        >
           <ToggleTrack userStyle={style.track} {...styleProps} />
           <ToggleKnob userStyle={style.knob} {...styleProps} />
         </ToggleComponent>

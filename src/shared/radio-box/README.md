@@ -59,5 +59,6 @@ A custom style callback function will receive the following arguments:
   - `theme` **(object)** - the current theme
   - `size` **(number)** - the size of the checkbox
   - `isEnabled` **(boolean)** - if the control is enabled
+  - `hasFocus` **(boolean)** - if the control has keyboard focus
   - `isSelected` **(boolean)** - if the control is selected. Not available for `wrapper`.
   - `isHovered` **(boolean)** - if the pointer is hovering over the control. Not available for `wrapper`.

@@ -23,26 +23,35 @@ const CheckBoxComponent = styled.div(props => ({
   ...evaluateStyle(props.userStyle, props)
 }));
 
-const CheckBoxBorder = styled.div(props => ({
-  display: 'inline-block',
-  position: 'relative',
-  width: props.size,
-  height: props.size,
+const CheckBoxBorder = styled.div(props => {
+  let color = props.theme.controlColorPrimary;
 
-  flexGrow: 0,
-  flexShrink: 0,
-  marginRight: props.theme.spacingSmall,
-  borderStyle: 'solid',
-  borderWidth: 2,
-  borderColor: props.isEnabled
-    ? props.isHovered
-      ? props.theme.controlColorHovered
-      : props.theme.controlColorPrimary
-    : props.theme.controlColorDisabled,
-  color: props.isEnabled ? props.theme.controlColorActive : props.theme.controlColorDisabled,
+  if (!props.isEnabled) {
+    color = props.theme.controlColorDisabled;
+  } else if (props.hasFocus) {
+    color = props.theme.controlColorActive;
+  } else if (props.isHovered) {
+    color = props.theme.controlColorHovered;
+  }
 
-  ...evaluateStyle(props.userStyle, props)
-}));
+  return {
+    outline: 'none',
+    display: 'inline-block',
+    position: 'relative',
+    width: props.size,
+    height: props.size,
+
+    flexGrow: 0,
+    flexShrink: 0,
+    marginRight: props.theme.spacingSmall,
+    borderStyle: 'solid',
+    borderWidth: 2,
+    borderColor: color,
+    color,
+
+    ...evaluateStyle(props.userStyle, props)
+  };
+});
 
 const CheckBoxIcon = styled.div(props => ({
   position: 'absolute',
@@ -80,12 +89,21 @@ class CheckBox extends PureComponent {
   };
 
   state = {
+    hasFocus: false,
     isHovered: false
   };
 
   _onMouseEnter = () => this.setState({isHovered: true});
-
   _onMouseLeave = () => this.setState({isHovered: false});
+  _onFocus = () => this.setState({hasFocus: true});
+  _onBlur = () => this.setState({hasFocus: false});
+
+  _onKeyDown = evt => {
+    if (evt.keyCode === 32) {
+      // space
+      this._onClick(evt);
+    }
+  };
 
   _onClick = event => {
     this.props.onChange(
@@ -101,6 +119,7 @@ class CheckBox extends PureComponent {
       theme,
       value,
       size,
+      hasFocus: this.state.hasFocus,
       isHovered: this.state.isHovered,
       isEnabled
     };
@@ -114,7 +133,14 @@ class CheckBox extends PureComponent {
         onMouseLeave={this._onMouseLeave}
         onClick={this._onClick}
       >
-        <CheckBoxBorder userStyle={style.border} {...styleProps}>
+        <CheckBoxBorder
+          userStyle={style.border}
+          {...styleProps}
+          tabIndex={isEnabled ? 0 : -1}
+          onFocus={this._onFocus}
+          onBlur={this._onBlur}
+          onKeyDown={this._onKeyDown}
+        >
           <CheckBoxIcon userStyle={style.icon} {...styleProps}>
             {value === CHECKBOX_STATE.ON && (style.iconOn || <CheckIcon />)}
             {value === CHECKBOX_STATE.OFF && style.iconOff}

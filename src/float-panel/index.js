@@ -13,9 +13,7 @@ export const Container = styled.div(props => ({
   borderStyle: 'solid',
   borderWidth: 1,
   borderColor:
-    props.isMoving || props.isResizing
-      ? props.theme.controlColorActive
-      : props.theme.backgroundInvert,
+    props.isMoving || props.isResizing ? props.theme.controlColorActive : props.theme.backgroundAlt,
   ...evaluateStyle(props.userStyle, props)
 }));
 
@@ -29,10 +27,9 @@ export const ContentComponent = styled.div(props => ({
 
 export const TitleComponent = styled.div(props => ({
   background:
-    props.isMoving || props.isResizing
-      ? props.theme.controlColorActive
-      : props.theme.backgroundInvert,
-  color: props.theme.textColorInvert,
+    props.isMoving || props.isResizing ? props.theme.controlColorActive : props.theme.backgroundAlt,
+  color:
+    props.isMoving || props.isResizing ? props.theme.textColorInvert : props.theme.textColorPrimary,
   textAlign: 'center',
   fontWeight: 'bold',
   lineHeight: 2,

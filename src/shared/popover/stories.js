@@ -30,7 +30,7 @@ storiesOf('Building Blocks', module)
     </Popover>
   ))
   .add('Tooltip', () => (
-    <div style={{fontFamily: 'Helvetica, sans-serif', margin: 40, fontSize: 13}}>
+    <div style={{fontFamily: 'Helvetica, sans-serif', margin: 100, fontSize: 13}}>
       <p>
         <Tooltip position={Popover.RIGHT} content="Tooltip">
           Right

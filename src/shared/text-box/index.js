@@ -134,6 +134,7 @@ class TextBox extends PureComponent {
               this._input = ref;
             }}
             type="text"
+            tabIndex={isEnabled ? 0 : -1}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
             onChange={this._onChange}

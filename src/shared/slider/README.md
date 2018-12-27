@@ -52,6 +52,7 @@ A custom style callback function will receive the following arguments:
   - `theme` **(object)** - the current theme
   - `knobSize` **(number)** - the knob size
   - `isEnabled` **(boolean)** - if the control is enabled
+  - `hasFocus` **(boolean)** - if the control has keyboard focus
   - `isHovered` **(boolean)** - if the pointer is hovering over the control
   - `isActive` **(boolean)** - if the user is interacting with the control
   - `isDragging` **(boolean)** - if the user is dragging the knob

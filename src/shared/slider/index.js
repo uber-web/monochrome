@@ -16,6 +16,7 @@ function snap(x, min, max, step) {
 
 const SliderWrapper = styled.div(props => ({
   ...props.theme.__reset__,
+  outline: 'none',
   color: props.isEnabled ? props.theme.textColorPrimary : props.theme.textColorDisabled,
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
@@ -47,10 +48,10 @@ const SliderKnob = styled.div(props => ({
   borderStyle: 'solid',
   borderWidth: 2,
   borderColor: props.isEnabled
-    ? props.isActive
-      ? props.theme.controlColorActive
-      : props.isHovered
+    ? props.isHovered
       ? props.theme.controlColorHovered
+      : props.hasFocus
+      ? props.theme.controlColorActive
       : props.theme.controlColorPrimary
     : props.theme.controlColorDisabled,
   background: props.theme.background,
@@ -95,6 +96,7 @@ class Slider extends PureComponent {
   state = {
     width: 1,
     isHovered: false,
+    hasFocus: false,
     isDragging: false,
     hasDragged: false
   };
@@ -108,8 +110,29 @@ class Slider extends PureComponent {
   };
 
   _onMouseEnter = () => this.setState({isHovered: true});
-
   _onMouseLeave = () => this.setState({isHovered: false});
+  _onFocus = () => this.setState({hasFocus: true});
+  _onBlur = () => this.setState({hasFocus: false});
+
+  _onKeyDown = evt => {
+    let delta;
+    switch (evt.keyCode) {
+      case 37: // left
+        delta = -1;
+        break;
+      case 39: // right
+        delta = 1;
+        break;
+      default:
+        return;
+    }
+    const {value, min, max} = this.props;
+    const step = this.props.step || (max - min) / 20;
+    const newValue = clamp(value + step * delta, min, max);
+    if (newValue !== value) {
+      this.props.onChange(newValue);
+    }
+  };
 
   _onDragStart = evt => {
     const width = this._track.clientWidth;
@@ -129,7 +152,7 @@ class Slider extends PureComponent {
 
   render() {
     const {value, min, max, step, isEnabled, children, className, style, theme} = this.props;
-    const {isHovered, isDragging, hasDragged} = this.state;
+    const {isHovered, isDragging, hasFocus, hasDragged} = this.state;
 
     const {tolerance = 0, knobSize = theme.controlSize} = style;
     const ratio = (snap(value, min, max, step) - min) / (max - min);
@@ -139,6 +162,7 @@ class Slider extends PureComponent {
       knobSize,
       isEnabled,
       isHovered,
+      hasFocus,
       isActive: isDragging,
       isDragging: hasDragged
     };
@@ -147,8 +171,12 @@ class Slider extends PureComponent {
         {...styleProps}
         userStyle={style.wrapper}
         className={className}
+        tabIndex={isEnabled ? 0 : -1}
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}
+        onFocus={this._onFocus}
+        onBlur={this._onBlur}
+        onKeyDown={this._onKeyDown}
       >
         <Draggable
           tolerance={knobSize / 2 + tolerance}

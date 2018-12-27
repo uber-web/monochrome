@@ -92,11 +92,8 @@ class Dropdown extends PureComponent {
   };
 
   _onMouseEnter = () => this.setState({isHovered: true});
-
   _onMouseLeave = () => this.setState({isHovered: false});
-
   _onFocus = () => this.setState({hasFocus: true});
-
   _onBlur = () => this.setState({hasFocus: false});
 
   _onChange = event => {
@@ -127,6 +124,7 @@ class Dropdown extends PureComponent {
           <DropdownInput
             userStyle={style.select}
             {...styleProps}
+            tabIndex={isEnabled ? 0 : -1}
             onFocus={this._onFocus}
             onBlur={this._onBlur}
             onChange={this._onChange}

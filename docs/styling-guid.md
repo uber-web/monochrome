@@ -33,6 +33,7 @@ const MY_THEME = {
 - `controlColorHovered`
 - `controlColorActive`
 - `controlColorDisabled`
+- `controlColorWarning`
 - `textColorPrimary`
 - `textColorSecondary`
 - `textColorInvert`

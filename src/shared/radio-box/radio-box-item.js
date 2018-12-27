@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 import {evaluateStyle} from '../theme';
 
 const RadioItem = styled.div(props => ({
+  outline: 'none',
   cursor: 'pointer',
   pointerEvents: props.isEnabled ? 'all' : 'none',
   display: 'flex',
@@ -21,7 +22,7 @@ const RadioButton = styled.div(props => {
 
   if (!props.isEnabled) {
     color = props.theme.controlColorDisabled;
-  } else if (props.isSelected) {
+  } else if (props.hasFocus) {
     color = props.theme.controlColorActive;
   } else if (props.isHovered) {
     color = props.theme.controlColorHovered;
@@ -78,12 +79,21 @@ export default class RadioBoxItem extends PureComponent {
   };
 
   state = {
+    hasFocus: false,
     isHovered: false
   };
 
   _onMouseEnter = () => this.setState({isHovered: true});
-
   _onMouseLeave = () => this.setState({isHovered: false});
+  _onFocus = () => this.setState({hasFocus: true});
+  _onBlur = () => this.setState({hasFocus: false});
+
+  _onKeyDown = evt => {
+    if (evt.keyCode === 32) {
+      // space
+      this.props.onClick(evt);
+    }
+  };
 
   render() {
     const {theme, style, size, isSelected, label, isEnabled} = this.props;
@@ -92,6 +102,7 @@ export default class RadioBoxItem extends PureComponent {
       theme,
       size,
       isSelected,
+      hasFocus: this.state.hasFocus,
       isHovered: this.state.isHovered,
       isEnabled
     };
@@ -100,8 +111,12 @@ export default class RadioBoxItem extends PureComponent {
       <RadioItem
         {...styleProps}
         userStyle={style.item}
+        tabIndex={isEnabled ? 0 : -1}
         onMouseEnter={this._onMouseEnter}
         onMouseLeave={this._onMouseLeave}
+        onFocus={this._onFocus}
+        onBlur={this._onBlur}
+        onKeyDown={this._onKeyDown}
         onClick={this.props.onClick}
       >
         {label}
