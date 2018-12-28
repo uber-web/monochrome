@@ -75,7 +75,7 @@ The `style` prop expects an object that may contain the following keys:
 - `markers` - the container of the markers.
 - `marker` - one of the markers.
 - `buffer` - one of the buffer indicators.
-- `slider` **(object)** - the slider. The value will be passed to the [Slider](docs/api-reference/slider.md) component.
+- `slider` **(object)** - the slider. The value will be passed to the [Slider](../shared/slider/README.md) component.
 - `controls` - the container of the controls.
 - `playPauseButton` - the play/pause button.
 - `iconPlay` **(element)** - the play icon.

@@ -22,7 +22,7 @@ A label component.
 The `style` prop expects an object that may contain the following keys:
 
 * `label` - the label.
-* `tooltip` - the tooltip. This value will be passed to the [Tooltip](/docs/api-reference/popover.md) component.
+* `tooltip` - the tooltip. This value will be passed to the [Tooltip](../shared/popover/README.md) component.
 * `tooltipTarget` - the container around the info icon.
 * `iconInfo` **(element)** - the info icon
 

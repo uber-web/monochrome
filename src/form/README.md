@@ -89,7 +89,7 @@ Adds a horizontal separator
 - `showClearButton` **(boolean)** - whether should show a clear text button
 
 Adds a text box.
-See [TextBox](./textbox.md).
+See [TextBox](../shared/text-box/README.md).
 
 #### Range
 
@@ -99,7 +99,7 @@ See [TextBox](./textbox.md).
 - `step` **(number)** - step value
 
 Adds a slider.
-See [Slider](./slider.md).
+See [Slider](../shared/slider/README.md).
 
 #### Radio
 
@@ -107,7 +107,7 @@ See [Slider](./slider.md).
 - `data` **(object)** - A value to display name mapping object
 
 Adds a radio box.
-See [RadioBox](./radiobox.md).
+See [RadioBox](../shared/radio-box/README.md).
 
 #### Select
 
@@ -115,14 +115,14 @@ See [RadioBox](./radiobox.md).
 - `data` **(object)** - A value to display name mapping object
 
 Adds a dropdown.
-See [Dropdown](./dropdown.md).
+See [Dropdown](../shared/dropdown/README.md).
 
 #### Checkbox
 
 - `type` - `checkbox`
 
 Adds a 3-state checkbox. `value` is one of `on`, `indeterminate`, or `off`.
-See [Checkbox](./checkbox.md).
+See [Checkbox](../shared/checkbox/README.md).
 
 #### Custom
 
@@ -141,7 +141,7 @@ The `style` prop expects an object that may contain the following keys:
 - `iconCollapsed` **(element)** - the icon for collapsed groups.
 - `item` - the container of each input item.
 - `[type]` - **(object)** style to be passed to each type of input component.
-- `label` - **(object)** the labels. The value will be passed to the [Label](docs/api-reference/label.md) component.
+- `label` - **(object)** the labels. The value will be passed to the [Label](../shared/label/README.md) component.
 
 The values define the styling overrides for the respective child components. Unless noted otherwise, each value is an object, or a callback function.
 
