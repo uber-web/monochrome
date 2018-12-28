@@ -58,7 +58,6 @@ class PlaybackControl extends PureComponent {
 
     // config
     step: PropTypes.number,
-    padding: PropTypes.oneOfType([PropTypes.number, PropTypes.object]),
     tickSpacing: PropTypes.number,
     bufferRange: PropTypes.arrayOf(PropTypes.object),
     markers: PropTypes.arrayOf(PropTypes.object),
@@ -78,7 +77,6 @@ class PlaybackControl extends PureComponent {
     className: '',
     startTime: 0,
     step: 0.1,
-    padding: 24,
     tickSpacing: 100,
     formatTick: x => formatTimeCode(x, '{mm}:{ss}'),
     formatTimestamp: x => formatTimeCode(x, '{mm}:{ss}.{S}'),
@@ -130,7 +128,8 @@ class PlaybackControl extends PureComponent {
   };
 
   _onResize = ({width}) => {
-    const padding = normalizePadding(this.props.padding);
+    let {padding = 24} = this.props.style;
+    padding = normalizePadding(padding);
     this.scale.range([0, width - padding.left - padding.right]);
     // Trigger rerender
     this.setState({width});
