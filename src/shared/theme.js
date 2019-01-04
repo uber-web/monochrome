@@ -65,6 +65,7 @@ function createTheme(theme) {
     background: theme.background,
     fontFamily: theme.fontFamily,
     fontSize: theme.fontSize,
+    fontWeight: theme.fontWeight,
     lineHeight: theme.lineHeight,
     color: theme.textColorPrimary,
     textAlign: 'start'

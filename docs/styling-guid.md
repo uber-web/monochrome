@@ -42,6 +42,7 @@ const MY_THEME = {
 - `textColorError`
 - `fontFamily`
 - `fontSize`
+- `fontWeight`
 - `lineHeight`
 - `transitionDuration`
 - `transitionTimingFunction`

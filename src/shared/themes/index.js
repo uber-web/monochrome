@@ -24,6 +24,7 @@ export const LIGHT_THEME = {
   /* Typography */
   fontFamily: lightPrimitives.primaryFontFamily,
   fontSize: 12,
+  fontWeight: 'normal',
   lineHeight: 1.5,
 
   /* Effects */
