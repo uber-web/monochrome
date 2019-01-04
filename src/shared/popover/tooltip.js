@@ -12,7 +12,7 @@ class Tooltip extends React.Component {
 
   static defaultProps = {
     style: {},
-    position: Popover.TOP
+    position: Popover.AUTO
   };
 
   render() {
