@@ -36,6 +36,8 @@ const View = () => {
 - `resizable` **(boolean, optional)** - whether the panel can be resized, default false
 - `minimizable` **(boolean, optional)** - whether the panel can be minimized, default true
 - `onUpdate` **(function, optional)** - callback when user move/resize/minimize the panel
+- `onMoveEnd` **(function, optional)** - callback when user stops moving the panel
+- `onResizeEnd` **(function, optional)** - callback when user stops resizing the panel
 - `style` **(object, optional)** - cursom CSS overrides. See "styling" section below.
 
 ### Styling

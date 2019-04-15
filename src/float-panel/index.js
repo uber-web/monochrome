@@ -67,7 +67,9 @@ class FloatPanel extends PureComponent {
     resizable: PropTypes.bool,
     minimizable: PropTypes.bool,
     // callbacks
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    onMoveEnd: PropTypes.func,
+    onResizeEnd: PropTypes.func
   };
 
   static defaultProps = {
@@ -80,7 +82,9 @@ class FloatPanel extends PureComponent {
     movable: true,
     resizable: false,
     minimizable: true,
-    onUpdate: () => {}
+    onUpdate: () => {},
+    onMoveEnd: () => {},
+    onResizeEnd: () => {}
   };
 
   /**
@@ -94,13 +98,15 @@ class FloatPanel extends PureComponent {
    * @property {number} height height of the panel
    * @property {string} [className] additional class name for the container
    * @property {number} [parentWidth] width of the parent window
-   * @property {number} [parentHeight]} height of the parent window
+   * @property {number} [parentHeight] height of the parent window
    *  If parent window size is specified, the panel cannot be moved outside of its bounds.
    * @property {boolean} [minimized] whether the panel is minimized (show only title bar)
    * @property {boolean} [movable] whether the panel can be moved, default true
    * @property {boolean} [resizable] whether the panel can be resized, default false
    * @property {boolean} [minimizable] whether the panel can be minimized, default true
    * @property {function} [onUpdate] callback when user move/resize/minimize the panel
+   * @property {function} [onMoveEnd] callback when user stops moving the panel
+   * @property {function} [onResizeEnd] callback when user stops resizing the panel
    */
   constructor(props) {
     super(props);
@@ -137,6 +143,7 @@ class FloatPanel extends PureComponent {
       });
     }
     this.setState({isMoving: false});
+    this.props.onMoveEnd();
   };
 
   _onResizeStart = () => {
@@ -158,6 +165,7 @@ class FloatPanel extends PureComponent {
 
   _onResizeEnd = () => {
     this.setState({isResizing: false});
+    this.props.onResizeEnd();
   };
 
   renderMover(children) {
