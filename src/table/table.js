@@ -85,7 +85,7 @@ export class Table extends PureComponent {
   _forceUpdate = () => {
     if (this._list) {
       this._cache.clearAll();
-      this._list.recomputeRowHeights();
+      this._list.forceUpdateGrid();
     }
   };
 
