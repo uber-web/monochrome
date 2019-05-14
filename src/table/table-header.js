@@ -2,6 +2,7 @@ import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
 
 import AutoSizer from '../shared/autosizer';
+import memoize from '../utils/memoize';
 
 import {HeaderContainer, HeaderCell, SortIcon} from './styled-components';
 
@@ -22,19 +23,8 @@ export default class TableHeader extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      columns: this._formatColumns(props.columns)
-    };
-
+    this.formatColumns = memoize(this._formatColumns);
     this._cells = [];
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.columns !== nextProps.columns) {
-      this.setState({
-        columns: this._formatColumns(nextProps.columns)
-      });
-    }
   }
 
   _formatColumns(columns) {
@@ -63,7 +53,7 @@ export default class TableHeader extends PureComponent {
   }
 
   _onResize = () => {
-    const {columns} = this.state;
+    const columns = this.formatColumns(this.props.columns);
 
     columns.map((col, colIndex) => {
       const ref = this._cells[colIndex];
@@ -76,7 +66,7 @@ export default class TableHeader extends PureComponent {
   };
 
   _sortColumn = index => {
-    const {columns} = this.state;
+    const columns = this.formatColumns(this.props.columns);
     const sortType = columns[index].sort === SORT.ASCEND ? SORT.DESCEND : SORT.ASCEND;
 
     columns.forEach((col, colIndex) => {
@@ -134,7 +124,7 @@ export default class TableHeader extends PureComponent {
 
   render() {
     const {theme, userStyle} = this.props;
-    const {columns} = this.state;
+    const columns = this.formatColumns(this.props.columns);
 
     return (
       <HeaderContainer theme={theme} userStyle={userStyle.header}>

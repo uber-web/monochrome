@@ -6,6 +6,7 @@ import List from 'react-virtualized/dist/commonjs/List';
 import CellMeasurer, {CellMeasurerCache} from 'react-virtualized/dist/commonjs/CellMeasurer';
 
 import {withTheme} from '../shared/theme';
+import memoize from '../utils/memoize';
 
 import TableHeader from './table-header';
 import TableRow from './table-row';
@@ -36,18 +37,15 @@ export class Table extends PureComponent {
 
     this.state = {
       columns: null,
-      sortFunc: null,
-      rows: this._formatRows(props.rows)
+      sortFunc: null
     };
 
+    this.formatRows = memoize(this._formatRows);
     this._cache = new CellMeasurerCache({fixedWidth: true});
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.rows !== nextProps.rows) {
-      this.setState({
-        rows: this._formatRows(nextProps.rows, this.state.sortFunc)
-      });
+  componentDidUpdate(prevProps) {
+    if (this.props.rows !== prevProps.rows) {
       this._forceUpdate();
     }
   }
@@ -72,7 +70,7 @@ export class Table extends PureComponent {
   };
 
   _onSort = sortFunc => {
-    const {rows} = this.state;
+    const rows = this.formatRows(this.props.rows, this.state.sortFunc);
 
     if (sortFunc) {
       rows.sort(sortFunc);
@@ -91,7 +89,8 @@ export class Table extends PureComponent {
 
   _renderRow({key, index, style}) {
     const {renderCell, theme, style: userStyle} = this.props;
-    const row = this.state.rows[index];
+    const rows = this.formatRows(this.props.rows, this.state.sortFunc);
+    const row = rows[index];
 
     return (
       <TableRow
@@ -119,7 +118,8 @@ export class Table extends PureComponent {
   // AutoSizer is a pure component. By default child function is only called if dimensions change.
   // Rebind this function every render to respond to state change
   _renderBody({width, height}) {
-    const {columns, rows} = this.state;
+    const {columns} = this.state;
+    const rows = this.formatRows(this.props.rows, this.state.sortFunc);
 
     if (!columns) {
       return null;

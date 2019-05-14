@@ -5,6 +5,7 @@ import {withTheme} from '../shared/theme';
 import {ExpandedIcon, CollapsedIcon, CheckAltIcon} from '../shared/icons';
 import MetricChart from './metric-chart';
 import {FilterContainer, FilterToggle, FilterItem, FilterLegend} from './styled-components';
+import memoize from '../utils/memoize';
 
 import {scaleOrdinal} from 'd3-scale';
 import {extent} from 'd3-array';
@@ -52,19 +53,11 @@ class MetricChartWithLegends extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      dataSeries: this._extractDataSeries(props),
       dataVisibility: {},
       showTopSeriesOnly: true,
       hoveredSeriesName: null
     };
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.data !== nextProps.data) {
-      this.setState({
-        dataSeries: this._extractDataSeries(nextProps)
-      });
-    }
+    this.extractDataSeries = memoize(this._extractDataSeries);
   }
 
   _getColor(key) {
@@ -84,12 +77,14 @@ class MetricChartWithLegends extends PureComponent {
 
   // Extract subset of streams from all variable streams
   // Format stream data for render
-  _extractDataSeries({data, formatTitle, getY}) {
+  _extractDataSeries = data => {
+    const {formatTitle, getY} = this.props;
     const series = [];
+
     for (const key in data) {
       const value = data[key];
       if (Array.isArray(value)) {
-        const displayName = this.props.formatTitle(key);
+        const displayName = formatTitle(key);
         const yExtent = extent(value, getY);
         series.push({
           key,
@@ -106,11 +101,13 @@ class MetricChartWithLegends extends PureComponent {
     series.sort((s1, s2) => s2.max - s1.max);
 
     return series;
-  }
+  };
 
   // Check if a certain data series is turned on by user settings
   _isDataVisible = key => {
-    const {showTopSeriesOnly, dataSeries, dataVisibility} = this.state;
+    const {showTopSeriesOnly, dataVisibility} = this.state;
+    const dataSeries = this.extractDataSeries(this.props.data);
+
     if (dataVisibility[key] === false) {
       // turned of by the user
       return false;
@@ -140,8 +137,9 @@ class MetricChartWithLegends extends PureComponent {
 
   // Legends (also as visibility toggle) of the data streams
   _renderDataFilters() {
-    const {dataSeries, showTopSeriesOnly, hoveredSeriesName} = this.state;
+    const {showTopSeriesOnly, hoveredSeriesName} = this.state;
     const {theme, style, topSeriesCount} = this.props;
+    const dataSeries = this.extractDataSeries(this.props.data);
 
     const series = showTopSeriesOnly ? dataSeries.slice(0, topSeriesCount) : dataSeries;
 
