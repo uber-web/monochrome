@@ -28,7 +28,8 @@ class TreeTable extends Table {
   };
 
   _toggleRowExpansion = (id, rootId) => {
-    const {expanded, rows} = this.state;
+    const {expanded} = this.state;
+    const rows = this.formatRows(this.props.rows, this.state.sortFunc);
 
     expanded[id] = !expanded[id];
 
@@ -40,7 +41,8 @@ class TreeTable extends Table {
 
   _renderRow({key, index, style}) {
     const {indentSize, renderCell, theme, style: userStyle} = this.props;
-    const row = this.state.rows[index];
+    const rows = this.formatRows(this.props.rows, this.state.sortFunc);
+    const row = rows[index];
 
     return (
       <TreeTableRow

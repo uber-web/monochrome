@@ -87,23 +87,22 @@ class PlaybackControl extends PureComponent {
 
   constructor(props) {
     super(props);
-    this.scale = scaleLinear().domain([props.startTime, props.endTime]);
+    this.scale = scaleLinear();
   }
 
-  UNSAFE_componentWillReceiveProps(newProps) {
+  componentDidUpdate(prevProps) {
     const props = this.props;
 
     if (
-      newProps.step !== props.step ||
-      newProps.startTime !== props.startTime ||
-      newProps.endTime !== props.endTime
+      prevProps.step !== props.step ||
+      prevProps.startTime !== props.startTime ||
+      prevProps.endTime !== props.endTime
     ) {
       // Video source has changed
       // Kill any running animation to avoid callbacks in incorrect time range
       this._pause();
       // Update currentTime to make sure it is the start of the new range
-      this._seek(newProps.startTime);
-      this.scale.domain([newProps.startTime, newProps.endTime]);
+      this._seek(props.startTime);
     }
   }
 
@@ -235,10 +234,12 @@ class PlaybackControl extends PureComponent {
   }
 
   render() {
-    const {theme, compact, width, style, className, isPlaying} = this.props;
+    const {theme, compact, width, style, className, isPlaying, startTime, endTime} = this.props;
 
     let {padding = DEFAULT_PADDING} = style;
     padding = normalizePadding(padding);
+
+    this.scale.domain([startTime, endTime]);
 
     const styleProps = {
       theme,

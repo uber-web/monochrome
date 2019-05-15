@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {findNearestValue} from './utils';
 import Chart from './chart';
+import memoize from '../utils/memoize';
 
 /**
  * A metric chart draws a chart with optional percentiles and lags
@@ -24,25 +25,19 @@ export default class MetricChart extends PureComponent {
       isHovered: false,
       hoveredX: null,
       // The nearest data point to the cursor in each series
-      hoveredValues: {},
-      // The nearest data point to the current time in each series
-      currentValues: this._getCurrentValues(props)
+      hoveredValues: {}
     };
-  }
 
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    if (this.props.highlightX !== nextProps.highlightX || this.props.data !== nextProps.data) {
-      this.setState({
-        currentValues: this._getCurrentValues(nextProps)
-      });
-    }
+    this.getCurrentValues = memoize(this._getCurrentValues);
   }
 
   // Find the closest data point in each series to the current time
-  _getCurrentValues({highlightX, data, getX}) {
+  _getCurrentValues = (highlightX, data) => {
     if (!Number.isFinite(highlightX) || !data) {
       return null;
     }
+
+    const {getX} = this.props;
 
     const result = {};
     for (const key in data) {
@@ -51,7 +46,7 @@ export default class MetricChart extends PureComponent {
       }
     }
     return result;
-  }
+  };
 
   _onClick = evt => {
     this.props.onClick(this.state.hoveredX, evt);
@@ -76,7 +71,9 @@ export default class MetricChart extends PureComponent {
   };
 
   render() {
-    const {isHovered, hoveredValues, currentValues} = this.state;
+    const {highlightX, data} = this.props;
+    const {isHovered, hoveredValues} = this.state;
+    const currentValues = this.getCurrentValues(highlightX, data);
 
     return (
       <Chart
