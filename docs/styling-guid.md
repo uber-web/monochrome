@@ -12,7 +12,7 @@ You may override the default theme by rendering the `ThemeProvider` at the root 
 import {ThemeProvider} from '@streetscape.gl/monochrome';
 
 const MY_THEME = {
-  base: 'dark',
+  extends: 'dark',
   background: '#F0E807',
   textColorPrimary: '#F0E8E7'
 };
