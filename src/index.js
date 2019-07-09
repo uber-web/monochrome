@@ -9,6 +9,7 @@ export {
   Label,
   RadioBox,
   Slider,
+  Spinner,
   TextBox,
   Toggle
 } from './shared';
