@@ -10,7 +10,7 @@ import Button from './index';
 const typeOptions = {
   Normal: Button.NORMAL,
   Primary: Button.PRIMARY,
-  Waring: Button.WARNING,
+  Warning: Button.WARNING,
   Muted: Button.MUTED
 };
 
